@@ -1,0 +1,248 @@
+﻿{
+    "nav":  {
+                "about":  "Men haqimda",
+                "works":  "Ishlar",
+                "services":  "Xizmatlar",
+                "contact":  "Aloqa"
+            },
+    "hero":  {
+                 "subtitle":  "Grafik dizayner va Product dizayner",
+                 "statement":  "Raqamli tajribalarni aniqlik, strategiya va ijodkorlik bilan loyihalash.",
+                 "scroll":  "O\u0027rganish uchun pastga aylantiring"
+             },
+    "about":  {
+                  "title":  "Men haqimda",
+                  "bio":  "Mening ismim Azizbek Tursunov. Men brending va interaktiv interfeyslarni birlashtiruvchi dizaynerdanman. Shveytsariya minimalizmi, tizimli tipografika va to\u0027r (grid) tizimlariga e\u0027tibor qaratib, unutilmas vizual sayohatlarni yarataman. Men toza, funktsional va ijodiy dizaynlarni taqdim etish uchun nufuzli studiyalar va ilg\u0027or texnologik jamoalar bilan hamkorlik qilaman.",
+                  "experience":  "Ish tajribasi",
+                  "skills":  "Ekspertiza",
+                  "timeline":  [
+                                   {
+                                       "year":  "2023 - 2024",
+                                       "role":  "Yetakchi brend va Product dizayner",
+                                       "company":  "Nuqta",
+                                       "desc":  "Yuqori darajadagi mijozlar uchun vizual strategiyalar, mobil mahsulot interfeyslari va interaktiv tajribalarni boshqarish."
+                                   },
+                                   {
+                                       "year":  "2024 - 2026",
+                                       "role":  "Grafik dizayner",
+                                       "company":  "UIC Games",
+                                       "desc":  "Mukammal brend qo\u0027llanmalari, qadoqlash tizimlari va ijtimoiy tarmoqlar uchun dizaynlar yaratish."
+                                   },
+                                   {
+                                       "year":  "2021 - 2023",
+                                       "role":  "Junior UI dizayner",
+                                       "company":  "Grant Invest",
+                                       "desc":  "Veb-ilovalar uchun vayrfreymlar, UI maketlari va grafik aktivlarni ishlab chiqish."
+                                   }
+                               ],
+                  "skillItems":  [
+                                     "Grafik dizayn",
+                                     "Product design",
+                                     "Brending",
+                                     "Ijtimoiy tarmoq dizayni",
+                                     "Mahsulot dizayni",
+                                     "AI yordamidagi ijodiy jarayon"
+                                 ]
+              },
+    "projects":  {
+                     "cleanpro-branding":  {
+                                               "title":  "CleanPro",
+                                               "category":  "Brending",
+                                               "description":  "Tozalash xizmati brendi uchun logotip, rang tizimi va vizitka dizayni.",
+                                               "overview":  "CleanPro oddiy logotip tizimi, aniq rang qo\u0027llanmalari va vizitka maketlari orqali taqdim etilgan.",
+                                               "problem":  "Identika toza va professional ko\u0027rinishi, shu bilan birga bosma va raqamli formatlarda oson ishlatilishi kerak edi.",
+                                               "solution":  "Ixcham wordmark, yangi aksent rang, neytral fonlar va sodda vizitka maketlari amaliy brend asosini yaratadi.",
+                                               "process":  "Logotipni aniqlashtirish -\u003e ranglarni sinash -\u003e vizitka maketi -\u003e yakuniy fayllarni tayyorlash.",
+                                               "result":  "CleanPro uchun tartibli, izchil va professional vizual identika paketi yaratildi.",
+                                               "cardLabel":  "Logotip brendingi"
+                                           },
+                     "kofemator-post":  {
+                                            "title":  "Kofemator",
+                                            "category":  "Product design",
+                                            "description":  "Russell Hobbs espresso mashinasi uchun iliq kayfiyatdagi mahsulot reklama maketi.",
+                                            "overview":  "Kofemator maketi qahva mashinasi, narx, reyting, mahsulot tafsilotlari va xarid tugmalarini bitta aniq kompozitsiyada ko\u0027rsatadi.",
+                                            "problem":  "Mahsulot haqidagi ma\u0027lumotlarni aniq ko\u0027rsatish va premium, ishtahani ochadigan kayfiyatni saqlash kerak edi.",
+                                            "solution":  "Qahva ranglari, markaziy mahsulot tasviri, tartibli ma\u0027lumot bloklari va kontrast tugmalar maketni tez o\u0027qiladigan qiladi.",
+                                            "process":  "Mahsulot ierarxiyasi -\u003e rang yo\u0027nalishi -\u003e kompozitsiya -\u003e detallar -\u003e yakuniy eksport.",
+                                            "result":  "E-commerce aniqligi va boy qahva kayfiyatini birlashtirgan sayqallangan mahsulot reklama dizayni.",
+                                            "cardLabel":  "Qahva reklamasi"
+                                        },
+                     "organic-product-flyer":  {
+                                                   "title":  "Organik mahsulot flayeri",
+                                                   "category":  "Product design",
+                                                   "description":  "Organik parvarish mahsulotlari liniyasi uchun vertikal flyer maketi.",
+                                                   "overview":  "Organik flyer lavanda mavzusidagi mahsulotlarni aniq nomlar va hajm belgilari bilan vertikal kompozitsiyada ko\u0027rsatadi.",
+                                                   "problem":  "Bir nechta mahsulotni joylashtirish, lekin posterning sokin, o\u0027qilishi oson va premium ko\u0027rinishini saqlash kerak edi.",
+                                                   "solution":  "Yumshoq osmon foni, mahsulot sahnalashtirish, lavanda aksentlari va keng joylashgan yozuvlar toza mahsulot kompozitsiyasini yaratadi.",
+                                                   "process":  "Mahsulotlarni guruhlash -\u003e vertikal kompozitsiya -\u003e yozuvlar ierarxiyasi -\u003e fon ishlovi -\u003e yakuniy poster eksporti.",
+                                                   "result":  "Katalogga o\u0027xshash aniq tuzilma va muloyim organik kayfiyatga ega to\u0027liq vertikal flyer konsepti.",
+                                                   "cardLabel":  "Product design"
+                                               },
+                     "iqtidor-academy":  {
+                                             "title":  "Iqtidor Academy",
+                                             "category":  "Ijtimoiy tarmoq dizayni",
+                                             "description":  "Grant va konsultatsiya xabarlari uchun ta\u0027limga yo\u0027naltirilgan ijtimoiy postlar.",
+                                             "overview":  "Iqtidor Academy vizuallari yirik tipografika, akademik elementlar va yorqin brend ranglaridan foydalanadi.",
+                                             "problem":  "Postlar ko\u0027p ma\u0027lumotni yetkazishi, lekin vizual jihatdan og\u0027ir ko\u0027rinmasligi kerak edi.",
+                                             "solution":  "Katta sarlavhalar, aniq yordamchi bloklar va sodda vizual ierarxiya xabarlarni o\u0027qilishi oson qiladi.",
+                                             "process":  "Xabar tuzilmasi -\u003e vizual ierarxiya -\u003e brend ranglari -\u003e kompozitsiya -\u003e ijtimoiy tarmoq eksporti.",
+                                             "result":  "Yagona promo uslubga ega, to\u0027g\u0027ridan-to\u0027g\u0027ri va o\u0027qilishi oson ta\u0027lim postlari to\u0027plami.",
+                                             "cardLabel":  "Ta\u0027lim posti"
+                                         },
+                     "school-banner":  {
+                                           "title":  "Iqtidor School banneri",
+                                           "category":  "Reklama kreativlari",
+                                           "description":  "Rus tili kurslariga qabul uchun yashil rangdagi reklama bannerlari.",
+                                           "overview":  "Maktab bannerlari o\u0027quvchi obrazi, kontakt ma\u0027lumotlari va akademik uslub orqali rus tili darslarini targ\u0027ib qiladi.",
+                                           "problem":  "Kurs tafsilotlari, telefon raqamlari va brendingni ixcham reklama formatiga joylashtirish kerak edi.",
+                                           "solution":  "Yashil ta\u0027lim palitrasi, kuchli sarlavha va alohida kontakt bloklari taklifni bir qarashda tushunarli qiladi.",
+                                           "process":  "Brif tahlili -\u003e maket setkasi -\u003e rasm joylashuvi -\u003e kontakt ierarxiyasi -\u003e yakuniy banner eksporti.",
+                                           "result":  "Ota-onalar uchun tushunarli xabar beradigan amaliy qabul bannerlari to\u0027plami.",
+                                           "cardLabel":  "Ta\u0027lim banneri"
+                                       },
+                     "social-media-design":  {
+                                                 "title":  "Ijtimoiy tarmoq dizayni",
+                                                 "category":  "Ijtimoiy tarmoq dizayni",
+                                                 "description":  "Xizmatlar, shaxsiy brendlar, tadbirlar va food kontent uchun vertikal postlar to\u0027plami.",
+                                                 "overview":  "Bu to\u0027plam xizmat reklama, shaxsiy brend, masterklass va taom kontenti kabi turli ijtimoiy formatlarni ko\u0027rsatadi.",
+                                                 "problem":  "Har bir post alohida kayfiyatga ega bo\u0027lishi va vertikal lentada tez o\u0027qilishi kerak edi.",
+                                                 "solution":  "Kuchli tipografika, aniq vizual fokus va nazorat qilingan aksent ranglar har bir maketni mustaqil ishlashiga yordam beradi.",
+                                                 "process":  "Kontent tahlili -\u003e uslub yo\u0027nalishi -\u003e kompozitsiya -\u003e tipografika -\u003e ijtimoiy tarmoq eksporti.",
+                                                 "result":  "Kompozitsiya, tipografika va promo dizayndagi moslashuvchanlikni ko\u0027rsatadigan turli postlar to\u0027plami.",
+                                                 "cardLabel":  "Ijtimoiy tarmoq dizayni"
+                                             },
+                     "advertising-banners":  {
+                                                 "title":  "Ijarachi bannerlari",
+                                                 "category":  "Reklama kreativlari",
+                                                 "description":  "Ko\u0027chmas mulk va ijara xizmati konsepti uchun keng reklama bannerlari.",
+                                                 "overview":  "Ijarachi bannerlari arxitektura tasviri, yirik o\u0027zbekcha sarlavhalar va kontakt ma\u0027lumotlarini keng formatda birlashtiradi.",
+                                                 "problem":  "Juda keng format o\u0027qilishi oson bo\u0027lishi va shu bilan birga atmosferali ko\u0027rinishi kerak edi.",
+                                                 "solution":  "Katta sarlavha bloklari, uy tasviriga fokus va tartibli kontaktlar aniq reklama maketini yaratadi.",
+                                                 "process":  "Kanvas rejalash -\u003e sarlavha ierarxiyasi -\u003e rasm kompozitsiyasi -\u003e kontakt joylashuvi -\u003e yakuniy eksport.",
+                                                 "result":  "Aniq xabar va premium ko\u0027chmas mulk kayfiyatiga ega ikkita keng reklama kreativi.",
+                                                 "cardLabel":  "Reklama kreativi"
+                                             },
+                     "personal-projects":  {
+                                               "title":  "Shaxsiy loyihalar",
+                                               "category":  "Shaxsiy loyihalar",
+                                               "description":  "Shaxsiy kontent va mahsulot flyer konseptlari uchun eksperimental vertikal maketlar.",
+                                               "overview":  "Bu loyiha Spotify mavzusidagi vertikal post va organik mahsulot flyerlarini o\u0027z ichiga olgan shaxsiy vizual tajribalarni jamlaydi.",
+                                               "problem":  "Ishlar ifodali uslubni saqlashi, lekin matn va mahsulot ma\u0027lumotlari o\u0027qilishi oson bo\u0027lishi kerak edi.",
+                                               "solution":  "Uzun kompozitsiyalar, kuchli kontrast va rasm joylashuvini nazorat qilish aniq, lekin eksperimental vizuallar yaratadi.",
+                                               "process":  "G\u0027oya -\u003e vertikal maket -\u003e tipografika tajribasi -\u003e rasm ishlovi -\u003e yakuniy eksport.",
+                                               "result":  "Ijtimoiy va print formatlar orasidagi dizayn diapazonini ko\u0027rsatadigan shaxsiy ishlar to\u0027plami.",
+                                               "cardLabel":  "Shaxsiy loyiha"
+                                           }
+                 },
+    "services":  {
+                     "title":  "Xizmatlar",
+                     "subtitle":  "Brendlarning ajralib turishiga qanday yordam beraman",
+                     "items":  [
+                                   {
+                                       "title":  "Grafik dizayn",
+                                       "desc":  "Qat\u0027iy setkalar (grid) asosida yaratilgan nashrlar maketi, premium qadoqlash, bosma dizayn va vizual aktivlar."
+                                   },
+                                   {
+                                       "title":  "Product design",
+                                       "desc":  "Foydalanuvchi ehtiyojlari, estetika va texnik imkoniyatlarni muvozanatlashtiradigan moslashuvchan veb va mobil interfeyslar."
+                                   },
+                                   {
+                                       "title":  "Brend identifikatsiyasi",
+                                       "desc":  "Brend strategiyasini aks ettiruvchi to\u0027liq brendbuk qo\u0027llanmalari, logotiplar, maxsus tipografika va vizual tushunchalar."
+                                   },
+                                   {
+                                       "title":  "Ijtimoiy tarmoq kontenti",
+                                       "desc":  "Ijtimoiy tarmoqlardagi faolligingizni premium va yaxlit qiladigan tizimli andozalar va harakatli (motion) dizaynlar."
+                                   }
+                               ]
+                 },
+    "contact":  {
+                    "title":  "Keling, birgalikda ajoyib loyiha yarataylik",
+                    "email":  "Elektron pochta",
+                    "telegram":  "Telegram",
+                    "instagram":  "Instagram",
+                    "copy":  "Pochtani nusxalash"
+                },
+    "footer":  {
+                   "designed":  "Ijodkorlik va aniqlik bilan ishlab chiqilgan."
+               },
+    "projectDetails":  {
+                           "back":  "Loyihalarga qaytish",
+                           "year":  "Yil",
+                           "category":  "Kategoriya",
+                           "overview":  "Loyiha tavsifi",
+                           "process":  "Loyihalash jarayoni",
+                           "problem":  "Muammo",
+                           "solution":  "Yechim",
+                           "result":  "Yakuniy natija",
+                           "gallery":  "Galereya"
+                       },
+    "worksSection":  {
+                         "title":  "Tanlangan loyihalar",
+                         "filters":  {
+                                         "all":  "Barchasi",
+                                         "branding":  "Brending",
+                                         "productDesign":  "Product design",
+                                         "socialMedia":  "Ijtimoiy tarmoq",
+                                         "advertising":  "Reklama",
+                                         "personalProjects":  "Shaxsiy loyihalar"
+                                     }
+                     },
+    "skillsTools":  {
+                        "eyebrow":  "Imkoniyatlar",
+                        "title":  "Ko\u2018nikmalar va vositalar",
+                        "subtitle":  "Brending, ijtimoiy kontent va product vizuallar uchun ixcham ijodiy vositalar to\u2018plami.",
+                        "items":  [
+                                      {
+                                          "name":  "Figma",
+                                          "label":  "UI maketlar",
+                                          "badge":  "Fi"
+                                      },
+                                      {
+                                          "name":  "Photoshop",
+                                          "label":  "Vizual tahrirlash",
+                                          "badge":  "Ps"
+                                      },
+                                      {
+                                          "name":  "Illustrator",
+                                          "label":  "Vektor dizayn",
+                                          "badge":  "Ai"
+                                      },
+                                      {
+                                          "name":  "Canva",
+                                          "label":  "Tezkor kreativlar",
+                                          "badge":  "Ca"
+                                      },
+                                      {
+                                          "name":  "CapCut",
+                                          "label":  "Video montaj",
+                                          "badge":  "Cc"
+                                      },
+                                      {
+                                          "name":  "AI Tools",
+                                          "label":  "Ijodiy jarayon",
+                                          "badge":  "spark"
+                                      },
+                                      {
+                                          "name":  "Kontent yaratish",
+                                          "label":  "G\u2018oyalar va vizuallar",
+                                          "badge":  "play"
+                                      },
+                                      {
+                                          "name":  "Ijtimoiy tarmoq dizayni",
+                                          "label":  "Postlar va bannerlar",
+                                          "badge":  "grid"
+                                      },
+                                      {
+                                          "name":  "Brending",
+                                          "label":  "Identika tizimlari",
+                                          "badge":  "brand"
+                                      },
+                                      {
+                                          "name":  "Product Design",
+                                          "label":  "Interfeyslar",
+                                          "badge":  "layout"
+                                      }
+                                  ]
+                    }
+}

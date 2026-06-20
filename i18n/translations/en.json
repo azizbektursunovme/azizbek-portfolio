@@ -1,0 +1,248 @@
+﻿{
+    "nav":  {
+                "about":  "About",
+                "works":  "Works",
+                "services":  "Services",
+                "contact":  "Contact"
+            },
+    "hero":  {
+                 "subtitle":  "Graphic Designer \u0026 Product Designer",
+                 "statement":  "Designing digital experiences with clarity, strategy, and creativity.",
+                 "scroll":  "Scroll to explore"
+             },
+    "about":  {
+                  "title":  "About Me",
+                  "bio":  "I am Azizbek Tursunov, a designer who bridges the gap between branding and interactive interfaces. Focused on Swiss minimalism, structural typography, and grid systems, I build memorable visual journeys. I collaborate with luxury studios and forward-thinking tech teams to deliver clean, functional, and creative designs.",
+                  "experience":  "Experience",
+                  "skills":  "Expertise",
+                  "timeline":  [
+                                   {
+                                       "year":  "2023 - 2024",
+                                       "role":  "Lead Brand \u0026 Product Designer",
+                                       "company":  "Nuqta",
+                                       "desc":  "Directing visual strategies, mobile product interfaces, and interactive experiences for high-end clients."
+                                   },
+                                   {
+                                       "year":  "2024 - 2026",
+                                       "role":  "Graphic Designer",
+                                       "company":  "UIC Games",
+                                       "desc":  "Designed premium brand guidelines, packaging systems, and social media campaigns."
+                                   },
+                                   {
+                                       "year":  "2021 - 2023",
+                                       "role":  "Junior UI Designer",
+                                       "company":  "Grant Invest",
+                                       "desc":  "Built wireframes, UI layouts, and asset designs for web applications."
+                                   }
+                               ],
+                  "skillItems":  [
+                                     "Graphic Design",
+                                     "Product design",
+                                     "Branding",
+                                     "Social Media Design",
+                                     "Product Design",
+                                     "AI-assisted Creative Workflow"
+                                 ]
+              },
+    "projects":  {
+                     "cleanpro-branding":  {
+                                               "title":  "CleanPro",
+                                               "category":  "Branding",
+                                               "description":  "Logo, color system, and business card design for a cleaning service brand.",
+                                               "overview":  "CleanPro is presented through a simple logo system, clear color applications, and business card layouts.",
+                                               "problem":  "The identity needed to feel clean and professional while staying easy to apply across small print and digital formats.",
+                                               "solution":  "A compact wordmark, fresh accent color, neutral backgrounds, and simple business card layouts create a practical brand base.",
+                                               "process":  "Logo refinement -\u003e color testing -\u003e business card layout -\u003e final export preparation.",
+                                               "result":  "A concise identity package that gives CleanPro a polished and consistent visual presence.",
+                                               "cardLabel":  "Logo Branding"
+                                           },
+                     "kofemator-post":  {
+                                            "title":  "Kofemator",
+                                            "category":  "Product design",
+                                            "description":  "Warm product ad layout for a Russell Hobbs espresso machine.",
+                                            "overview":  "The Kofemator piece presents a coffee machine with pricing, rating, product details, and purchase actions in one focused layout.",
+                                            "problem":  "The design needed to show product information clearly while still feeling premium and appetizing.",
+                                            "solution":  "Warm coffee tones, a centered product render, structured information blocks, and high-contrast buttons make the ad easy to scan.",
+                                            "process":  "Product hierarchy -\u003e color direction -\u003e layout composition -\u003e detail styling -\u003e final export.",
+                                            "result":  "A polished product ad that balances e-commerce clarity with a rich coffee-inspired visual mood.",
+                                            "cardLabel":  "Coffee Ad Design"
+                                        },
+                     "organic-product-flyer":  {
+                                                   "title":  "Organic Product Flyer",
+                                                   "category":  "Product design",
+                                                   "description":  "Tall product flyer layout for an organic personal care product line.",
+                                                   "overview":  "The organic flyer presents lavender-themed product items in a vertical layout with clear product names and volume labels.",
+                                                   "problem":  "The layout needed to show multiple products while keeping the poster calm, readable, and premium.",
+                                                   "solution":  "Soft sky imagery, product staging, lavender accents, and spaced labels create a clean product-focused composition.",
+                                                   "process":  "Product grouping -\u003e vertical composition -\u003e label hierarchy -\u003e background treatment -\u003e final poster export.",
+                                                   "result":  "A full-height product flyer concept with a clear catalog feel and gentle organic mood.",
+                                                   "cardLabel":  "Product Design"
+                                               },
+                     "iqtidor-academy":  {
+                                             "title":  "Iqtidor Academy",
+                                             "category":  "Social Media Design",
+                                             "description":  "Education-focused social posts for grant and consulting messages.",
+                                             "overview":  "The Iqtidor Academy visuals use bold type, academic cues, and bright brand colors for educational announcements.",
+                                             "problem":  "The posts needed to communicate dense education-related information without becoming visually heavy.",
+                                             "solution":  "Large headline typography, clear supporting blocks, and simple icon/visual hierarchy keep the messages readable.",
+                                             "process":  "Message structure -\u003e visual hierarchy -\u003e brand color use -\u003e asset composition -\u003e social export.",
+                                             "result":  "A set of direct, readable education posts with a consistent promotional style.",
+                                             "cardLabel":  "Education Social"
+                                         },
+                     "school-banner":  {
+                                           "title":  "Iqtidor School Banner",
+                                           "category":  "Advertising Creatives",
+                                           "description":  "Green admission banners for Russian language course promotion.",
+                                           "overview":  "The school banners promote Russian language classes with student imagery, contact information, and a clear academic tone.",
+                                           "problem":  "The banner had to fit course details, contact numbers, and branding into a compact promotional format.",
+                                           "solution":  "A green education palette, strong headline type, and separated contact pills keep the offer clear at a glance.",
+                                           "process":  "Brief review -\u003e layout grid -\u003e image placement -\u003e contact hierarchy -\u003e final banner export.",
+                                           "result":  "A practical admission banner set that keeps the school message clear and parent-friendly.",
+                                           "cardLabel":  "Education Banner"
+                                       },
+                     "social-media-design":  {
+                                                 "title":  "Social Media Design",
+                                                 "category":  "Social Media Design",
+                                                 "description":  "A collection of vertical posts for services, personalities, events, and food brands.",
+                                                 "overview":  "This set explores different social formats, from bold service promotion to personal branding, masterclass, and food content.",
+                                                 "problem":  "Each post needed a distinct mood while keeping the message immediately readable in a vertical feed.",
+                                                 "solution":  "Strong typography, clear focal imagery, and controlled accent colors help each design stand on its own.",
+                                                 "process":  "Content review -\u003e style direction -\u003e composition -\u003e typography pass -\u003e export for social use.",
+                                                 "result":  "A varied social media set showing flexible layout, typography, and promotional design direction.",
+                                                 "cardLabel":  "Social Media Design"
+                                             },
+                     "advertising-banners":  {
+                                                 "title":  "Ijarachi Banners",
+                                                 "category":  "Advertising Creatives",
+                                                 "description":  "Wide advertising banners for a real estate and rental service concept.",
+                                                 "overview":  "The Ijarachi banners use architectural imagery, large Uzbek headlines, and service contact details in a wide format.",
+                                                 "problem":  "The format needed to stay readable across a very wide canvas while still feeling atmospheric.",
+                                                 "solution":  "Oversized headline blocks, a focused house visual, and grounded contact information create a clear promotional layout.",
+                                                 "process":  "Canvas planning -\u003e headline hierarchy -\u003e image composition -\u003e contact layout -\u003e final banner export.",
+                                                 "result":  "A pair of wide ad creatives with clear messaging and a premium real estate mood.",
+                                                 "cardLabel":  "Ad Creative"
+                                             },
+                     "personal-projects":  {
+                                               "title":  "Personal Projects",
+                                               "category":  "Personal Projects",
+                                               "description":  "Experimental vertical layouts for personal content and product flyer concepts.",
+                                               "overview":  "This project groups personal visual experiments, including a Spotify-themed vertical post and organic product flyer layouts.",
+                                               "problem":  "The pieces needed room for expressive styling while still preserving readable text and product information.",
+                                               "solution":  "Tall compositions, bold contrast, and controlled image placement create clear but more experimental visuals.",
+                                               "process":  "Concept sketch -\u003e vertical layout -\u003e typography exploration -\u003e image treatment -\u003e final export.",
+                                               "result":  "A focused set of personal design studies showing layout range across social and print-style formats.",
+                                               "cardLabel":  "Creative Project"
+                                           }
+                 },
+    "services":  {
+                     "title":  "Services",
+                     "subtitle":  "How I help brands stand out",
+                     "items":  [
+                                   {
+                                       "title":  "Graphic Design",
+                                       "desc":  "Editorial layouts, premium packaging, print design, and visual assets built on rigorous grids."
+                                   },
+                                   {
+                                       "title":  "Product design",
+                                       "desc":  "Responsive web and mobile interfaces that balance user needs, aesthetics, and technical feasibility."
+                                   },
+                                   {
+                                       "title":  "Brand Identity",
+                                       "desc":  "Comprehensive brand guidelines, logos, custom typography, and visual assets that reflect brand strategy."
+                                   },
+                                   {
+                                       "title":  "Social Media Content",
+                                       "desc":  "Structured template systems and motion designs that make your social presence premium and coherent."
+                                   }
+                               ]
+                 },
+    "contact":  {
+                    "title":  "Let\u0027s Create Something Great Together",
+                    "email":  "Email",
+                    "telegram":  "Telegram",
+                    "instagram":  "Instagram",
+                    "copy":  "Copy Email"
+                },
+    "footer":  {
+                   "designed":  "Designed with creativity and precision."
+               },
+    "projectDetails":  {
+                           "back":  "Back to Projects",
+                           "year":  "Year",
+                           "category":  "Category",
+                           "overview":  "Overview",
+                           "process":  "Design Process",
+                           "problem":  "The Problem",
+                           "solution":  "The Solution",
+                           "result":  "Final Result",
+                           "gallery":  "Gallery"
+                       },
+    "worksSection":  {
+                         "title":  "Featured Case Studies",
+                         "filters":  {
+                                         "all":  "All",
+                                         "branding":  "Branding",
+                                         "productDesign":  "Product design",
+                                         "socialMedia":  "Social Media",
+                                         "advertising":  "Advertising",
+                                         "personalProjects":  "Personal Projects"
+                                     }
+                     },
+    "skillsTools":  {
+                        "eyebrow":  "Capabilities",
+                        "title":  "Skills \u0026 Tools",
+                        "subtitle":  "A compact toolkit for building clean brand systems, social content, and product-focused visuals.",
+                        "items":  [
+                                      {
+                                          "name":  "Figma",
+                                          "label":  "UI layouts",
+                                          "badge":  "Fi"
+                                      },
+                                      {
+                                          "name":  "Photoshop",
+                                          "label":  "Visual editing",
+                                          "badge":  "Ps"
+                                      },
+                                      {
+                                          "name":  "Illustrator",
+                                          "label":  "Vector design",
+                                          "badge":  "Ai"
+                                      },
+                                      {
+                                          "name":  "Canva",
+                                          "label":  "Quick creatives",
+                                          "badge":  "Ca"
+                                      },
+                                      {
+                                          "name":  "CapCut",
+                                          "label":  "Video editing",
+                                          "badge":  "Cc"
+                                      },
+                                      {
+                                          "name":  "AI Tools",
+                                          "label":  "Creative workflow",
+                                          "badge":  "spark"
+                                      },
+                                      {
+                                          "name":  "Content Creation",
+                                          "label":  "Ideas \u0026 visuals",
+                                          "badge":  "play"
+                                      },
+                                      {
+                                          "name":  "Social Media Design",
+                                          "label":  "Posts \u0026 banners",
+                                          "badge":  "grid"
+                                      },
+                                      {
+                                          "name":  "Branding",
+                                          "label":  "Identity systems",
+                                          "badge":  "brand"
+                                      },
+                                      {
+                                          "name":  "Product Design",
+                                          "label":  "Interfaces",
+                                          "badge":  "layout"
+                                      }
+                                  ]
+                    }
+}

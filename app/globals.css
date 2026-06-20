@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&f[]=cabinet-grotesk@800,900&display=swap');
+
+@theme {
+  --font-sans: 'Satoshi', 'Inter', 'Arial', system-ui, sans-serif;
+  --font-display: 'Cabinet Grotesk', 'Inter', 'Arial', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #09090b; /* bg-zinc-950 */
+  color: #f4f4f5; /* text-zinc-100 */
+}
+
+/* Custom premium thin scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c1c1e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c2c2e;
+}
+
+/* Hide default cursor on desktop device when custom cursor is active */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, [role="button"], [data-hover="true"] {
+    cursor: none;
+  }
+}
