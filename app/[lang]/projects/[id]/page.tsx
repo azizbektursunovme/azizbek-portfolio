@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
-import { getDictionary, Locale } from "@/i18n/dictionaries";
+import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
 import { portfolioProjects } from "@/data/projects";
 import Magnetic from "@/components/Magnetic";
 
@@ -21,20 +21,21 @@ export async function generateStaticParams() {
 
 interface ProjectPageProps {
   params: Promise<{
-    lang: Locale;
+    lang: string;
     id: string;
   }>;
 }
 
 export default async function ProjectPage(props: ProjectPageProps) {
   const { lang, id } = await props.params;
+  const locale = resolveLocale(lang);
   const project = portfolioProjects.find((p) => p.id === id);
 
   if (!project) {
     notFound();
   }
 
-  const dict = await getDictionary(lang);
+  const dict = await getDictionary(locale);
   const t = dict.projectDetails;
   const projectText = dict.projects[id as keyof typeof dict.projects] || project;
 
@@ -53,7 +54,7 @@ export default async function ProjectPage(props: ProjectPageProps) {
         <div className="mb-12">
           <Magnetic range={30} strength={0.3}>
             <Link
-              href={`/${lang}#works`}
+              href={`/${locale}#works`}
               className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-zinc-500 hover:text-zinc-100 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />

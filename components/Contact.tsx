@@ -1,8 +1,8 @@
 ﻿"use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Send, Instagram, Mail, Check, Copy } from "lucide-react";
+import { motion } from "framer-motion";
+import { Send, Instagram, Check, Copy } from "lucide-react";
 import Magnetic from "./Magnetic";
 
 interface ContactProps {

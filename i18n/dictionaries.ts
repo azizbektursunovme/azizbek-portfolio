@@ -4,8 +4,13 @@ const dictionaries = {
   uz: () => import("./translations/uz.json").then((module) => module.default),
 };
 
-export type Locale = "en" | "ru" | "uz";
+export const locales = ["en", "ru", "uz"] as const;
+export type Locale = (typeof locales)[number];
 
-export const getDictionary = async (locale: Locale) => {
-  return dictionaries[locale] ? dictionaries[locale]() : dictionaries.en();
+export const resolveLocale = (locale: string): Locale => {
+  return locales.includes(locale as Locale) ? (locale as Locale) : "en";
+};
+
+export const getDictionary = async (locale: string) => {
+  return dictionaries[resolveLocale(locale)]();
 };

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import { getDictionary, Locale } from "@/i18n/dictionaries";
+import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
@@ -13,13 +13,14 @@ export async function generateStaticParams() {
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: string }>;
 }
 
 export async function generateMetadata(
-  props: { params: Promise<{ lang: Locale }> }
+  props: { params: Promise<{ lang: string }> }
 ): Promise<Metadata> {
   const { lang } = await props.params;
+  const locale = resolveLocale(lang);
 
   const titles = {
     en: "Azizbek Tursunov | Graphic & Product Designer",
@@ -34,8 +35,8 @@ export async function generateMetadata(
   };
 
   return {
-    title: titles[lang] || titles.en,
-    description: descriptions[lang] || descriptions.en,
+    title: titles[locale],
+    description: descriptions[locale],
     keywords: [
       "Graphic Design",
       "Product Design",
@@ -50,10 +51,10 @@ export async function generateMetadata(
     creator: "Azizbek Tursunov",
     openGraph: {
       type: "website",
-      locale: lang === "uz" ? "uz_UZ" : lang === "ru" ? "ru_RU" : "en_US",
-      url: `https://azizbektursunov.design/${lang}`,
-      title: titles[lang] || titles.en,
-      description: descriptions[lang] || descriptions.en,
+      locale: locale === "uz" ? "uz_UZ" : locale === "ru" ? "ru_RU" : "en_US",
+      url: `https://azizbektursunov.design/${locale}`,
+      title: titles[locale],
+      description: descriptions[locale],
       siteName: "Azizbek Tursunov Portfolio",
     },
   };
@@ -61,11 +62,12 @@ export async function generateMetadata(
 
 export default async function RootLayout(props: LayoutProps) {
   const { lang } = await props.params;
+  const locale = resolveLocale(lang);
   const children = props.children;
-  const dict = await getDictionary(lang);
+  const dict = await getDictionary(locale);
 
   return (
-    <html lang={lang}>
+    <html lang={locale}>
       <body className="bg-zinc-950 text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-zinc-100 selection:text-zinc-950">
         <Preloader />
         <CustomCursor />
