@@ -124,7 +124,7 @@ export default function Hero({ dict }: HeroProps) {
       {/* Scroll indicator footer */}
       <div className="mx-auto w-full max-w-7xl flex justify-between items-center z-10">
         <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-600">
-          AZIZBEK TURSUNOV DESIGN (C)2026
+          AZIZBEK TURSUNOV — DESIGN / DEVELOPMENT (C)2026
         </span>
 
         <motion.div
@@ -150,4 +150,3 @@ export default function Hero({ dict }: HeroProps) {
     </section>
   );
 }
-

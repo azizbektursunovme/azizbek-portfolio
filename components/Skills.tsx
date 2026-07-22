@@ -8,6 +8,10 @@ import {
   Grid3X3,
   PenTool,
   MousePointer2,
+  Code2,
+  Braces,
+  Boxes,
+  Bot,
 } from "lucide-react";
 
 interface SkillItem {
@@ -33,6 +37,10 @@ const iconMap: Record<string, ReactNode> = {
   grid: <Grid3X3 className="h-4 w-4" strokeWidth={1.6} />,
   brand: <PenTool className="h-4 w-4" strokeWidth={1.6} />,
   layout: <MousePointer2 className="h-4 w-4" strokeWidth={1.6} />,
+  next: <Code2 className="h-4 w-4" strokeWidth={1.6} />,
+  react: <Boxes className="h-4 w-4" strokeWidth={1.6} />,
+  ts: <Braces className="h-4 w-4" strokeWidth={1.6} />,
+  code: <Bot className="h-4 w-4" strokeWidth={1.6} />,
 };
 
 const easeOutQuart = [0.215, 0.61, 0.355, 1] as const;
@@ -87,6 +95,26 @@ const skillAccents: Record<string, { soft: string; border: string; glow: string 
     soft: "radial-gradient(circle at 18% 0%, rgba(59,130,246,0.14), transparent 34%), radial-gradient(circle at 100% 18%, rgba(168,85,247,0.10), transparent 30%)",
     border: "rgba(147,197,253,0.38)",
     glow: "0 0 22px rgba(59,130,246,0.14)",
+  },
+  next: {
+    soft: "radial-gradient(circle at 18% 0%, rgba(244,244,245,0.13), transparent 34%)",
+    border: "rgba(244,244,245,0.38)",
+    glow: "0 0 22px rgba(244,244,245,0.12)",
+  },
+  react: {
+    soft: "radial-gradient(circle at 18% 0%, rgba(34,211,238,0.15), transparent 34%)",
+    border: "rgba(103,232,249,0.38)",
+    glow: "0 0 22px rgba(34,211,238,0.14)",
+  },
+  ts: {
+    soft: "radial-gradient(circle at 18% 0%, rgba(59,130,246,0.15), transparent 34%)",
+    border: "rgba(147,197,253,0.40)",
+    glow: "0 0 22px rgba(59,130,246,0.14)",
+  },
+  code: {
+    soft: "radial-gradient(circle at 18% 0%, rgba(168,85,247,0.14), transparent 34%), radial-gradient(circle at 100% 18%, rgba(34,211,238,0.09), transparent 30%)",
+    border: "rgba(196,181,253,0.40)",
+    glow: "0 0 22px rgba(139,92,246,0.14)",
   },
 };
 

@@ -12,6 +12,7 @@ interface HeaderProps {
     nav: {
       about: string;
       works: string;
+      websites: string;
       services: string;
       contact: string;
     };
@@ -74,6 +75,7 @@ export default function Header({ dict }: HeaderProps) {
   const navItems = [
     { label: dict.nav.about, href: `#about` },
     { label: dict.nav.works, href: `#works` },
+    { label: dict.nav.websites, href: `#websites` },
     { label: dict.nav.services, href: `#services` },
     { label: dict.nav.contact, href: `#contact` },
   ];
@@ -100,7 +102,7 @@ export default function Header({ dict }: HeaderProps) {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden lg:flex items-center gap-10">
           <ul className="flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-zinc-400">
             {navItems.map((item, index) => (
               <li key={index}>
@@ -134,7 +136,7 @@ export default function Header({ dict }: HeaderProps) {
         </nav>
 
         {/* Mobile Navigation Toggles */}
-        <div className="flex md:hidden items-center gap-4">
+        <div className="flex lg:hidden items-center gap-4">
           {/* Lang selector for mobile */}
           <div className="flex items-center gap-2 font-mono text-xs">
             {(["en", "ru", "uz"] as Locale[]).map((l) => (
@@ -190,7 +192,7 @@ export default function Header({ dict }: HeaderProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25, ease: [0.215, 0.61, 0.355, 1] }}
-            className="md:hidden border-t border-zinc-900 bg-zinc-950/95 px-6 py-6 backdrop-blur-xl"
+            className="lg:hidden border-t border-zinc-900 bg-zinc-950/95 px-6 py-6 backdrop-blur-xl"
           >
             <ul className="mx-auto flex max-w-7xl flex-col gap-1 font-mono text-xs uppercase tracking-widest text-zinc-400">
               {navItems.map((item, index) => (

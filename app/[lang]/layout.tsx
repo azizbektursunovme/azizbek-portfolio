@@ -23,15 +23,15 @@ export async function generateMetadata(
   const locale = resolveLocale(lang);
 
   const titles = {
-    en: "Azizbek Tursunov | Graphic & Product Designer",
-    ru: "\u0410\u0437\u0438\u0437\u0431\u0435\u043a \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432 | \u0413\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0438 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432\u044b\u0439 \u0434\u0438\u0437\u0430\u0439\u043d\u0435\u0440",
-    uz: "Azizbek Tursunov | Grafik va product dizayner",
+    en: "Azizbek Tursunov | Designer & Creative Developer",
+    ru: "\u0410\u0437\u0438\u0437\u0431\u0435\u043a \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432 | \u0414\u0438\u0437\u0430\u0439\u043d\u0435\u0440 \u0438 Creative Developer",
+    uz: "Azizbek Tursunov | Dizayner va Creative Developer",
   };
 
   const descriptions = {
-    en: "Minimalist portfolio of Azizbek Tursunov, a graphic and product designer creating clear digital experiences with clean strategy.",
-    ru: "\u041f\u043e\u0440\u0442\u0444\u043e\u043b\u0438\u043e \u0410\u0437\u0438\u0437\u0431\u0435\u043a\u0430 \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432\u0430: \u0433\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0438 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432\u044b\u0439 \u0434\u0438\u0437\u0430\u0439\u043d.",
-    uz: "Azizbek Tursunovning minimalistik portfoliosi: grafik va product dizayner, toza strategiya bilan aniq raqamli tajribalar yaratadi.",
+    en: "Portfolio of Azizbek Tursunov, a graphic and UI/UX designer who designs and builds polished, responsive digital experiences.",
+    ru: "\u041f\u043e\u0440\u0442\u0444\u043e\u043b\u0438\u043e \u0410\u0437\u0438\u0437\u0431\u0435\u043a\u0430 \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432\u0430: \u0433\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0438 UI/UX-\u0434\u0438\u0437\u0430\u0439\u043d, \u0430 \u0442\u0430\u043a\u0436\u0435 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0430\u0434\u0430\u043f\u0442\u0438\u0432\u043d\u044b\u0445 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432.",
+    uz: "Azizbek Tursunov portfoliosi: grafik va UI/UX dizayn hamda sifatli, responsive raqamli mahsulotlarni loyihalash va yaratish.",
   };
 
   return {
@@ -40,6 +40,8 @@ export async function generateMetadata(
     keywords: [
       "Graphic Design",
       "Product Design",
+      "Creative Development",
+      "Website Design",
       "Branding",
       "Portfolio",
       "Switzerland minimalism",
@@ -52,7 +54,7 @@ export async function generateMetadata(
     openGraph: {
       type: "website",
       locale: locale === "uz" ? "uz_UZ" : locale === "ru" ? "ru_RU" : "en_US",
-      url: `https://azizbektursunov.design/${locale}`,
+      url: `https://azizbektursunov.uz/${locale}`,
       title: titles[locale],
       description: descriptions[locale],
       siteName: "Azizbek Tursunov Portfolio",
