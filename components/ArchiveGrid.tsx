@@ -50,14 +50,13 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
               }}
               type="button"
               onClick={() => setOpen(i)}
-              aria-label={`${tr(copy.openImage, locale)}: ${tr(a.alt, locale)}`}
               className="group/a block w-full text-left"
             >
               <span className="flex aspect-square items-center justify-center overflow-hidden rounded-tile border border-rule bg-paper-deep/60 p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={a.src}
-                  alt=""
+                  alt={tr(a.alt, locale)}
                   width={a.width}
                   height={a.height}
                   loading="lazy"
@@ -69,6 +68,7 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
                 <span className="truncate">{a.label}</span>
                 <span>{a.year}</span>
               </span>
+              <span className="sr-only">{tr(copy.openImage, locale)}</span>
             </button>
           </li>
         ))}

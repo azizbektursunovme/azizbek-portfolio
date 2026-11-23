@@ -42,7 +42,7 @@ function LanguageSwitch({ lang, className }: { lang: Locale; className?: string 
                 href={localizedPath(pathname, code)}
                 hrefLang={code}
                 lang={code}
-                aria-label={`${name} (${code.toUpperCase()})`}
+                aria-label={`${name}, ${code}`}
                 aria-current={current ? "true" : undefined}
                 className={cn(
                   "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2 uppercase transition-colors duration-200",

@@ -22,7 +22,9 @@ const LANG = ":lang(en|ru|uz)";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    unoptimized: true, // Ideal for simple exports and static serving
+    // Served through next/image so `sizes` picks a right-sized webp (sharp resizes at request time).
+    formats: ["image/webp"],
+    deviceSizes: [390, 640, 768, 1024, 1280, 1536, 1920],
   },
   async redirects() {
     return [

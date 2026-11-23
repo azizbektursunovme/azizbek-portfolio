@@ -47,7 +47,7 @@ export default function Hero({ locale }: { locale: Locale }) {
           {/* The name, set to the measure: one line on desktop, two staggered lines on phones. */}
           <h1
             id="hero-title"
-            className="flex flex-wrap justify-between font-serif text-[clamp(4.5rem,24.5vw,7.5rem)] leading-[0.86] tracking-[-0.028em] text-ink sm:block sm:text-[min(calc((100vw-3rem)/5.7),13rem)] lg:text-[min(calc((100vw-5rem)/5.7),13rem)]"
+            className="flex flex-wrap justify-between font-serif text-[clamp(4.5rem,24.5vw,7.5rem)] leading-[0.86] tracking-[-0.028em] text-ink sm:block sm:whitespace-nowrap sm:text-[min(calc((100vw-3rem)/5.7),13rem)] lg:text-[min(calc((100vw-5rem)/5.7),13rem)]"
           >
             {nameWords.map((word, i) => (
               <Fragment key={word}>

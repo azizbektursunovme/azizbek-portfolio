@@ -56,11 +56,11 @@ test("desktop nav lists items in order with CV and language switch", async ({ pa
   await expect(nav.getByRole("link", { name: "Websites" })).toHaveAttribute("href", "#websites");
   await expect(page.getByRole("link", { name: "Ads & Content" }).first()).toHaveAttribute("href", "#ads");
   const lang = page.getByRole("navigation", { name: "Language" });
-  const ru = lang.getByRole("link", { name: "Русский (RU)" });
+  const ru = lang.getByRole("link", { name: /^Русский/ });
   await expect(ru).toHaveAttribute("href", "/ru");
   await expect(ru).toHaveAttribute("hreflang", "ru");
   await expect(ru).toHaveAttribute("lang", "ru");
-  await expect(lang.getByRole("link", { name: "English (EN)" })).toHaveAttribute("aria-current", "true");
+  await expect(lang.getByRole("link", { name: /^English/ })).toHaveAttribute("aria-current", "true");
   await expect(page.getByRole("banner").getByRole("link", { name: /Download CV/ })).toHaveAttribute("download", "");
 });
 
