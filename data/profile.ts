@@ -15,7 +15,8 @@ export const profile: {
   languages: { name: string; level: string }[];
   education: { school: string; detail: string; years: string }[];
   tools: { group: "Dev" | "Design" | "Growth & AI"; items: string[] }[];
-  clientMarks: { name: string; src?: string }[];
+  /** Monochrome marks for the hero strip. `width`/`height` are the file's intrinsic size; no `src` renders a text wordmark. */
+  clientMarks: { name: string; src?: string; width?: number; height?: number }[];
 } = {
   name: "Azizbek Tursunov",
   title: "Frontend Developer & Brand Designer",
@@ -56,12 +57,12 @@ export const profile: {
     },
   ],
   clientMarks: [
-    { name: "JJR Transportation", src: "/work/jjr-transportation/logo-primary.svg" },
-    { name: "DAVR GROUP", src: "/work/davr-group/logo-primary.svg" },
-    { name: "Good Idea Cargo", src: "/work/good-idea-cargo-ads/logo.svg" },
-    { name: "Fragrise", src: "/work/fragrise/lockup-dark.svg" },
+    { name: "JJR Transportation", src: "/work/jjr-transportation/mark-mono.svg", width: 1382, height: 110 },
+    { name: "DAVR GROUP", src: "/work/davr-group/mark-mono.svg", width: 555, height: 192 },
+    { name: "Good Idea Cargo", src: "/work/good-idea-cargo-ads/mark-mono.svg", width: 800, height: 800 },
+    { name: "Fragrise", src: "/work/fragrise/mark-mono.svg", width: 1442, height: 359 },
     // No 8iz logo exists on disk: the UI renders the name as text.
     { name: "8iz" },
-    { name: "GFS Group", src: "/work/gfs-group/logo.png" },
+    { name: "GFS Group", src: "/work/gfs-group/mark-mono.png", width: 480, height: 183 },
   ],
 };

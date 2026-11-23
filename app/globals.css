@@ -44,6 +44,32 @@
   --radius-tile: 1.125rem;
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*
+   * Hero load moment (components/Hero.tsx). CSS-only, so it also runs and
+   * finishes without JavaScript; used behind `motion-safe:` so reduced-motion
+   * visitors get the static page. `both` holds the start frame during the delay.
+   */
+  --animate-hero-rise: hero-rise 1s var(--ease-out-quint) both;
+  --animate-hero-rule: hero-rule 1.2s var(--ease-out-quint) both;
+  --animate-hero-fade: hero-fade 0.9s var(--ease-out-quint) both;
+
+  @keyframes hero-rise {
+    from {
+      transform: translateY(108%);
+    }
+  }
+  @keyframes hero-rule {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
 }
 
 /* Font families point at the next/font CSS variables set on <html>. */

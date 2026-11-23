@@ -18,7 +18,7 @@ export default async function HomePage(props: PageProps) {
 
   return (
     <>
-      <Hero dict={dict} />
+      <Hero locale={locale} />
       <About dict={dict} />
       <Skills dict={dict} />
       <FeaturedWorks lang={locale} dict={dict} />
