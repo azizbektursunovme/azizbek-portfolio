@@ -75,7 +75,7 @@ export default function WebBlockView({ web, locale, skip }: { web: WebBlock; loc
                       "col-span-2 max-w-[calc(50%-0.625rem)] md:max-w-[17rem]",
                   )}
                 >
-                  <figure className="overflow-hidden rounded-[1.75rem] border-[5px] border-ink bg-ink shadow-[0_18px_40px_-24px_rgba(21,21,21,0.55)]">
+                  <figure className="overflow-hidden rounded-[1.75rem] border-[5px] border-device bg-device shadow-device ring-1 ring-device-ring">
                     <Image
                       src={m.src}
                       alt={tr(m.alt, locale)}

@@ -1,11 +1,25 @@
 @import "tailwindcss";
 
 /*
- * Ledger design tokens.
+ * `dark:` variant: matches when <html data-theme="dark">. Dark is the default
+ * (SSR markup), light is opt-in through the header toggle (lib/theme.ts).
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Ledger design tokens. @theme holds the light palette; html[data-theme="dark"]
+ * below overrides the same variables, and every utility reads var(--color-*).
  * Contrast (WCAG 2.x, normal text needs 4.5:1):
- *   ink on paper 16.19 · muted on paper 5.04 · muted on paper-deep 4.57
- *   accent-ink on paper 5.36 (accent #C8442B is 4.31, so it is for large type, rules and marks only)
- *   paper on ink 16.19 · muted-inverse on ink 6.85 · accent-inverse on ink 5.52 · paper on green 8.50
+ *   Light
+ *     ink on paper 16.19 · muted on paper 5.04 · muted on paper-deep 4.57
+ *     accent-ink on paper 5.36 (accent #C8442B is 4.31, so it is for large type, rules and marks only)
+ *     paper on ink 16.19 · muted-inverse on ink 6.85 · accent-inverse on ink 5.52 · paper on green 8.50
+ *   Dark
+ *     ink on paper 15.30 · ink-soft on paper 11.44 · muted on paper 7.07 · muted on paper-deep 6.51
+ *     accent on paper 5.70 · accent-ink on paper 6.50 · accent-ink on paper-deep 5.98 · green on paper 8.54
+ *     paper on ink 15.30 · paper on accent-ink (primary button hover) 6.50 · paper on accent (::selection) 5.70
+ *     on-inverse on surface-inverse 13.79 · muted-inverse on surface-inverse 6.38
+ *     accent-inverse on surface-inverse 5.86 · green-inverse on surface-inverse 7.86
  */
 @theme {
   --color-paper: #f4f1ea;
@@ -21,6 +35,19 @@
   --color-accent-inverse: #e06a50;
   --color-green: #2d4b3f;
   --color-green-inverse: #8db8a2;
+  /* Inverse panels (footer). Light: an ink slab. Dark: an elevated dark surface. */
+  --color-surface-inverse: #151515;
+  --color-on-inverse: #f4f1ea;
+  /* Physical device frames and the lightbox scrim: near-black in both themes. */
+  --color-device: #151515;
+  --color-on-device: #f4f1ea;
+  /* Separates a device frame from the page; only needed on the dark page. */
+  --color-device-ring: transparent;
+  /* Light stage behind full-colour logos on the dark page (brand wall hover). */
+  --color-logo-stage: #f4f1ea;
+
+  --shadow-device: 0 18px 40px -24px var(--device-shadow);
+  --shadow-device-lg: 0 24px 48px -24px var(--device-shadow);
 
   /* Type scale. Body runs on the Tailwind defaults (text-base 16px, text-lg 18px). */
   --text-label: 0.75rem;
@@ -80,6 +107,36 @@
 }
 
 @layer base {
+  :root {
+    --device-shadow: rgb(21 21 21 / 0.55);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  /* Dark palette: same names, warm near-black paper, cream ink. */
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --color-paper: #121110;
+    --color-paper-deep: #1c1a17;
+    --color-ink: #ece7dc;
+    --color-ink-soft: #cfc9bd;
+    --color-muted: #a39e94;
+    --color-rule: #2f2c28;
+    --color-accent: #e06a50;
+    --color-accent-ink: #e8775f;
+    --color-green: #8db8a2;
+    --color-surface-inverse: #1e1c19;
+    --color-on-inverse: #ece7dc;
+    --color-muted-inverse: #a39e94;
+    --color-rule-inverse: #34312c;
+    --color-accent-inverse: #e8775f;
+    --color-green-inverse: #8db8a2;
+    --color-device-ring: rgb(255 255 255 / 0.14);
+    --device-shadow: rgb(0 0 0 / 0.85);
+  }
+
   html {
     background-color: var(--color-paper);
     color: var(--color-ink);
@@ -116,7 +173,7 @@
     border-radius: 2px;
   }
 
-  /* On ink surfaces accent-ink only reaches 3.02:1 against ink; accent-inverse is 5.52:1. */
+  /* On inverse surfaces accent-ink only reaches 3.02:1 against ink (light); accent-inverse is 5.52:1 (light) / 5.86:1 (dark). */
   [data-surface="ink"] :focus-visible {
     outline-color: var(--color-accent-inverse);
   }

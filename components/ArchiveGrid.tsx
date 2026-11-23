@@ -82,7 +82,7 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
           onClick={(e) => {
             if (e.target === dialogRef.current) dialogRef.current?.close();
           }}
-          className="m-auto max-h-[92vh] max-w-[min(94vw,64rem)] overflow-visible bg-transparent p-0 backdrop:bg-ink/80"
+          className="m-auto max-h-[92vh] max-w-[min(94vw,64rem)] overflow-visible bg-transparent p-0 backdrop:bg-device/80"
         >
           <div className="relative flex flex-col items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,7 +93,7 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
               height={item.full?.height ?? item.height}
               className="max-h-[80vh] w-auto max-w-full rounded-tile bg-paper object-contain"
             />
-            <p className="font-mono text-label text-paper">
+            <p className="font-mono text-label text-on-device">
               {tr(item.label, locale)} · {item.year}
             </p>
             <button
@@ -101,7 +101,7 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
               autoFocus
               onClick={() => dialogRef.current?.close()}
               aria-label={tr(copy.close, locale)}
-              className="absolute -top-3 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-paper text-ink sm:-right-3"
+              className="absolute -top-3 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-on-device text-device sm:-right-3"
             >
               <X aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
             </button>

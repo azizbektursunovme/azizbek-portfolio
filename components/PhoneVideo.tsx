@@ -78,7 +78,7 @@ export default function PhoneVideo({ media, locale = "en", className }: PhoneVid
   return (
     <div
       className={cn(
-        "group relative w-full overflow-hidden rounded-[1.75rem] border-[5px] border-ink bg-ink shadow-[0_18px_40px_-24px_rgba(21,21,21,0.55)]",
+        "group relative w-full overflow-hidden rounded-[1.75rem] border-[5px] border-device bg-device shadow-device ring-1 ring-device-ring",
         className,
       )}
       style={{ aspectRatio: `${media.width} / ${media.height}` }}

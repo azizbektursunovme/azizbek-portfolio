@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
+import ThemeToggle from "@/components/ThemeToggle";
 import { navItems, shellCopy } from "@/data/nav";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/data/types";
@@ -128,7 +129,8 @@ export default function Header({ lang }: { lang: Locale }) {
           scrolled || open ? "border-rule bg-paper/90 backdrop-blur-md" : "border-transparent bg-paper",
         )}
       >
-        <Container className="flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
+        {/* lg gaps run tighter so RU/UZ labels plus the theme toggle still fit at 1024px. */}
+        <Container className="flex h-16 items-center justify-between gap-6 md:h-[4.5rem] lg:gap-4 xl:gap-6">
           <div className="flex items-center gap-4">
             <Link
               href={`/${lang}`}
@@ -157,12 +159,12 @@ export default function Header({ lang }: { lang: Locale }) {
                 <li key={item.id}>
                   <a
                     href={hrefFor(item.href)}
-                    className="group relative inline-flex h-10 items-center whitespace-nowrap px-3 text-[0.9375rem] text-ink/80 transition-colors hover:text-ink"
+                    className="group relative inline-flex h-10 items-center whitespace-nowrap px-2.5 text-[0.9375rem] xl:px-3 text-ink/80 transition-colors hover:text-ink"
                   >
                     {tr(item.label, lang)}
                     <span
                       aria-hidden="true"
-                      className="absolute inset-x-3 bottom-1.5 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out-quint group-hover:scale-x-100"
+                      className="absolute inset-x-2.5 bottom-1.5 xl:inset-x-3 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out-quint group-hover:scale-x-100"
                     />
                   </a>
                 </li>
@@ -170,38 +172,46 @@ export default function Header({ lang }: { lang: Locale }) {
             </ul>
           </nav>
 
-          <div className="hidden items-center gap-4 lg:flex">
-            <LanguageSwitch lang={lang} />
-            <Button href={profile.cvPath} variant="primary" size="sm" icon={cvIcon} download className="whitespace-nowrap">
+          {/* Theme toggle sits in the bar at every width: between language and CV on desktop, beside Menu on mobile. */}
+          <div className="flex items-center gap-2 lg:gap-3">
+            <LanguageSwitch lang={lang} className="hidden lg:block" />
+            <ThemeToggle lang={lang} />
+            <Button
+              href={profile.cvPath}
+              variant="primary"
+              size="sm"
+              icon={cvIcon}
+              download
+              className="hidden whitespace-nowrap lg:inline-flex"
+            >
               {tr(shellCopy.downloadCvShort, lang)}
             </Button>
+            <button
+              ref={buttonRef}
+              type="button"
+              aria-expanded={open}
+              aria-controls={open ? "mobile-menu" : undefined}
+              aria-label={menuLabel}
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex h-10 items-center gap-3 rounded-full border border-ink/20 pl-4 pr-3.5 text-sm font-medium text-ink transition-colors hover:border-ink lg:hidden"
+            >
+              <span aria-hidden="true">{tr(open ? shellCopy.close : shellCopy.menu, lang)}</span>
+              <span aria-hidden="true" className="relative block h-2.5 w-4">
+                <span
+                  className={cn(
+                    "absolute left-0 top-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ease-out-quint",
+                    open && "translate-y-[4.25px] rotate-45",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute bottom-0 left-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ease-out-quint",
+                    open && "-translate-y-[4.25px] -rotate-45",
+                  )}
+                />
+              </span>
+            </button>
           </div>
-
-          <button
-            ref={buttonRef}
-            type="button"
-            aria-expanded={open}
-            aria-controls={open ? "mobile-menu" : undefined}
-            aria-label={menuLabel}
-            onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 items-center gap-3 rounded-full border border-ink/20 pl-4 pr-3.5 text-sm font-medium text-ink transition-colors hover:border-ink lg:hidden"
-          >
-            <span aria-hidden="true">{tr(open ? shellCopy.close : shellCopy.menu, lang)}</span>
-            <span aria-hidden="true" className="relative block h-2.5 w-4">
-              <span
-                className={cn(
-                  "absolute left-0 top-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ease-out-quint",
-                  open && "translate-y-[4.25px] rotate-45",
-                )}
-              />
-              <span
-                className={cn(
-                  "absolute bottom-0 left-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ease-out-quint",
-                  open && "-translate-y-[4.25px] -rotate-45",
-                )}
-              />
-            </span>
-          </button>
         </Container>
       </header>
 

@@ -17,6 +17,10 @@ import { cn } from "@/lib/cn";
  * colour logo under a CSS grayscale filter. The colour state of a logo that
  * was drawn for a dark ground (JJR, FRAGRISE) gets the brand's darkest
  * palette colour as its stage on hover so it stays legible.
+ *
+ * Dark theme: the ink mono state is inverted to a light grey, and every other
+ * colour logo gets a light stage on hover, so no dark-on-transparent logo
+ * disappears into the dark page.
  */
 
 /** Which logo carries the brand colours, and whether it needs a dark stage. */
@@ -64,7 +68,12 @@ function BrandTile({ project, locale, index }: { project: Project; locale: Local
                 className={cn("absolute inset-0 opacity-0 transition-opacity duration-500 ease-out-quint", hover)}
                 style={{ backgroundColor: stage }}
               />
-            ) : null}
+            ) : (
+              <span
+                aria-hidden="true"
+                className={cn("absolute inset-0 hidden bg-logo-stage opacity-0 transition-opacity duration-500 ease-out-quint dark:block", hover)}
+              />
+            )}
             {colour ? (
               <>
                 {mono ? (
@@ -77,7 +86,7 @@ function BrandTile({ project, locale, index }: { project: Project; locale: Local
                     height={colour.height}
                     loading="lazy"
                     decoding="async"
-                    className={cn("relative object-contain transition-opacity duration-500 ease-out-quint group-hover/tile:opacity-0 group-focus-visible/tile:opacity-0", size)}
+                    className={cn("relative object-contain transition-opacity duration-500 ease-out-quint group-hover/tile:opacity-0 group-focus-visible/tile:opacity-0 dark:invert", size)}
                   />
                 ) : null}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,7 +102,12 @@ function BrandTile({ project, locale, index }: { project: Project; locale: Local
                     "object-contain transition-[opacity,filter] duration-500 ease-out-quint",
                     mono
                       ? cn("absolute opacity-0", hover)
-                      : "relative mix-blend-multiply grayscale group-hover/tile:grayscale-0 group-focus-visible/tile:grayscale-0",
+                      : cn(
+                          "relative mix-blend-multiply grayscale group-hover/tile:grayscale-0 group-focus-visible/tile:grayscale-0",
+                          // Dark page: invert + screen drops the artwork's white ground and draws the mark light;
+                          // on hover the light stage comes up and the logo returns to its own colours.
+                          "dark:mix-blend-screen dark:invert dark:group-hover/tile:mix-blend-multiply dark:group-hover/tile:invert-0 dark:group-focus-visible/tile:mix-blend-multiply dark:group-focus-visible/tile:invert-0",
+                        ),
                   )}
                 />
               </>

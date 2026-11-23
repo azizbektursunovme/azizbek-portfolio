@@ -41,7 +41,7 @@ export default function DevicePair({
           className="h-auto w-full"
         />
       </figure>
-      <figure className="absolute bottom-0 right-0 w-[28%] sm:w-[22%] overflow-hidden rounded-[clamp(0.75rem,2vw,1.75rem)] border-[clamp(3px,0.45vw,5px)] border-ink bg-ink shadow-[0_24px_48px_-24px_rgba(21,21,21,0.6)]">
+      <figure className="absolute bottom-0 right-0 w-[28%] sm:w-[22%] overflow-hidden rounded-[clamp(0.75rem,2vw,1.75rem)] border-[clamp(3px,0.45vw,5px)] border-device bg-device shadow-device-lg ring-1 ring-device-ring">
         <Image
           src={mobile.src}
           alt={tr(mobile.alt, locale)}

@@ -31,4 +31,7 @@ export const shellCopy = {
   newTab: { en: "(opens in a new tab)", ru: "(откроется в новой вкладке)", uz: "(yangi oynada ochiladi)" } as Localized,
   mainNav: { en: "Main", ru: "Основное меню", uz: "Asosiy menyu" } as Localized,
   languageNav: { en: "Language", ru: "Язык", uz: "Til" } as Localized,
+  /** Theme toggle labels: they name the action, not the current state. */
+  themeToLight: { en: "Switch to light theme", ru: "Включить светлую тему", uz: "Yorugʻ rejimga oʻtish" } as Localized,
+  themeToDark: { en: "Switch to dark theme", ru: "Включить тёмную тему", uz: "Tungi rejimga oʻtish" } as Localized,
 };

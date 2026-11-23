@@ -147,7 +147,8 @@ export default function Hero({ locale }: { locale: Locale }) {
                     height={mark.height}
                     loading="eager"
                     decoding="async"
-                    className={cn("w-auto max-w-full", markHeight[mark.name] ?? "h-8")}
+                    // Marks are drawn in ink (#151515); on the dark page they flip to a light grey.
+                    className={cn("w-auto max-w-full dark:invert", markHeight[mark.name] ?? "h-8")}
                   />
                 ) : (
                   <span className="font-sans text-[1.75rem] font-black leading-none tracking-[-0.06em] text-ink">

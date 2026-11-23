@@ -10,6 +10,7 @@ import { shellCopy } from "@/data/nav";
 import { tr } from "@/lib/localize";
 import { seo } from "@/data/seo";
 import { SITE_URL, languageAlternates, ogLocale } from "@/lib/site";
+import { DEFAULT_THEME, THEME_COLOR, THEME_SCRIPT } from "@/lib/theme";
 
 /**
  * Only en, ru and uz exist. Language-like codes (/de, /fr-CA) are sent to /en
@@ -26,9 +27,9 @@ interface LayoutProps {
   params: Promise<{ lang: string }>;
 }
 
-
+// Dark is the default theme; ThemeToggle updates this meta when a visitor picks light.
 export const viewport: Viewport = {
-  themeColor: "#f4f1ea",
+  themeColor: THEME_COLOR[DEFAULT_THEME],
 };
 
 export async function generateMetadata(props: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -75,9 +76,12 @@ export default async function RootLayout(props: LayoutProps) {
       className={fontVariables}
       // Satoshi and Instrument Serif have no Cyrillic: on /ru, Cyrillic falls through to Manrope / Oranienbaum.
       style={locale === "ru" ? cyrillicFontVars : undefined}
+      // Dark by default, also without JavaScript. THEME_SCRIPT swaps in a stored light choice before paint.
+      data-theme={DEFAULT_THEME}
       suppressHydrationWarning
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />
       </head>
       <body className="bg-paper font-sans text-ink">

@@ -20,10 +20,11 @@ export default function Footer({ lang }: { lang: Locale }) {
   ].filter((s) => s.href.trim() !== "");
 
   const linkClass =
-    "inline-flex items-center gap-1.5 text-paper/90 underline-offset-4 transition-colors hover:text-paper hover:underline";
+    "inline-flex items-center gap-1.5 text-on-inverse/90 underline-offset-4 transition-colors hover:text-on-inverse hover:underline";
 
   return (
-    <footer id="site-footer" data-surface="ink" className="bg-ink text-paper">
+    // Inverse panel: an ink slab on the light page, an elevated dark surface under a hairline on the dark page.
+    <footer id="site-footer" data-surface="ink" className="bg-surface-inverse text-on-inverse dark:border-t dark:border-rule">
       <Container className="pb-8 pt-14 md:pt-20">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-x-10">
           <div className="lg:col-span-3">
@@ -61,8 +62,8 @@ export default function Footer({ lang }: { lang: Locale }) {
 
           <div className="col-span-2 lg:col-span-6 lg:justify-self-end lg:text-right">
             <ColumnTitle>{tr(profile.jobTitle, lang)}</ColumnTitle>
-            <p className="text-paper/90">{tr(profile.status, lang)}</p>
-            <p className="mt-2.5 inline-flex items-center gap-2 text-paper/90 lg:justify-end">
+            <p className="text-on-inverse/90">{tr(profile.status, lang)}</p>
+            <p className="mt-2.5 inline-flex items-center gap-2 text-on-inverse/90 lg:justify-end">
               <span aria-hidden="true" className="h-2 w-2 rounded-full bg-green-inverse" />
               {tr(profile.openTo, lang)}
             </p>
@@ -70,7 +71,7 @@ export default function Footer({ lang }: { lang: Locale }) {
               <a
                 href={profile.cvPath}
                 download
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-paper/25 px-5 text-[0.9375rem] font-medium text-paper transition-colors hover:border-paper hover:bg-paper hover:text-ink"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-on-inverse/25 px-5 text-[0.9375rem] font-medium text-on-inverse transition-colors hover:border-on-inverse hover:bg-on-inverse hover:text-surface-inverse"
               >
                 {tr(shellCopy.downloadCv, lang)}
               </a>
@@ -80,7 +81,7 @@ export default function Footer({ lang }: { lang: Locale }) {
 
         <div className="mt-16 flex items-center justify-between gap-4 border-t border-rule-inverse pt-6 font-mono text-label text-muted-inverse">
           <p>© {YEAR} {profile.name}</p>
-          <a href="#top" className="inline-flex items-center gap-1.5 transition-colors hover:text-paper">
+          <a href="#top" className="inline-flex items-center gap-1.5 transition-colors hover:text-on-inverse">
             {tr(shellCopy.backToTop, lang)}
             <ArrowUp aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.8} />
           </a>
