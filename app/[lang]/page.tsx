@@ -5,6 +5,7 @@ import About from "@/components/About";
 import Skills from "@/components/Skills";
 import WebsitesSection from "@/components/WebsitesSection";
 import BrandingSection from "@/components/BrandingSection";
+import AdsSection from "@/components/AdsSection";
 import Services from "@/components/Services";
 import Contact from "@/components/Contact";
 
@@ -23,6 +24,7 @@ export default async function HomePage(props: PageProps) {
       <WorkBento locale={locale} />
       <WebsitesSection locale={locale} />
       <BrandingSection locale={locale} />
+      <AdsSection locale={locale} />
       <About dict={dict} />
       <Skills dict={dict} />
       <Services dict={dict} />

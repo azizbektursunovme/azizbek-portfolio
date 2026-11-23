@@ -23,3 +23,24 @@ export const brandingCopy = {
     en: "Logos, colour, type and the places they live. Open a brand for the full kit.",
   } as Localized,
 };
+
+export const adsCopy = {
+  eyebrow: { en: "Ads & Content" } as Localized,
+  title: { en: "Ads that recruit, and the tools behind them." } as Localized,
+  intro: {
+    en: "Meta ads, Instagram creatives and AI video, made for GFS Group. Videos play while they are on screen.",
+  } as Localized,
+  madeAt: { en: "Made at GFS Group" } as Localized,
+  campaign: { en: "Campaign" } as Localized,
+  creatives: { en: "Creatives" } as Localized,
+  carousel: { en: "Carousel O1, five slides" } as Localized,
+  gfsTitle: { en: "GFS Group: owner-operator recruiting ad" } as Localized,
+  gfsNote: { en: "A 9:16 ad video for the GFS Group owner-operator recruiting push." } as Localized,
+  workflowTitle: { en: "AI workflow" } as Localized,
+  workflowNote: { en: "The tools I use to go from a brief to a finished ad." } as Localized,
+  archiveTitle: { en: "Earlier work" } as Localized,
+  archiveNote: { en: "Graphic design from before the ads: social posts, banners and flyers." } as Localized,
+  play: { en: "Play video" } as Localized,
+  close: { en: "Close" } as Localized,
+  openImage: { en: "View larger" } as Localized,
+};
