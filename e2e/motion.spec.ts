@@ -58,8 +58,7 @@ for (const mode of modes) {
       }
     });
 
-    // Task 8 adds the bento and removes this fixme.
-    test.fixme("first bento tile is visible", async ({ page }) => {
+    test("first bento tile is visible", async ({ page }) => {
       await page.goto("/en");
       await expectShown(page.locator("[data-testid=bento-tile]:first-child"));
     });

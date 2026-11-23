@@ -1,8 +1,8 @@
 import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
 import Hero from "@/components/Hero";
+import WorkBento from "@/components/WorkBento";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
-import FeaturedWorks from "@/components/FeaturedWorks";
 import SelectedWebsites from "@/components/SelectedWebsites";
 import Services from "@/components/Services";
 import Contact from "@/components/Contact";
@@ -19,9 +19,9 @@ export default async function HomePage(props: PageProps) {
   return (
     <>
       <Hero locale={locale} />
+      <WorkBento locale={locale} />
       <About dict={dict} />
       <Skills dict={dict} />
-      <FeaturedWorks lang={locale} dict={dict} />
       <SelectedWebsites dict={dict} />
       <Services dict={dict} />
       <Contact dict={dict} />
