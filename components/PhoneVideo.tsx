@@ -1,11 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Play } from "lucide-react";
 import { adsCopy as copy } from "@/data/sections";
 import type { Locale, Media } from "@/data/types";
 import { tr } from "@/lib/localize";
 import { cn } from "@/lib/cn";
+
+const QUERY = "(prefers-reduced-motion: reduce)";
+const subscribe = (cb: () => void) => {
+  const mq = window.matchMedia(QUERY);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const getReduced = () => window.matchMedia(QUERY).matches;
+// Server markup assumes no preference; the client value is read before effects run.
+const getServerReduced = () => false;
 
 interface PhoneVideoProps {
   media: Media;
@@ -21,17 +31,14 @@ interface PhoneVideoProps {
  */
 export default function PhoneVideo({ media, locale = "en", className }: PhoneVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
-  const [reduced, setReduced] = useState(false);
+  const reduced = useSyncExternalStore(subscribe, getReduced, getServerReduced);
   const [playing, setPlaying] = useState(false);
   const label = tr(media.alt, locale);
 
+  // Reduced motion switched on mid-play: stop the video.
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const onChange = () => setReduced(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+    if (reduced) ref.current?.pause();
+  }, [reduced]);
 
   useEffect(() => {
     const el = ref.current;

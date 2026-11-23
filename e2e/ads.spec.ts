@@ -43,7 +43,9 @@ test.describe("ads section", () => {
     await first.click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
+    expect(await page.evaluate(() => document.body.style.overflow)).toBe("hidden");
     await page.keyboard.press("Escape");
+    expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
     await expect(dialog).toHaveCount(0);
     await expect(first).toBeFocused();
   });

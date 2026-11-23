@@ -53,7 +53,10 @@ describe("content model", () => {
       }
       check(p.caseStudy?.brand?.guidePdf);
     }
-    for (const a of archive) check(a.src);
+    for (const a of archive) {
+      check(a.src);
+      check(a.full?.src);
+    }
     for (const c of profile.clientMarks) check(c.src);
     expect(missing).toEqual([]);
   });
@@ -181,5 +184,25 @@ describe("content model", () => {
     expect(tr({ en: "a", ru: "b" }, "ru")).toBe("b");
     expect(tr({ en: "a" }, "uz")).toBe("a");
     expect(tr({ en: "a", uz: "" }, "uz")).toBe("a");
+  });
+});
+
+describe("ads & archive publishing rules", () => {
+  test("no draft O1 slides (2, 3) are referenced anywhere in data", () => {
+    const srcs: string[] = [];
+    for (const p of projects) for (const m of collectMedia(p)) srcs.push(m.src, m.poster ?? "");
+    for (const a of archive) srcs.push(a.src, a.full?.src ?? "");
+    expect(srcs.filter((s) => /o1-slide[23]\b/.test(s))).toEqual([]);
+    const text = readFileSync(join(root, "data", "projects.ts"), "utf8");
+    expect(text).not.toMatch(/o1-slide[23]/);
+  });
+
+  test("archive uses optimised WebP only, thumbs under 300 KB", () => {
+    for (const a of archive) {
+      expect(a.src).toMatch(/-thumb\.webp$/);
+      expect(a.full?.src).toMatch(/-full\.webp$/);
+      expect(statSync(join(root, "public", a.src)).size).toBeLessThan(300 * 1024);
+      expect(statSync(join(root, "public", a.full!.src)).size).toBeLessThan(600 * 1024);
+    }
   });
 });

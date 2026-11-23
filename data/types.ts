@@ -66,6 +66,8 @@ export interface ArchiveItem {
   width: number;
   height: number;
   alt: Localized;
+  /** Larger version shown in the lightbox; `src` is the grid thumbnail. */
+  full?: { src: string; width: number; height: number };
   label: string;
   year: string;
 }

@@ -326,7 +326,7 @@ export const projects: Project[] = [
             1280,
             "Creative A2, 9:16: Seedance clip with end card",
           ),
-          ...[1, 2, 3, 4, 5].map((n) =>
+          ...[1, 4, 5].map((n) =>
             img(`/work/good-idea-cargo-ads/o1-slide${n}.webp`, 1080, 1350, `Creative O1, carousel slide ${n}`),
           ),
         ],
@@ -462,32 +462,40 @@ export const redesignLinks: { name: string; url: string }[] = [
 ];
 
 const a = (
-  file: string,
-  width: number,
-  height: number,
+  name: string,
+  thumb: [number, number],
+  full: [number, number],
   alt: string,
   label: string,
   year: string,
-): ArchiveItem => ({ src: `/images-portfolio/${file}`, width, height, alt: { en: alt }, label, year });
+): ArchiveItem => ({
+  src: `/images-portfolio/${name}-thumb.webp`,
+  width: thumb[0],
+  height: thumb[1],
+  full: { src: `/images-portfolio/${name}-full.webp`, width: full[0], height: full[1] },
+  alt: { en: alt },
+  label,
+  year,
+});
 
 /** Earlier work: images only, labelled with the old project titles. */
 export const archive: ArchiveItem[] = [
-  a("academy.png", 1080, 1080, "Iqtidor Academy grant announcement social post", "Iqtidor Academy", "2025"),
-  a("consulting-post.png", 1083, 1350, "Education consulting social media post", "Iqtidor Academy", "2025"),
-  a("banner-school.png", 550, 500, "Iqtidor School Russian course admission banner", "Iqtidor School Banner", "2025"),
-  a("banner-school2.png", 600, 300, "Iqtidor School green advertising banner variation", "Iqtidor School Banner", "2025"),
-  a("ijarachi-banner1.png", 3240, 1080, "Ijarachi real estate service horizontal banner", "Ijarachi Banners", "2025"),
-  a("ijarachi-banner2.png", 3240, 1080, "Ijarachi horizontal advertising banner variation", "Ijarachi Banners", "2025"),
-  a("creative-post.png", 1080, 1350, "Creative design service social post", "Social Media Design", "2025"),
-  a("dr-azamat-post.png", 1080, 1350, "Dr Azamat social media post", "Social Media Design", "2025"),
-  a("insta-post.png", 680, 960, "Vertical Instagram post design", "Social Media Design", "2025"),
-  a("masterclass-post.png", 1080, 1350, "Masterclass announcement social media post", "Social Media Design", "2025"),
-  a("sushi-post.png", 864, 1080, "Sushi social media post design", "Social Media Design", "2025"),
-  a("product-design.png", 600, 780, "Kofemator Russell Hobbs coffee machine product ad", "Kofemator", "2026"),
-  a("flyer.png", 1573, 3477, "Organic product tall poster layout", "Organic Product Flyer", "2025"),
-  a("personal-blog.png", 1080, 1920, "Vertical personal blog creative post", "Personal Projects", "2024"),
-  a("flyer-front.png", 1573, 3477, "Organic product flyer front", "Personal Projects", "2024"),
-  a("flyer-back.png", 1573, 3477, "Organic product flyer back", "Personal Projects", "2024"),
+  a("academy", [640,640], [1080,1080], "Iqtidor Academy grant announcement social post", "Iqtidor Academy", "2025"),
+  a("consulting-post", [640,798], [1083,1350], "Education consulting social media post", "Iqtidor Academy", "2025"),
+  a("banner-school", [550,500], [550,500], "Iqtidor School Russian course admission banner", "Iqtidor School Banner", "2025"),
+  a("banner-school2", [600,300], [600,300], "Iqtidor School green advertising banner variation", "Iqtidor School Banner", "2025"),
+  a("ijarachi-banner1", [640,213], [1600,533], "Ijarachi real estate service horizontal banner", "Ijarachi Banners", "2025"),
+  a("ijarachi-banner2", [640,213], [1600,533], "Ijarachi horizontal advertising banner variation", "Ijarachi Banners", "2025"),
+  a("creative-post", [640,800], [1080,1350], "Creative design service social post", "Social Media Design", "2025"),
+  a("dr-azamat-post", [640,800], [1080,1350], "Dr Azamat social media post", "Social Media Design", "2025"),
+  a("insta-post", [640,904], [680,960], "Vertical Instagram post design", "Social Media Design", "2025"),
+  a("masterclass-post", [640,800], [1080,1350], "Masterclass announcement social media post", "Social Media Design", "2025"),
+  a("sushi-post", [640,800], [864,1080], "Sushi social media post design", "Social Media Design", "2025"),
+  a("product-design", [600,780], [600,780], "Kofemator Russell Hobbs coffee machine product ad", "Kofemator", "2026"),
+  a("flyer", [640,1415], [1573,3477], "Organic product tall poster layout", "Organic Product Flyer", "2025"),
+  a("personal-blog", [640,1138], [1080,1920], "Vertical personal blog creative post", "Personal Projects", "2024"),
+  a("flyer-front", [640,1415], [1573,3477], "Organic product flyer front", "Personal Projects", "2024"),
+  a("flyer-back", [640,1415], [1573,3477], "Organic product flyer back", "Personal Projects", "2024"),
 ];
 
 export function getProject(slug: string): Project | undefined {

@@ -77,11 +77,11 @@ export default function AdsSection({ locale }: { locale: Locale }) {
                 </div>
 
                 <div className="mt-10">
-                  <Label>{tr(copy.carousel, locale)}</Label>
+                  <Label>{`${tr(copy.carousel, locale)}, ${slides.length} slides`}</Label>
                   <ul
                     role="list"
                     tabIndex={0}
-                    aria-label={tr(copy.carousel, locale)}
+                    aria-label={`${tr(copy.carousel, locale)}, ${slides.length} slides`}
                     className="mt-4 flex snap-x gap-3 overflow-x-auto pb-3 [scrollbar-width:thin]"
                   >
                     {slides.map((s) => (

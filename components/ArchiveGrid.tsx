@@ -21,6 +21,16 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
     if (!d.open) d.showModal();
   }, [open]);
 
+  // Lock page scroll while the lightbox is open; restore on close.
+  useEffect(() => {
+    if (open === null) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   const onClosed = () => {
     const i = lastIndex.current;
     setOpen(null);
@@ -77,10 +87,10 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
           <div className="relative flex flex-col items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={item.src}
+              src={item.full?.src ?? item.src}
               alt={tr(item.alt, locale)}
-              width={item.width}
-              height={item.height}
+              width={item.full?.width ?? item.width}
+              height={item.full?.height ?? item.height}
               className="max-h-[80vh] w-auto max-w-full rounded-tile bg-paper object-contain"
             />
             <p className="font-mono text-label text-paper">
