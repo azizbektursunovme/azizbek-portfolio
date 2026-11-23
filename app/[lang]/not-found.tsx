@@ -10,7 +10,7 @@ import type { Locale } from "@/data/types";
  */
 export default function NotFound() {
   const first = (usePathname() ?? "/en").split("/")[1];
-  // Inline check: importing i18n/dictionaries here would pull the JSON loaders into the client bundle.
+  // Inline check: kept dependency-free so the client bundle stays small.
   const locale: Locale = first === "ru" || first === "uz" ? first : "en";
   return <NotFoundView locale={locale} />;
 }

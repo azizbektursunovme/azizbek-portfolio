@@ -43,14 +43,18 @@ export default function CopyEmail({ email, label, copiedLabel }: CopyEmailProps)
         type="button"
         data-testid="copy-email"
         onClick={copy}
-        className="inline-flex h-12 min-w-[10.5rem] shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[0.9375rem] font-medium whitespace-nowrap text-paper transition-colors duration-200 ease-out-quint hover:bg-accent-ink"
+        className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[0.9375rem] font-medium whitespace-nowrap text-paper transition-colors duration-200 ease-out-quint hover:bg-accent-ink"
       >
         {copied ? (
           <Check aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
         ) : (
           <Copy aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
         )}
-        <span>{copied ? copiedLabel : label}</span>
+        {/* Both labels share one grid cell, so the button is as wide as the longer one in every language. */}
+        <span className="grid">
+          <span className={copied ? "invisible [grid-area:1/1]" : "[grid-area:1/1]"}>{label}</span>
+          <span className={copied ? "[grid-area:1/1]" : "invisible [grid-area:1/1]"}>{copiedLabel}</span>
+        </span>
       </button>
       <span aria-live="polite" role="status" className="sr-only">
         {copied ? copiedLabel : ""}

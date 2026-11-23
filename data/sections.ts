@@ -28,7 +28,7 @@ export const websitesCopy = {
   title: {
     en: "Every website I have built or designed.",
     ru: "Все сайты, которые я сделал или спроектировал.",
-    uz: "Men yaratgan yoki dizaynini qilgan barcha saytlar.",
+    uz: "Men yaratgan yoki dizaynini ishlab chiqqan barcha saytlar.",
   } as Localized,
   intro: {
     en: "Client sites, a startup product and my own projects. Each card says what my part was.",
@@ -57,7 +57,7 @@ export const brandingCopy = {
   title: {
     en: "Brand identities, from logo to livery.",
     ru: "Фирменный стиль: от логотипа до брендирования фур.",
-    uz: "Brend uslubi: logotipdan furalarni brendlashgacha.",
+    uz: "Brend uslubi: logotipdan tirkamalarni brendlashgacha.",
   } as Localized,
   intro: {
     en: "Logos, colour, type and the places they live. Open a brand for the full kit.",
@@ -70,7 +70,7 @@ export const adsCopy = {
   eyebrow: { en: "Ads & Content", ru: "Реклама и контент", uz: "Reklama va kontent" } as Localized,
   title: {
     en: "Ads that recruit, and the tools behind them.",
-    ru: "Реклама для найма и её инструменты.",
+    ru: "Реклама, которая нанимает, — и инструменты, которыми я её делаю.",
     uz: "Ishga yollash reklamalari va ularni yaratish vositalari.",
   } as Localized,
   intro: {
@@ -106,6 +106,7 @@ export const adsCopy = {
     uz: "Reklamadan oldingi grafik dizayn ishlari: ijtimoiy tarmoq postlari, bannerlar va flayerlar.",
   } as Localized,
   play: { en: "Play video", ru: "Воспроизвести видео", uz: "Videoni ijro etish" } as Localized,
+  pause: { en: "Pause video", ru: "Пауза", uz: "Pauza" } as Localized,
   close: { en: "Close", ru: "Закрыть", uz: "Yopish" } as Localized,
   openImage: { en: "View larger", ru: "Увеличить", uz: "Kattalashtirish" } as Localized,
 };

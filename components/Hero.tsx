@@ -55,7 +55,7 @@ export default function Hero({ locale }: { locale: Locale }) {
               <Fragment key={word}>
                 {i > 0 ? " " : null}
                 <span className="inline-block overflow-hidden pb-[0.06em] pt-[0.04em] align-bottom last:ml-auto sm:last:ml-0">
-                  <span className="inline-block motion-safe:animate-hero-rise" style={delay(80 + i * 90)}>
+                  <span className="inline-block md:motion-safe:animate-hero-rise" style={delay(80 + i * 90)}>
                     {word}
                   </span>
                 </span>

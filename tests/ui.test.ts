@@ -12,7 +12,7 @@ import { tr } from "@/lib/localize";
 describe("Button", () => {
   test("external links open in a new tab safely", () => {
     const html = renderToStaticMarkup(
-      h(Button, { href: "https://hirara.uz", variant: "ghost", external: true }, "Visit site"),
+      h(Button, { href: "https://hirara.uz", variant: "ghost", external: true, children: "Visit site" }),
     );
     expect(html).toContain('href="https://hirara.uz"');
     expect(html).toContain('target="_blank"');
@@ -20,7 +20,7 @@ describe("Button", () => {
   });
 
   test("internal links stay in the tab", () => {
-    const html = renderToStaticMarkup(h(Button, { href: "#work", variant: "primary" }, "See work"));
+    const html = renderToStaticMarkup(h(Button, { href: "#work", variant: "primary", children: "See work" }));
     expect(html).toContain('href="#work"');
     expect(html).not.toContain("_blank");
     expect(html).toContain("See work");
@@ -41,7 +41,7 @@ describe("Section", () => {
 
 describe("Reveal", () => {
   test("SSR markup carries data-reveal and is never inline-hidden", () => {
-    const html = renderToStaticMarkup(h(Reveal, { delay: 0.2 }, h("p", null, "hello")));
+    const html = renderToStaticMarkup(h(Reveal, { delay: 0.2, children: h("p", null, "hello") }));
     expect(html).toContain("data-reveal");
     expect(html).toContain("<p>hello</p>");
     expect(html).not.toMatch(/opacity:\s*0/);

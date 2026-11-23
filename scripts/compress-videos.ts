@@ -15,7 +15,8 @@ const jobs: { input: string; out: string }[] = [
 ];
 
 function ff(args: string[]) {
-  const r = spawnSync(ffmpegPath as string, ["-y", "-loglevel", "error", ...args], { encoding: "utf8" });
+  if (!ffmpegPath) throw new Error("ffmpeg-static is an optional dependency and is not installed; run npm install ffmpeg-static first.");
+  const r = spawnSync(ffmpegPath, ["-y", "-loglevel", "error", ...args], { encoding: "utf8" });
   if (r.status !== 0) throw new Error(r.stderr);
 }
 

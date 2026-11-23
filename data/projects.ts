@@ -460,9 +460,9 @@ export const projects: Project[] = [
         ],
       },
       result: L(
-        "Campaign launched with three video creatives; the opening hook held 39.9% of viewers.",
-        "Кампания запущена с тремя видеокреативами; первые секунды удержали 39,9% зрителей.",
-        "Kampaniya uchta video kreativ bilan ishga tushirildi; videoning ilk soniyalari tomoshabinlarning 39,9 foizini ushlab qoldi.",
+        "Campaign launched with three ad videos; the opening hook held 39.9% of viewers.",
+        "Кампания запущена с тремя рекламными видео; первые секунды удержали 39,9% зрителей.",
+        "Kampaniya uchta reklama videosi bilan ishga tushirildi; videoning ilk soniyalari tomoshabinlarning 39,9 foizini ushlab qoldi.",
       ),
       brand: {
         logos: [
@@ -561,7 +561,7 @@ export const projects: Project[] = [
           uz: [
             "Facebook va Instagram lid-forma kampaniyasi",
             "Auditoriya: AQSh, «Employment» reklama toifasi",
-            "Hook rate: 39,9%",
+            "Hook rate (ilk soniyalarda ushlab qolish): 39,9%",
           ],
         },
       },

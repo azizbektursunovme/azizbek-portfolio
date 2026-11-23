@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { adsCopy as copy } from "@/data/sections";
 import type { Locale, Media } from "@/data/types";
 import { tr } from "@/lib/localize";
@@ -25,14 +25,18 @@ interface PhoneVideoProps {
 
 /**
  * A muted, looping ad clip in a phone-shaped frame. It plays only while at
- * least half of it is in view and pauses when it leaves. Under
- * prefers-reduced-motion it never starts by itself: the poster stays and a
- * visible Play button lets the visitor start it.
+ * least half of it is in view and pauses when it leaves. A play/pause toggle
+ * (WCAG 2.2.2) is always present: shown on hover and keyboard focus, always on
+ * touch devices, and always while the clip is stopped. Pausing it stops
+ * autoplay-in-view until the visitor presses play again. Under
+ * prefers-reduced-motion it never starts by itself: the poster stays until
+ * the visitor presses play.
  */
 export default function PhoneVideo({ media, locale = "en", className }: PhoneVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const reduced = useSyncExternalStore(subscribe, getReduced, getServerReduced);
   const [playing, setPlaying] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
   const label = tr(media.alt, locale);
 
   // Reduced motion switched on mid-play: stop the video.
@@ -42,7 +46,7 @@ export default function PhoneVideo({ media, locale = "en", className }: PhoneVid
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || reduced || typeof IntersectionObserver === "undefined") return;
+    if (!el || reduced || userPaused || typeof IntersectionObserver === "undefined") return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
@@ -55,12 +59,26 @@ export default function PhoneVideo({ media, locale = "en", className }: PhoneVid
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [reduced]);
+  }, [reduced, userPaused]);
+
+  function toggle() {
+    const el = ref.current;
+    if (!el) return;
+    if (playing) {
+      setUserPaused(true);
+      el.pause();
+    } else {
+      setUserPaused(false);
+      el.play().catch(() => {});
+    }
+  }
+
+  const verb = tr(playing ? copy.pause : copy.play, locale);
 
   return (
     <div
       className={cn(
-        "relative w-full overflow-hidden rounded-[1.75rem] border-[5px] border-ink bg-ink shadow-[0_18px_40px_-24px_rgba(21,21,21,0.55)]",
+        "group relative w-full overflow-hidden rounded-[1.75rem] border-[5px] border-ink bg-ink shadow-[0_18px_40px_-24px_rgba(21,21,21,0.55)]",
         className,
       )}
       style={{ aspectRatio: `${media.width} / ${media.height}` }}
@@ -80,18 +98,22 @@ export default function PhoneVideo({ media, locale = "en", className }: PhoneVid
         onPause={() => setPlaying(false)}
         className="h-full w-full object-cover"
       />
-      {reduced && !playing ? (
-        <button
-          type="button"
-          onClick={() => ref.current?.play().catch(() => {})}
-          aria-label={`${tr(copy.play, locale)}: ${label}`}
-          className="absolute inset-0 flex items-center justify-center bg-ink/20"
-        >
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-paper text-ink">
-            <Play aria-hidden="true" className="ml-0.5 h-6 w-6 fill-current" strokeWidth={1.5} />
-          </span>
-        </button>
-      ) : null}
+      <button
+        type="button"
+        onClick={toggle}
+        aria-pressed={playing}
+        aria-label={`${verb}: ${label}`}
+        className={cn(
+          "absolute right-3 bottom-3 flex h-10 w-10 items-center justify-center rounded-full bg-paper text-ink shadow-sm transition-opacity duration-200 ease-out-quint focus-visible:opacity-100 group-hover:opacity-100 pointer-coarse:opacity-100",
+          playing ? "opacity-0" : "opacity-100",
+        )}
+      >
+        {playing ? (
+          <Pause aria-hidden="true" className="h-4 w-4 fill-current" strokeWidth={1.5} />
+        ) : (
+          <Play aria-hidden="true" className="ml-0.5 h-4 w-4 fill-current" strokeWidth={1.5} />
+        )}
+      </button>
     </div>
   );
 }

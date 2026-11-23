@@ -60,9 +60,29 @@ test.describe("ads section", () => {
   });
 });
 
+test.describe("ads section, pause control", () => {
+  test("pause stops autoplay-in-view until play is pressed again", async ({ page }) => {
+    await page.goto("/en");
+    const v = page.locator("#ads video").first();
+    await v.scrollIntoViewIfNeeded();
+    await expect.poll(() => v.evaluate((e: HTMLVideoElement) => !e.paused), { timeout: 8000 }).toBe(true);
+    const frame = page.locator("#ads").locator("div:has(> video)").first();
+    await frame.hover();
+    await frame.getByRole("button", { name: /^Pause/ }).click();
+    await expect.poll(() => v.evaluate((e: HTMLVideoElement) => e.paused), { timeout: 8000 }).toBe(true);
+    // Leave and come back: it must stay paused.
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await v.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1000);
+    expect(await v.evaluate((e: HTMLVideoElement) => e.paused)).toBe(true);
+    await frame.getByRole("button", { name: /^Play/ }).click();
+    await expect.poll(() => v.evaluate((e: HTMLVideoElement) => !e.paused), { timeout: 8000 }).toBe(true);
+  });
+});
+
 test.describe("ads section, reduced motion", () => {
   test.use({ reducedMotion: "reduce" });
-  test("does not autoplay; offers a play button", async ({ page }) => {
+  test("does not autoplay; play, then pause stays paused", async ({ page }) => {
     await page.goto("/en");
     const v = page.locator("#ads video").first();
     await v.scrollIntoViewIfNeeded();
@@ -72,5 +92,10 @@ test.describe("ads section, reduced motion", () => {
     await expect(play).toBeVisible();
     await play.click();
     await expect.poll(() => v.evaluate((e: HTMLVideoElement) => !e.paused), { timeout: 8000 }).toBe(true);
+    const pause = page.locator("#ads").getByRole("button", { name: /^Pause/ }).first();
+    await expect(pause).toHaveAttribute("aria-pressed", "true");
+    await pause.click();
+    await expect.poll(() => v.evaluate((e: HTMLVideoElement) => e.paused), { timeout: 8000 }).toBe(true);
+    await expect(play).toHaveAttribute("aria-pressed", "false");
   });
 });

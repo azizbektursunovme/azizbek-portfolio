@@ -2,6 +2,7 @@ import { createElement as h } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vitest";
 import PhoneVideo from "@/components/PhoneVideo";
+import { adsCopy as copy } from "@/data/sections";
 import type { Media } from "@/data/types";
 
 const media: Media = {
@@ -27,5 +28,13 @@ describe("PhoneVideo", () => {
     expect(html).not.toMatch(/autoplay/i);
     expect(html).toContain('aria-label="Creative A1"');
     expect(html).not.toContain("<iframe");
+  });
+  test("always renders a localized play/pause toggle (WCAG 2.2.2)", () => {
+    expect(html).toMatch(/<button[^>]*aria-pressed="false"[^>]*aria-label="Play video: Creative A1"/);
+    const ru = renderToStaticMarkup(h(PhoneVideo, { media: { ...media, alt: { en: "A", ru: "Б", uz: "B" } }, locale: "ru" }));
+    expect(ru).toContain('aria-label="Воспроизвести видео: Б"');
+  });
+  test("every locale has a pause label", () => {
+    expect(copy.pause).toEqual({ en: "Pause video", ru: "Пауза", uz: "Pauza" });
   });
 });

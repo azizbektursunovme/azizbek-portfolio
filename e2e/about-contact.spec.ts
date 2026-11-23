@@ -34,27 +34,32 @@ test.describe("about", () => {
 });
 
 test.describe("copy email layout", () => {
-  for (const vp of [
-    { width: 1440, height: 900 },
-    { width: 390, height: 844 },
+  for (const loc of [
+    { lang: "en", copied: "Copied" },
+    { lang: "ru", copied: "Скопировано" },
   ]) {
-    test(`copied state does not collide at ${vp.width}px`, async ({ page, context }) => {
-      await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-      await page.setViewportSize(vp);
-      await page.goto("/en");
-      const btn = page.locator("#contact").getByTestId("copy-email");
-      const cv = page.locator("#contact").locator(`a[href="${profile.cvPath}"]`);
-      await btn.scrollIntoViewIfNeeded();
-      const before = (await btn.boundingBox())!;
-      await btn.click();
-      await expect(btn).toContainText("Copied");
-      const a = (await btn.boundingBox())!;
-      const b = (await cv.boundingBox())!;
-      expect(a.width).toBeCloseTo(before.width, 0);
-      const overlap = a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
-      expect(overlap).toBe(false);
-      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(vp.width);
-    });
+    for (const vp of [
+      { width: 1440, height: 900 },
+      { width: 390, height: 844 },
+    ]) {
+      test(`copied state keeps its width and does not collide at ${vp.width}px (${loc.lang})`, async ({ page, context }) => {
+        await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+        await page.setViewportSize(vp);
+        await page.goto(`/${loc.lang}`);
+        const btn = page.locator("#contact").getByTestId("copy-email");
+        const cv = page.locator("#contact").locator(`a[href="${profile.cvPath}"]`);
+        await btn.scrollIntoViewIfNeeded();
+        const before = (await btn.boundingBox())!;
+        await btn.click();
+        await expect(btn).toContainText(loc.copied);
+        const a = (await btn.boundingBox())!;
+        const b = (await cv.boundingBox())!;
+        expect(a.width).toBeCloseTo(before.width, 0);
+        const overlap = a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
+        expect(overlap).toBe(false);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(vp.width);
+      });
+    }
   }
 });
 

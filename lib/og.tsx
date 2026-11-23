@@ -17,35 +17,24 @@ async function serifFont() {
 }
 
 /**
- * Instrument Serif has no Cyrillic (and no Uzbek ʻ). For those glyphs satori
- * falls back to the next font in the list, so fetch Oranienbaum (the site's Cyrillic display face) from Google
- * Fonts, subset to just the characters it has to draw. If the fetch fails the
- * card still renders (satori's own fallback takes over).
+ * Instrument Serif has no Cyrillic. Satori falls back to the next loaded font
+ * for those glyphs, so Oranienbaum (the site's Cyrillic display face, OFL, also
+ * committed under app/fonts) is read from disk, never fetched at request time.
  */
-async function fallbackFont(text: string): Promise<ArrayBuffer | null> {
-  const chars = [...new Set([...text].filter((c) => c.codePointAt(0)! > 0xff))].join("");
-  if (!chars) return null;
-  try {
-    const url = `https://fonts.googleapis.com/css2?family=Oranienbaum&text=${encodeURIComponent(chars)}`;
-    const css = await (await fetch(url)).text();
-    const src = css.match(/src: url\((.+?)\) format\('(opentype|truetype)'\)/)?.[1];
-    if (!src) return null;
-    const res = await fetch(src);
-    return res.ok ? await res.arrayBuffer() : null;
-  } catch {
-    return null;
-  }
+async function cyrillicFont() {
+  return readFile(path.join(process.cwd(), "app/fonts/Oranienbaum-Regular.ttf"));
 }
 
-export async function renderOg(opts: { eyebrow: string; title: string; titleSize: number; body: string; footer: string }) {
-  const [data, extra] = await Promise.all([
-    serifFont(),
-    fallbackFont(`${opts.eyebrow}${opts.title}${opts.body}${opts.footer}`),
-  ]);
+/** Neither card font has the Uzbek modifier letter ʻ (U+02BB); draw the close ’ instead. */
+const glyphSafe = (s: string) => s.replace(/ʻ/g, "’");
+
+export async function renderOg(raw: { eyebrow: string; title: string; titleSize: number; body: string; footer: string }) {
+  const opts = { ...raw, eyebrow: glyphSafe(raw.eyebrow), title: glyphSafe(raw.title), body: glyphSafe(raw.body), footer: glyphSafe(raw.footer) };
+  const [data, extra] = await Promise.all([serifFont(), cyrillicFont()]);
   const fonts: { name: string; data: ArrayBuffer | Buffer; style: "normal"; weight: 400 }[] = [
     { name: "Instrument Serif", data, style: "normal", weight: 400 },
   ];
-  if (extra) fonts.push({ name: "Oranienbaum", data: extra, style: "normal", weight: 400 });
+  fonts.push({ name: "Oranienbaum", data: extra, style: "normal", weight: 400 });
   return new ImageResponse(
     (
       <div

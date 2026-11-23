@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { describe, expect, test } from "vitest";
 import * as about from "../data/about";
 import * as experience from "../data/experience";
@@ -104,10 +102,4 @@ describe("translations complete", () => {
     expect(bad).toEqual([]);
   });
 
-  test("i18n translation files have the same keys", () => {
-    const keys = (l: string) =>
-      Object.keys(JSON.parse(readFileSync(join(__dirname, "..", "i18n", "translations", `${l}.json`), "utf8"))).sort();
-    expect(keys("ru")).toEqual(keys("en"));
-    expect(keys("uz")).toEqual(keys("en"));
-  });
 });

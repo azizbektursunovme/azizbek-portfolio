@@ -18,7 +18,7 @@ These are the choices I was least sure of; everything else should read naturally
 |---|---|---|---|
 | owner-operator (driver who owns the truck) | водитель со своим тягачом | oʻz yuk mashinasiga ega haydovchi | Long in both. Alternatives: RU «овнер-оператор», UZ «oʻz tyagachi bilan ishlaydigan haydovchi» or keeping «owner-operator». |
 | brand identity / brand kit | фирменный стиль | brend uslubi | UZ alternatives: «brend identifikatsiyasi», «korporativ uslub», «brendbuk». |
-| hook rate | удержание на старте (hook rate) | Hook rate | UZ kept the English marketing term. |
+| hook rate | удержание на старте (hook rate) | Hook rate (ilk soniyalarda ushlab qolish) | UZ keeps the English term with a short gloss on first use. |
 | Employment ad category (Meta) | категория «Трудоустройство» | «Employment» (ishga yollash) toifasi | RU matches Meta's Russian UI; Meta has no Uzbek UI. |
 | steel gear-unit style (8iz) | в стилистике стального редуктора | poʻlat reduktor uslubida | Literal; rephrase if the real visual idea is different. |
 | Growth & AI (tool group) | Реклама и ИИ | Reklama va AI | Not literal: the group holds ads and AI-video tools. |
@@ -82,7 +82,7 @@ File: `data/sections.ts`
 | key | EN | RU | UZ |
 |---|---|---|---|
 | `adsCopy.eyebrow` | Ads & Content | Реклама и контент | Reklama va kontent |
-| `adsCopy.title` | Ads that recruit, and the tools behind them. | Реклама для найма и её инструменты. | Ishga yollash reklamalari va ularni yaratish vositalari. |
+| `adsCopy.title` | Ads that recruit, and the tools behind them. | Реклама, которая нанимает, — и инструменты, которыми я её делаю. | Ishga yollash reklamalari va ularni yaratish vositalari. |
 | `adsCopy.intro` | Meta ads, Instagram creatives and AI video, made for GFS Group. Videos play while they are on screen. | Реклама в Meta, креативы для Instagram и ИИ-видео, сделанные для GFS Group. Видео воспроизводится, пока оно на экране. | GFS Group uchun tayyorlangan Meta reklamalari, Instagram kreativlari va AI videolar. Videolar ekranda koʻrinib turganda ijro etiladi. |
 | `adsCopy.madeAt` | Made at GFS Group | Сделано в GFS Group | GFS Group’da tayyorlangan |
 | `adsCopy.creatives` | Creatives | Креативы | Kreativlar |
@@ -95,10 +95,11 @@ File: `data/sections.ts`
 | `adsCopy.archiveTitle` | Earlier work | Ранние работы | Avvalgi ishlar |
 | `adsCopy.archiveNote` | Graphic design from before the ads: social posts, banners and flyers. | Графический дизайн до рекламных проектов: посты для соцсетей, баннеры и флаеры. | Reklamadan oldingi grafik dizayn ishlari: ijtimoiy tarmoq postlari, bannerlar va flayerlar. |
 | `adsCopy.play` | Play video | Воспроизвести видео | Videoni ijro etish |
+| `adsCopy.pause` | Pause video | Пауза | Pauza |
 | `adsCopy.close` | Close | Закрыть | Yopish |
 | `adsCopy.openImage` | View larger | Увеличить | Kattalashtirish |
 | `brandingCopy.eyebrow` | Branding | Брендинг | Brending |
-| `brandingCopy.title` | Brand identities, from logo to livery. | Фирменный стиль: от логотипа до брендирования фур. | Brend uslubi: logotipdan furalarni brendlashgacha. |
+| `brandingCopy.title` | Brand identities, from logo to livery. | Фирменный стиль: от логотипа до брендирования фур. | Brend uslubi: logotipdan tirkamalarni brendlashgacha. |
 | `brandingCopy.intro` | Logos, colour, type and the places they live. Open a brand for the full kit. | Логотипы, цвета, шрифты и их применение. Откройте бренд, чтобы увидеть весь фирменный стиль. | Logotiplar, ranglar, shriftlar va ularning qoʻllanilishi. Toʻliq toʻplamni koʻrish uchun brendni oching. |
 | `caseCopy.caseStudy` | Case study | Кейс | Keys |
 | `caseCopy.allWork` | All work | Все работы | Barcha ishlar |
@@ -140,7 +141,7 @@ File: `data/sections.ts`
 | `caseCopy.notFoundHome` | Go to the home page | На главную | Bosh sahifaga |
 | `caseCopy.notFoundCases` | Or open a case study | Или откройте кейс | Yoki keyslardan birini oching |
 | `disciplineLabel.web` | Websites | Сайты | Saytlar |
-| `websitesCopy.title` | Every website I have built or designed. | Все сайты, которые я сделал или спроектировал. | Men yaratgan yoki dizaynini qilgan barcha saytlar. |
+| `websitesCopy.title` | Every website I have built or designed. | Все сайты, которые я сделал или спроектировал. | Men yaratgan yoki dizaynini ishlab chiqqan barcha saytlar. |
 | `websitesCopy.intro` | Client sites, a startup product and my own projects. Each card says what my part was. | Клиентские сайты, стартап-продукт и мои собственные проекты. На каждой карточке указано, что именно делал я. | Mijozlar saytlari, startap mahsuloti va shaxsiy loyihalarim. Har bir kartada aynan nima qilganim yozilgan. |
 | `websitesCopy.redesignTitle` | Redesign concepts for GFS Group companies | Концепции редизайна для компаний GFS Group | GFS Group kompaniyalari uchun redizayn konsepsiyalari |
 | `websitesCopy.redesignNote` | Concept pages, not live sites. | Это концепты, а не действующие сайты. | Bular konsept sahifalar, ishlayotgan saytlar emas. |
@@ -261,11 +262,11 @@ File: `data/projects.ts`
 | `projects.good-idea-cargo-ads.caseStudy.whatIDid[2]` | Made creative A2: a Seedance clip with an end card. | Сделал креатив A2: ролик Seedance с финальной заставкой. | A2 kreativini tayyorladim: yakuniy kadrli Seedance klipi. |
 | `projects.good-idea-cargo-ads.caseStudy.whatIDid[3]` | Made creative O1: a carousel. | Сделал креатив O1: карусель. | O1 kreativini tayyorladim: karusel. |
 | `projects.good-idea-cargo-ads.caseStudy.whatIDid[4]` | Set up a call-log pipeline for the leads. | Настроил журнал звонков для обработки лидов. | Lidlar uchun qoʻngʻiroqlar jurnalini yuritish tizimini sozladim. |
-| `projects.good-idea-cargo-ads.caseStudy.result` | Campaign launched with three video creatives; the opening hook held 39.9% of viewers. | Кампания запущена с тремя видеокреативами; первые секунды удержали 39,9% зрителей. | Kampaniya uchta video kreativ bilan ishga tushirildi; videoning ilk soniyalari tomoshabinlarning 39,9 foizini ushlab qoldi. |
+| `projects.good-idea-cargo-ads.caseStudy.result` | Campaign launched with three ad videos; the opening hook held 39.9% of viewers. | Кампания запущена с тремя рекламными видео; первые секунды удержали 39,9% зрителей. | Kampaniya uchta reklama videosi bilan ishga tushirildi; videoning ilk soniyalari tomoshabinlarning 39,9 foizini ushlab qoldi. |
 | `projects.good-idea-cargo-ads.caseStudy.ads.objective` | Owner-operator recruiting through Facebook and Instagram lead forms, US. | Найм водителей со своим тягачом через лид-формы Facebook и Instagram, США. | Facebook va Instagram lid-formalari orqali oʻz yuk mashinasiga ega haydovchilarni yollash, AQSh. |
 | `projects.good-idea-cargo-ads.caseStudy.ads.facts[0]` | Facebook and Instagram lead-form campaign | Кампания с лид-формами в Facebook и Instagram | Facebook va Instagram lid-forma kampaniyasi |
 | `projects.good-idea-cargo-ads.caseStudy.ads.facts[1]` | Audience: US, Employment ad category | Аудитория: США, категория «Трудоустройство» | Auditoriya: AQSh, «Employment» reklama toifasi |
-| `projects.good-idea-cargo-ads.caseStudy.ads.facts[2]` | Hook rate: 39.9% | Удержание на старте (hook rate): 39,9% | Hook rate: 39,9% |
+| `projects.good-idea-cargo-ads.caseStudy.ads.facts[2]` | Hook rate: 39.9% | Удержание на старте (hook rate): 39,9% | Hook rate (ilk soniyalarda ushlab qolish): 39,9% |
 | `projects.convertboost-ai.summary` | AI landing-page audit SaaS. | SaaS для ИИ-аудита лендингов. | Lendinglarni AI yordamida audit qiluvchi SaaS. |
 | `projects.convertboost-ai.role` | Own product: design and development | Собственный продукт: дизайн и разработка | Shaxsiy mahsulot: dizayn va dasturlash |
 | `projects.workers.summary` | Website for wrkrs.uz, a rap collective from Tashkent. | Сайт wrkrs.uz для рэп-объединения из Ташкента. | Toshkentlik rep jamoasi uchun wrkrs.uz sayti. |
