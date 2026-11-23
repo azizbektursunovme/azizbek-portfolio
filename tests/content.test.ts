@@ -123,6 +123,11 @@ describe("content model", () => {
       "[USDOT",
       "[MC number",
       "with a friend",
+      "Swiss",
+      "Junior UI",
+      "Младший UI",
+      "Ведущий бренд",
+      "Junior UI dizayner",
     ];
     const hits: string[] = [];
     const walk = (dir: string) => {
@@ -131,7 +136,8 @@ describe("content model", () => {
         const full = join(dir, name);
         if (statSync(full).isDirectory()) walk(full);
         else if (/\.(tsx?|json|css|mdx?)$/.test(name)) {
-          const text = readFileSync(full, "utf8");
+          // Block comments are not rendered, so they are ignored.
+          const text = readFileSync(full, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
           for (const f of forbidden) if (text.includes(f)) hits.push(`${full}: ${f}`);
         }
       }

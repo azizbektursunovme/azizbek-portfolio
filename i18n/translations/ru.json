@@ -7,33 +7,33 @@
     "contact": "Контакты"
   },
   "hero": {
-    "subtitle": "Графический и UI/UX-дизайнер · Creative Developer",
+    "subtitle": "Frontend Developer & Brand Designer",
     "statement": "Создаю ясные визуальные системы и превращаю цифровые идеи в качественные адаптивные сайты.",
     "scroll": "Прокрутите, чтобы посмотреть"
   },
   "about": {
     "title": "Обо мне",
-    "bio": "Меня зовут Азизбек Турсунов. Я дизайнер и creative developer, объединяющий брендинг, интерактивные интерфейсы и работающие сайты. Опираясь на швейцарский минимализм, структурную типографику и сетки, я веду цифровые идеи от визуального направления до качественного адаптивного продукта.",
+    "bio": "I build client websites from zero and design the brand identities that go with them. I work in the IT department of GFS Group LLC, a US logistics company, and take freelance and startup work.",
     "experience": "Опыт",
     "skills": "Экспертиза",
     "timeline": [
       {
-        "year": "2023 — 2024",
-        "role": "Ведущий бренд- и продуктовый дизайнер",
-        "company": "Nuqta",
-        "desc": "Разработка визуальных стратегий, мобильных интерфейсов и интерактивного опыта для премиальных клиентов."
+        "year": "2024",
+        "role": "Visual Designer, Videographer & SMM",
+        "company": "Nuqta & XM Pro",
+        "desc": "Visual design, video and social media content."
       },
       {
-        "year": "2024 — 2026",
-        "role": "Графический дизайнер",
+        "year": "2024 - 2025",
+        "role": "Visual Designer & Videographer",
         "company": "UIC Games",
-        "desc": "Дизайн бренд-гайдов, упаковочных систем и визуального контента для социальных сетей."
+        "desc": "Visual design and video content."
       },
       {
-        "year": "2021 — 2023",
-        "role": "Младший UI-дизайнер",
+        "year": "2024",
+        "role": "Graphic Designer",
         "company": "Grand Invest",
-        "desc": "Создание вайрфреймов, UI-макетов и графических материалов для веб-приложений."
+        "desc": "YouTube thumbnails."
       }
     ],
     "skillItems": [

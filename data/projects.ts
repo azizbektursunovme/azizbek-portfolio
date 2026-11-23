@@ -88,8 +88,7 @@ export const projects: Project[] = [
     summary: { en: "Website and brand kit for a US trucking company, built from zero." },
     role: { en: "Website + brand identity" },
     stack: ["Next.js", "three.js"],
-    // TODO(davr-url): orchestrator sets the Vercel URL and liveStatus "live" after deploy.
-    links: { liveStatus: "soon" },
+    links: { live: "https://web-mu-nine-85.vercel.app", liveStatus: "live" },
     cover: img("/work/davr-group/brand-preview.png", 1375, 970, "DAVR GROUP brand kit preview"),
     featured: 2,
     caseStudy: {
@@ -104,9 +103,8 @@ export const projects: Project[] = [
       },
       result: { en: "A website and a complete brand kit delivered to the company." },
       web: {
-        // TODO(asset): desktop (1440) + mobile (390) screenshots of the DAVR site, public/work/davr-group/
-        desktop: [],
-        mobile: [],
+        desktop: [img("/work/davr-group/desktop-1.webp", 1440, 900, "DAVR GROUP website, desktop")],
+        mobile: [img("/work/davr-group/mobile-1.webp", 390, 844, "DAVR GROUP website, mobile")],
       },
       brand: {
         logos: [
@@ -144,8 +142,7 @@ export const projects: Project[] = [
     role: { en: "Co-developer" },
     stack: [],
     links: { live: "https://hirara.uz", liveStatus: "live" },
-    // TODO(asset): replace with a Hirara screenshot, public/work/hirara/ (Task 5, local run)
-    cover: placeholder("Hirara product screenshot"),
+    cover: img("/work/hirara/desktop-1.webp", 1440, 900, "Hirara, desktop"),
     featured: 3,
     caseStudy: {
       brief: {
@@ -154,16 +151,16 @@ export const projects: Project[] = [
       whatIDid: {
         en: [
           "Built the Ilgich store template.",
-          "Added order notifications and plan limits.",
-          "Fixed bugs across the product.",
-          "Authored 9 of the repository's 26 commits.",
+          "Added order notifications and limits.",
+          "Bug fixes.",
         ],
       },
       result: { en: "In progress. The product is being connected to hirara.uz." },
       web: {
-        // TODO(asset): landing, dashboard, storefront, bio page and Ilgich template screenshots
-        desktop: [],
-        mobile: [],
+        desktop: [1, 2, 3, 4, 5].map((n) =>
+          img(`/work/hirara/desktop-${n}.webp`, 1440, 900, `Hirara, desktop view ${n}`),
+        ),
+        mobile: [1, 2, 3].map((n) => img(`/work/hirara/mobile-${n}.webp`, 390, 844, `Hirara, mobile view ${n}`)),
       },
     },
   },
@@ -187,7 +184,7 @@ export const projects: Project[] = [
         en: [
           "Designed the brand identity: mark, wordmark lockup, palette and type pairing.",
           "Designed the website.",
-          "Applied the brand to social, share-image and stream overlay formats.",
+          "Mocked up the brand on social, share-image and stream overlay formats.",
         ],
       },
       result: { en: "A complete brand kit and a live website at fragrise.uz." },
@@ -210,8 +207,9 @@ export const projects: Project[] = [
           { name: "Muted", hex: "#A4A4AB" },
         ],
         type: [
-          { name: "Chakra Petch", role: "Display" },
+          { name: "Arial Bold", role: "Wordmark / display (as on the live site)" },
           { name: "Barlow", role: "Body" },
+          { name: "Chakra Petch", role: "Numerals / scores" },
         ],
         applications: [
           img("/work/fragrise/app-social.webp", 1080, 1350, "FRAGRISE social post mockup"),
@@ -229,7 +227,7 @@ export const projects: Project[] = [
     year: "2026",
     disciplines: ["web"],
     summary: { en: "Redesign of an Uzbek apparel brand's store." },
-    role: { en: "Co-developer, redesign" },
+    role: { en: "Co-founder · design and front-end" },
     stack: [],
     // No link to 8iz.uz until the redesign is confirmed as deployed.
     links: { liveStatus: "soon" },
@@ -241,9 +239,9 @@ export const projects: Project[] = [
       },
       whatIDid: {
         en: [
-          "Designed the store around a \"steel gear-unit\" look.",
-          "Built an outfit builder and a print studio.",
-          "Set up a 15-model catalog.",
+          "Designed the new 8iz.uz look (steel gear-unit style).",
+          "Built the redesign together with my co-founder.",
+          "Features: outfit builder, print studio, 15-model catalog.",
         ],
       },
       result: { en: "Launching soon." },
@@ -286,10 +284,9 @@ export const projects: Project[] = [
           "Set up a call-log pipeline for the leads.",
         ],
       },
-      result: { en: "Campaign set up and creatives delivered. The campaign is still learning." },
+      result: { en: "Campaign launched with three video creatives; the opening hook held 39.9% of viewers." },
       ads: {
         objective: { en: "Owner-operator recruiting through Facebook and Instagram lead forms, US." },
-        // TODO(asset): O1 carousel frames (no file exported yet)
         creatives: [
           video(
             "/work/good-idea-cargo-ads/ad-a1-9x16.mp4",
@@ -311,6 +308,9 @@ export const projects: Project[] = [
             720,
             1280,
             "Creative A2, 9:16: Seedance clip with end card",
+          ),
+          ...[1, 2, 3, 4, 5].map((n) =>
+            img(`/work/good-idea-cargo-ads/o1-slide${n}.webp`, 1080, 1350, `Creative O1, carousel slide ${n}`),
           ),
         ],
         tools: ["Meta Ads Manager", "Higgsfield", "Seedance"],
@@ -354,7 +354,7 @@ export const projects: Project[] = [
     client: "Own experiment",
     year: "2026",
     disciplines: ["web"],
-    summary: { en: "Animated creative-studio website concept." },
+    summary: { en: "Studio website concept." },
     role: { en: "Own experiment: design and development" },
     stack: ["React", "TypeScript", "Vite"],
     links: {
@@ -370,12 +370,12 @@ export const projects: Project[] = [
     client: "Own project",
     year: "2026",
     disciplines: ["web"],
-    summary: { en: "Travel guide to six ancient cities, in English, Russian and Uzbek." },
+    summary: { en: "Travel guide to Uzbekistan's Silk Road cities, in English, Russian and Uzbek." },
     role: { en: "Own project: design and development" },
-    stack: ["React", "Vite", "Tailwind CSS"],
+    stack: ["React", "Vite", "Tailwind CSS"], // per repo description
     // Not deployed (scope decision); the user can deploy it later.
     links: { liveStatus: "none", github: "https://github.com/azizbektursunovme/silk-road-uzbekistan" },
-    // TODO(asset): replace with a Silk Road screenshot, public/work/silk-road/ (not captured; site is not deployed)
+    // TODO(asset): no screenshot exists; the site is not deployed. Capture it locally or deploy, then use public/work/silk-road/.
     cover: placeholder("Silk Road Uzbekistan website"),
   },
   {
@@ -391,13 +391,11 @@ export const projects: Project[] = [
     cover: img("/work/cleanpro/business-card/front.png", 480, 280, "CleanPro business card, front"),
     caseStudy: {
       brief: {
-        en: "A brand identity for a cleaning service: a logo that stays clear in small print and on screen.",
+        en: "Logo, colour system and business cards.",
       },
       whatIDid: {
         en: [
-          "Designed the logo: a compact wordmark.",
-          "Defined the color system.",
-          "Designed two-sided business cards.",
+          "Logo, colour system and business cards.",
         ],
       },
       result: { en: "A concise identity package: logo, colors and business cards." },
@@ -428,10 +426,10 @@ export const projects: Project[] = [
     year: "2026",
     disciplines: ["ads"],
     summary: {
-      en: "An owner-operator ad video and a \"Future of Electric Freight\" motion deck made with Higgsfield.",
+      en: "Owner-operator recruiting ad (9:16).",
     },
-    role: { en: "Video and motion content" },
-    stack: ["Higgsfield"],
+    role: { en: "Ad video" },
+    stack: [],
     links: { liveStatus: "none" },
     cover: img("/work/gfs-ads/ad-gfs-9x16.jpg", 720, 1280, "GFS owner-operator ad video, poster frame"),
   },

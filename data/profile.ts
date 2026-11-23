@@ -15,7 +15,7 @@ export const profile: {
   languages: { name: string; level: string }[];
   education: { school: string; detail: string; years: string }[];
   tools: { group: "Dev" | "Design" | "Growth & AI"; items: string[] }[];
-  clientMarks: { name: string; src: string }[];
+  clientMarks: { name: string; src?: string }[];
 } = {
   name: "Azizbek Tursunov",
   title: "Frontend Developer & Brand Designer",
@@ -56,13 +56,12 @@ export const profile: {
     },
   ],
   clientMarks: [
-    { name: "JJR Transportation", src: "/work/jjr-transportation/logo-symbol.svg" },
-    { name: "DAVR GROUP", src: "/work/davr-group/logo-symbol.svg" },
+    { name: "JJR Transportation", src: "/work/jjr-transportation/logo-primary.svg" },
+    { name: "DAVR GROUP", src: "/work/davr-group/logo-primary.svg" },
     { name: "Good Idea Cargo", src: "/work/good-idea-cargo-ads/logo.svg" },
-    { name: "Fragrise", src: "/work/fragrise/mark.svg" },
-    // TODO(asset): 8iz mark (none exists yet).
-    { name: "8iz", src: "/images-portfolio/creative-post.png" },
-    // TODO(asset): GFS Group logo (employer; none exists in public/ yet).
-    { name: "GFS Group", src: "/images-portfolio/creative-post.png" },
+    { name: "Fragrise", src: "/work/fragrise/lockup-dark.svg" },
+    // No 8iz logo exists on disk: the UI renders the name as text.
+    { name: "8iz" },
+    { name: "GFS Group", src: "/work/gfs-group/logo.png" },
   ],
 };

@@ -7,33 +7,33 @@
     "contact": "Aloqa"
   },
   "hero": {
-    "subtitle": "Grafik va UI/UX dizayner · Creative Developer",
+    "subtitle": "Frontend Developer & Brand Designer",
     "statement": "Aniq vizual tizimlarni loyihalayman va raqamli g‘oyalarni sifatli, responsive vebsaytlarga aylantiraman.",
     "scroll": "O'rganish uchun pastga aylantiring"
   },
   "about": {
     "title": "Men haqimda",
-    "bio": "Men Azizbek Tursunov — brending, interaktiv interfeyslar va ishlaydigan vebsaytlarni birlashtiruvchi dizayner hamda creative developer. Swiss minimalism, tizimli tipografika va grid asosida raqamli g‘oyalarni vizual yo‘nalishdan sifatli, responsive tajribagacha olib boraman.",
+    "bio": "I build client websites from zero and design the brand identities that go with them. I work in the IT department of GFS Group LLC, a US logistics company, and take freelance and startup work.",
     "experience": "Ish tajribasi",
     "skills": "Ekspertiza",
     "timeline": [
       {
-        "year": "2023 - 2024",
-        "role": "Yetakchi brend va Product dizayner",
-        "company": "Nuqta",
-        "desc": "Yuqori darajadagi mijozlar uchun vizual strategiyalar, mobil mahsulot interfeyslari va interaktiv tajribalarni boshqarish."
+        "year": "2024",
+        "role": "Visual Designer, Videographer & SMM",
+        "company": "Nuqta & XM Pro",
+        "desc": "Visual design, video and social media content."
       },
       {
-        "year": "2024 - 2026",
-        "role": "Grafik dizayner",
+        "year": "2024 - 2025",
+        "role": "Visual Designer & Videographer",
         "company": "UIC Games",
-        "desc": "Mukammal brend qo'llanmalari, qadoqlash tizimlari va ijtimoiy tarmoqlar uchun dizaynlar yaratish."
+        "desc": "Visual design and video content."
       },
       {
-        "year": "2021 - 2023",
-        "role": "Junior UI dizayner",
+        "year": "2024",
+        "role": "Graphic Designer",
         "company": "Grand Invest",
-        "desc": "Veb-ilovalar uchun vayrfreymlar, UI maketlari va grafik aktivlarni ishlab chiqish."
+        "desc": "YouTube thumbnails."
       }
     ],
     "skillItems": [
