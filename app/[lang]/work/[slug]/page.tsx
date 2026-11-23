@@ -14,6 +14,7 @@ import { profile } from "@/data/profile";
 import { caseCopy as copy } from "@/data/sections";
 import type { Discipline, Locale, Project } from "@/data/types";
 import { tr } from "@/lib/localize";
+import { SITE_URL, languageAlternates, ogLocale } from "@/lib/site";
 
 /*
  * Case study page: /{lang}/work/{slug}. One template, optional blocks.
@@ -40,16 +41,14 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   if (!project?.caseStudy) return {};
   const title = `${project.title} — ${profile.name}`;
   const description = tr(project.summary, locale);
+  const path = `/work/${project.slug}`;
   return {
-    metadataBase: new URL("https://azizbektursunov.uz"),
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url: `https://azizbektursunov.uz/${locale}/work/${project.slug}`,
-      images: project.cover.kind === "image" ? [{ url: project.cover.src }] : undefined,
-    },
+    alternates: { canonical: `/${locale}${path}`, languages: languageAlternates(path) },
+    // og:image comes from the sibling opengraph-image route.
+    openGraph: { type: "article", locale: ogLocale[locale], title, description, url: `${SITE_URL}/${locale}${path}`, siteName: profile.name },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

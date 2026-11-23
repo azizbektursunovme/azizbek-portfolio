@@ -8,6 +8,8 @@ import MotionProvider from "@/components/ui/MotionProvider";
 import { profile } from "@/data/profile";
 import { shellCopy } from "@/data/nav";
 import { tr } from "@/lib/localize";
+import { seo } from "@/data/seo";
+import { SITE_URL, languageAlternates, ogLocale } from "@/lib/site";
 
 /**
  * Only en, ru and uz exist. Language-like codes (/de, /fr-CA) are sent to /en
@@ -34,21 +36,25 @@ export async function generateMetadata(props: { params: Promise<{ lang: string }
   const { lang } = await props.params;
   const locale = resolveLocale(lang);
   // RU/UZ fall back to English until the translation task.
-  const description = `${profile.title} in Tashkent. ${tr(profile.tagline, locale)}`;
+  const description = tr(seo.description, locale);
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: TITLE,
     description,
+    keywords: tr(seo.keywords, locale),
     authors: [{ name: profile.name }],
     creator: profile.name,
+    alternates: { canonical: `/${locale}`, languages: languageAlternates() },
     openGraph: {
       type: "website",
-      locale: locale === "uz" ? "uz_UZ" : locale === "ru" ? "ru_RU" : "en_US",
-      url: `https://azizbektursunov.uz/${locale}`,
+      locale: ogLocale[locale],
+      url: `${SITE_URL}/${locale}`,
       title: TITLE,
       description,
       siteName: profile.name,
     },
+    twitter: { card: "summary_large_image", title: TITLE, description },
   };
 }
 
