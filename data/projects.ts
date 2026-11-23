@@ -71,6 +71,7 @@ export const projects: Project[] = [
           img("/work/jjr-transportation/brand-preview.png", 1375, 943, "JJR Transportation brand kit preview"),
         ],
         guidePdf: "/work/jjr-transportation/guide.pdf",
+        monoSrc: "/work/jjr-transportation/mark-mono.svg",
       },
     },
   },
@@ -124,6 +125,7 @@ export const projects: Project[] = [
           img("/work/davr-group/brand-preview.png", 1375, 970, "DAVR GROUP brand kit preview"),
         ],
         guidePdf: "/work/davr-group/guide.pdf",
+        monoSrc: "/work/davr-group/mark-mono.svg",
       },
     },
   },
@@ -212,6 +214,7 @@ export const projects: Project[] = [
           img("/work/fragrise/app-og.webp", 1200, 630, "FRAGRISE share image"),
           img("/work/fragrise/app-stream.webp", 1920, 1080, "FRAGRISE stream overlay mockup"),
         ],
+        monoSrc: "/work/fragrise/mark-mono.svg",
       },
     },
   },
@@ -260,7 +263,7 @@ export const projects: Project[] = [
     client: "Good Idea Cargo",
     context: { en: "Made at GFS Group" },
     year: "2026",
-    disciplines: ["ads"],
+    disciplines: ["ads", "brand"],
     summary: { en: "Facebook and Instagram lead-form campaign recruiting owner-operators in the US." },
     role: { en: "Ad creatives + campaign setup" },
     stack: ["Meta Ads Manager", "Higgsfield", "Seedance"],
@@ -281,6 +284,24 @@ export const projects: Project[] = [
         ],
       },
       result: { en: "Campaign launched with three video creatives; the opening hook held 39.9% of viewers." },
+      brand: {
+        logos: [
+          img("/work/good-idea-cargo-ads/logo.svg", 800, 800, "Good Idea Cargo logo"),
+          img("/work/good-idea-cargo-ads/logo-square.png", 1080, 1080, "Good Idea Cargo logo, square"),
+        ],
+        palette: [
+          { name: "Navy", hex: "#032553" },
+          { name: "Gold", hex: "#CC8E02" },
+          { name: "White", hex: "#FFFFFF" },
+        ],
+        type: [],
+        applications: [
+          img("/work/good-idea-cargo-ads/ad-a1-9x16.jpg", 720, 1280, "Good Idea Cargo ad A1, 9:16"),
+          img("/work/good-idea-cargo-ads/ad-a2-9x16.jpg", 720, 1280, "Good Idea Cargo ad A2, 9:16"),
+          img("/work/good-idea-cargo-ads/o1-slide1.webp", 1080, 1350, "Good Idea Cargo carousel, slide 1"),
+        ],
+        monoSrc: "/work/good-idea-cargo-ads/mark-mono.svg",
+      },
       ads: {
         objective: { en: "Owner-operator recruiting through Facebook and Instagram lead forms, US." },
         creatives: [

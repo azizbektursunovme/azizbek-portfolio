@@ -18,6 +18,8 @@ export interface BrandBlock {
   type: { name: string; role: string }[];
   applications: Media[];
   guidePdf?: string;
+  /** Single-ink version of the logo for monochrome displays. Omit to fall back to a CSS grayscale of logos[0]. */
+  monoSrc?: string;
 }
 
 export interface WebBlock {

@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
 import { ArrowUpRight } from "lucide-react";
 import Section from "@/components/ui/Section";
 import Reveal from "@/components/ui/Reveal";
@@ -15,7 +13,7 @@ import { cn } from "@/lib/cn";
  * default and in the brand's own colours on hover or keyboard focus. Each
  * tile is one link to the case page, named by the project title.
  *
- * Mono state: public/work/<slug>/mark-mono.* when it exists, otherwise the
+ * Mono state: caseStudy.brand.monoSrc when set, otherwise the
  * colour logo under a CSS grayscale filter. The colour state of a logo that
  * was drawn for a dark ground (JJR, FRAGRISE) gets the brand's darkest
  * palette colour as its stage on hover so it stays legible.
@@ -25,31 +23,24 @@ import { cn } from "@/lib/cn";
 const COLOUR: Record<string, { logo: number; dark?: boolean; big?: boolean }> = {
   // Square artwork with built-in padding: let it fill more of the stage.
   cleanpro: { logo: 0, big: true },
+  "good-idea-cargo-ads": { logo: 0, big: true },
   "jjr-transportation": { logo: 0, dark: true },
   fragrise: { logo: 1, dark: true },
 };
-
-function monoFor(project: Project): string | null {
-  for (const ext of ["svg", "png", "webp"]) {
-    const rel = `/work/${project.slug}/mark-mono.${ext}`;
-    if (existsSync(join(process.cwd(), "public", rel))) return rel;
-  }
-  return null;
-}
 
 function BrandTile({ project, locale, index }: { project: Project; locale: Locale; index: number }) {
   const logos = project.caseStudy?.brand?.logos ?? [];
   const cfg = COLOUR[project.slug] ?? { logo: 0 };
   const colour: Media | undefined = logos[cfg.logo] ?? logos[0];
-  const mono = monoFor(project);
-  const size = cfg.big ? "max-h-[72%] max-w-[72%]" : "max-h-[38%] max-w-[68%]";
+  const mono = project.caseStudy?.brand?.monoSrc ?? null;
+  const size = cfg.big ? "max-h-[60%] max-w-[60%]" : "max-h-[38%] max-w-[68%]";
   const stage = cfg.dark ? project.caseStudy?.brand?.palette[0]?.hex : undefined;
   const titleId = `brand-${project.slug}-title`;
   const metaId = `brand-${project.slug}-meta`;
   // Context when there is one; otherwise the client, unless it just repeats the title, then the role.
   const meta = project.context
     ? tr(project.context, locale)
-    : project.client !== project.title
+    : project.client.toLowerCase() !== project.title.toLowerCase()
       ? project.client
       : tr(project.role, locale);
   const hover = "group-hover/tile:opacity-100 group-focus-visible/tile:opacity-100";
@@ -143,7 +134,7 @@ export default function BrandingSection({ locale }: { locale: Locale }) {
       title={tr(copy.title, locale)}
       intro={<p>{tr(copy.intro, locale)}</p>}
     >
-      <ul role="list" className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
+      <ul role="list" className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-6">
         {brands.map((project, i) => (
           <BrandTile key={project.slug} project={project} locale={locale} index={i} />
         ))}

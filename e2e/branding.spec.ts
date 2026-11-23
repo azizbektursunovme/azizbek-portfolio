@@ -37,4 +37,20 @@ test.describe("branding wall", () => {
     await tile.hover();
     await expect(colourImg).toHaveCSS("opacity", "1");
   });
+
+  test("a brand without a mono mark falls back to a grayscale filter", async ({ page }) => {
+    await page.goto("/en");
+    const tile = page.locator("#branding [data-testid=brand-tile]", { has: page.locator("#brand-cleanpro-title") });
+    const img = tile.locator("img");
+    await expect(img).toHaveCount(1);
+    await tile.scrollIntoViewIfNeeded();
+    await expect(img).toHaveCSS("filter", /grayscale\(1\)/);
+    await tile.getByRole("link").focus();
+    await expect(img).not.toHaveCSS("filter", /grayscale\(1\)/);
+  });
+
+  test("the brand wall includes Good Idea Cargo", async ({ page }) => {
+    await page.goto("/en");
+    await expect(page.locator("#branding [data-testid=brand-tile] a[href='/en/work/good-idea-cargo-ads']")).toHaveCount(1);
+  });
 });
