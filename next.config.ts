@@ -27,8 +27,9 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // A language code we don't have (/de, /de/anything, /fr-CA) goes to the English site.
+      // /cv is the CV page (app/cv), not a language.
       {
-        source: "/:lang((?!(?:en|ru|uz)(?:/|$))[a-zA-Z]{2}(?:-[a-zA-Z]{2,4})?)/:rest*",
+        source: "/:lang((?!(?:en|ru|uz|cv)(?:/|$))[a-zA-Z]{2}(?:-[a-zA-Z]{2,4})?)/:rest*",
         destination: "/en",
         permanent: false,
       },

@@ -65,7 +65,8 @@ export const experience: {
   },
   {
     company: "PDP School",
-    role: { en: "Additional experience (CV only)" },
+    // No role title on record; the CV lists the company and years only.
+    role: { en: "" },
     years: "2023 – 2024",
     points: { en: [] },
     showOnSite: false,
