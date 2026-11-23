@@ -58,8 +58,7 @@ export const profile: {
   email: "azizbektursunov.me@gmail.com",
   telegram: "https://t.me/azizbektursunovv",
   instagram: "https://instagram.com/azizbek___tursunov",
-  // TODO(linkedin): no LinkedIn URL exists anywhere in the repo, spec or notes. Owner must supply it.
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/azizbek-tursunov",
   cvPath: "/Azizbek_Tursunov_CV.pdf",
   languages: [
     { name: "Uzbek", level: "C2 (native)" },

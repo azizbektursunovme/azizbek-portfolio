@@ -198,7 +198,7 @@ File: `data/experience.ts`
 | `experience.Freelance & startups.points[0]` | Fragrise: brand identity and website design. | Fragrise: фирменный стиль и дизайн сайта. | Fragrise: brend uslubi va sayt dizayni. |
 | `experience.Freelance & startups.points[1]` | CleanPro: brand. | CleanPro: бренд. | CleanPro: brend. |
 | `experience.Freelance & startups.points[2]` | ConvertBoost AI: own product. | ConvertBoost AI: собственный продукт. | ConvertBoost AI: shaxsiy mahsulot. |
-| `experience.Freelance & startups.points[3]` | Co-building two startups in collaboration: Hirara and 8iz. | Совместно развиваю два стартапа: Hirara и 8iz. | Ikki startapni hamkorlikda rivojlantiryapman: Hirara va 8iz. |
+| `experience.Freelance & startups.points[3]` | Two startups built in collaboration: Hirara and 8iz. | Два стартапа, созданные совместно: Hirara и 8iz. | Hamkorlikda yaratilgan ikki startap: Hirara va 8iz. |
 | `experience.Ijarachi.role` | Graphic Designer & Content Creator | Графический дизайнер и контент-мейкер | Grafik dizayner va kontent yaratuvchi |
 | `experience.UIC Games.role` | Visual Designer & Videographer | Визуальный дизайнер и видеограф | Vizual dizayner va videograf |
 | `experience.Nuqta & XM Pro.role` | Visual Designer, Videographer & SMM | Визуальный дизайнер, видеограф и SMM-специалист | Vizual dizayner, videograf va SMM mutaxassisi |

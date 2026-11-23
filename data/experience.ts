@@ -40,25 +40,25 @@ export const experience: {
   {
     company: "Freelance & startups",
     role: { en: "Brand designer & developer", ru: "Бренд-дизайнер и разработчик", uz: "Brend dizayner va dasturchi" },
-    years: "2026 – Present",
+    years: "Apr – Oct 2026",
     points: {
       en: [
         "Fragrise: brand identity and website design.",
         "CleanPro: brand.",
         "ConvertBoost AI: own product.",
-        "Co-building two startups in collaboration: Hirara and 8iz.",
+        "Two startups built in collaboration: Hirara and 8iz.",
       ],
       ru: [
         "Fragrise: фирменный стиль и дизайн сайта.",
         "CleanPro: бренд.",
         "ConvertBoost AI: собственный продукт.",
-        "Совместно развиваю два стартапа: Hirara и 8iz.",
+        "Два стартапа, созданные совместно: Hirara и 8iz.",
       ],
       uz: [
         "Fragrise: brend uslubi va sayt dizayni.",
         "CleanPro: brend.",
         "ConvertBoost AI: shaxsiy mahsulot.",
-        "Ikki startapni hamkorlikda rivojlantiryapman: Hirara va 8iz.",
+        "Hamkorlikda yaratilgan ikki startap: Hirara va 8iz.",
       ],
     },
     showOnSite: true,
@@ -97,8 +97,11 @@ export const experience: {
   },
   {
     company: "PDP School",
-    // No role title on record; the CV lists the company and years only.
-    role: { en: "", ru: "", uz: "" },
+    role: {
+      en: "Contracts Department & Assistant to the Director",
+      ru: "Отдел договоров и помощник директора",
+      uz: "Shartnomalar boʻlimi va direktor yordamchisi",
+    },
     years: "2023 – 2024",
     points: { en: [], ru: [], uz: [] },
     showOnSite: false,

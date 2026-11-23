@@ -21,7 +21,12 @@ export default function About({ locale }: { locale: Locale }) {
   const timeline = experience.filter((e) => e.showOnSite);
   /** Plain data strings (company labels, languages) shown per locale; names pass through. */
   const term = (s: string) => (copy.terms[s] ? tr(copy.terms[s], locale) : s);
-  const years = (s: string) => (locale === "en" ? s : s.replace(/present/i, tr(copy.present, locale)));
+  const years = (s: string) =>
+    locale === "en"
+      ? s
+      : s
+          .replace(/present/i, tr(copy.present, locale))
+          .replace(/\b[A-Z][a-z]{2}\b/g, (m) => (copy.months[m] ? tr(copy.months[m], locale) : m));
 
   return (
     <Section id="about" eyebrow={tr(copy.eyebrow, locale)} title={tr(copy.title, locale)}>

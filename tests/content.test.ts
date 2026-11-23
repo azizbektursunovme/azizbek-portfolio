@@ -165,6 +165,13 @@ describe("content model", () => {
     }
   });
 
+  test("owner-confirmed CV facts", () => {
+    const by = (c: string) => experience.find((e) => e.company === c)!;
+    expect(by("Freelance & startups").years).toBe("Apr – Oct 2026");
+    expect(by("PDP School").role.en).toBe("Contracts Department & Assistant to the Director");
+    expect(profile.linkedin).toBe("https://www.linkedin.com/in/azizbek-tursunov");
+  });
+
   test("languages", () => {
     expect(profile.languages).toEqual([
       { name: "Uzbek", level: "C2 (native)" },

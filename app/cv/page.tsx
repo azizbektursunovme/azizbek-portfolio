@@ -138,6 +138,14 @@ export default async function CvPage() {
               <dd>
                 <a href={profile.instagram}>{bare(profile.instagram)}</a>
               </dd>
+              {profile.linkedin ? (
+                <>
+                  <dt>LinkedIn</dt>
+                  <dd>
+                    <a href={profile.linkedin}>{bare(profile.linkedin)}</a>
+                  </dd>
+                </>
+              ) : null}
               <dt>Portfolio</dt>
               <dd>
                 <a href={SITE_URL}>{SITE_HOST}</a>

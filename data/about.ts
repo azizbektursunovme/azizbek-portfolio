@@ -19,6 +19,21 @@ export const aboutCopy = {
   } as Record<"Dev" | "Design" | "Growth & AI", Localized>,
   /** Replaces "Present"/"present" in year ranges ("2026 – Present"). */
   present: { en: "Present", ru: "наст. время", uz: "hozirgacha" } as Localized,
+  /** Replaces English month abbreviations in year ranges ("Apr – Oct 2026"). */
+  months: {
+    Jan: { en: "Jan", ru: "янв.", uz: "yan" },
+    Feb: { en: "Feb", ru: "февр.", uz: "fev" },
+    Mar: { en: "Mar", ru: "март", uz: "mar" },
+    Apr: { en: "Apr", ru: "апр.", uz: "apr" },
+    May: { en: "May", ru: "май", uz: "may" },
+    Jun: { en: "Jun", ru: "июнь", uz: "iyun" },
+    Jul: { en: "Jul", ru: "июль", uz: "iyul" },
+    Aug: { en: "Aug", ru: "авг.", uz: "avg" },
+    Sep: { en: "Sep", ru: "сент.", uz: "sen" },
+    Oct: { en: "Oct", ru: "окт.", uz: "okt" },
+    Nov: { en: "Nov", ru: "нояб.", uz: "noy" },
+    Dec: { en: "Dec", ru: "дек.", uz: "dek" },
+  } as Record<string, Localized>,
   /**
    * Plain strings in profile.ts and experience.ts that the CV keeps in English
    * but the site shows per locale. Anything not listed renders as-is (names).
