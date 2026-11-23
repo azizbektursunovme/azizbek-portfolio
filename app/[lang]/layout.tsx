@@ -1,11 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "@/app/globals.css";
-import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
+import { fontVariables, cyrillicFontVars } from "@/app/fonts";
+import { resolveLocale } from "@/i18n/dictionaries";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-import Preloader from "@/components/Preloader";
-import BackToTop from "@/components/BackToTop";
+import MotionProvider from "@/components/ui/MotionProvider";
+import { profile } from "@/data/profile";
+import { shellCopy } from "@/data/nav";
+import { tr } from "@/lib/localize";
+import { seo } from "@/data/seo";
+import { SITE_URL, languageAlternates, ogLocale } from "@/lib/site";
+import { DEFAULT_THEME, THEME_COLOR, THEME_SCRIPT } from "@/lib/theme";
+
+/**
+ * Only en, ru and uz exist. Language-like codes (/de, /fr-CA) are sent to /en
+ * by next.config.ts; any other first segment is a 404 (app/not-found.tsx).
+ */
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "ru" }, { lang: "uz" }];
@@ -16,69 +27,77 @@ interface LayoutProps {
   params: Promise<{ lang: string }>;
 }
 
-export async function generateMetadata(
-  props: { params: Promise<{ lang: string }> }
-): Promise<Metadata> {
+// Dark is the default theme; ThemeToggle updates this meta when a visitor picks light.
+export const viewport: Viewport = {
+  themeColor: THEME_COLOR[DEFAULT_THEME],
+};
+
+export async function generateMetadata(props: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await props.params;
   const locale = resolveLocale(lang);
-
-  const titles = {
-    en: "Azizbek Tursunov | Designer & Creative Developer",
-    ru: "\u0410\u0437\u0438\u0437\u0431\u0435\u043a \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432 | \u0414\u0438\u0437\u0430\u0439\u043d\u0435\u0440 \u0438 Creative Developer",
-    uz: "Azizbek Tursunov | Dizayner va Creative Developer",
-  };
-
-  const descriptions = {
-    en: "Portfolio of Azizbek Tursunov, a graphic and UI/UX designer who designs and builds polished, responsive digital experiences.",
-    ru: "\u041f\u043e\u0440\u0442\u0444\u043e\u043b\u0438\u043e \u0410\u0437\u0438\u0437\u0431\u0435\u043a\u0430 \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432\u0430: \u0433\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0438 UI/UX-\u0434\u0438\u0437\u0430\u0439\u043d, \u0430 \u0442\u0430\u043a\u0436\u0435 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0430\u0434\u0430\u043f\u0442\u0438\u0432\u043d\u044b\u0445 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432.",
-    uz: "Azizbek Tursunov portfoliosi: grafik va UI/UX dizayn hamda sifatli, responsive raqamli mahsulotlarni loyihalash va yaratish.",
-  };
+  const TITLE = `${profile.name} — ${tr(profile.jobTitle, locale)}`;
+  const description = tr(seo.description, locale);
 
   return {
-    title: titles[locale],
-    description: descriptions[locale],
-    keywords: [
-      "Graphic Design",
-      "Product Design",
-      "Creative Development",
-      "Website Design",
-      "Branding",
-      "Portfolio",
-      "Switzerland minimalism",
-      "Swiss layout",
-      "Next.js portfolio",
-      "Azizbek Tursunov",
-    ],
-    authors: [{ name: "Azizbek Tursunov" }],
-    creator: "Azizbek Tursunov",
+    metadataBase: new URL(SITE_URL),
+    title: TITLE,
+    description,
+    keywords: tr(seo.keywords, locale),
+    authors: [{ name: profile.name }],
+    creator: profile.name,
+    alternates: { canonical: `/${locale}`, languages: languageAlternates() },
     openGraph: {
       type: "website",
-      locale: locale === "uz" ? "uz_UZ" : locale === "ru" ? "ru_RU" : "en_US",
-      url: `https://azizbektursunov.uz/${locale}`,
-      title: titles[locale],
-      description: descriptions[locale],
-      siteName: "Azizbek Tursunov Portfolio",
+      locale: ogLocale[locale],
+      url: `${SITE_URL}/${locale}`,
+      title: TITLE,
+      description,
+      siteName: profile.name,
     },
+    twitter: { card: "summary_large_image", title: TITLE, description },
   };
 }
+
+/*
+ * `js` on <html> lets CSS pre-hide [data-reveal] (see Reveal). It is only set
+ * when IntersectionObserver exists (whileInView needs it), and it is taken
+ * back after 3s if the app never hydrated (MotionProvider sets
+ * data-hydrated), so pre-hidden content can never stay hidden.
+ */
+const JS_FLAG = `(function(){var d=document.documentElement;if(!("IntersectionObserver" in window))return;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-hydrated"))d.classList.remove("js")},3000)})()`;
 
 export default async function RootLayout(props: LayoutProps) {
   const { lang } = await props.params;
   const locale = resolveLocale(lang);
-  const children = props.children;
-  const dict = await getDictionary(locale);
 
   return (
-    <html lang={locale}>
-      <body className="bg-zinc-950 text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-zinc-100 selection:text-zinc-950">
-        <Preloader />
-        <CustomCursor />
-        <BackToTop />
-        <Header dict={dict} />
-        <main className="min-h-screen w-full relative z-10">
-          {children}
-        </main>
-        <Footer dict={dict} />
+    <html
+      lang={locale}
+      className={fontVariables}
+      // Satoshi and Instrument Serif have no Cyrillic: on /ru, Cyrillic falls through to Manrope / Oranienbaum.
+      style={locale === "ru" ? cyrillicFontVars : undefined}
+      // Dark by default, also without JavaScript. THEME_SCRIPT swaps in a stored light choice before paint.
+      data-theme={DEFAULT_THEME}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />
+      </head>
+      <body className="bg-paper font-sans text-ink">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-paper"
+        >
+          {tr(shellCopy.skipToContent, locale)}
+        </a>
+        <MotionProvider>
+          <Header lang={locale} />
+          <main id="main" className="relative w-full">
+            {props.children}
+          </main>
+          <Footer lang={locale} />
+        </MotionProvider>
       </body>
     </html>
   );

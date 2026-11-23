@@ -1,0 +1,47 @@
+"use client";
+
+import { useEffect, useState, type ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
+
+interface RevealProps {
+  children: ReactNode;
+  /** Seconds to wait after the element enters the viewport. */
+  delay?: number;
+  className?: string;
+}
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/**
+ * Fades and un-blurs its children the first time they scroll into view.
+ *
+ * The server markup is never hidden. `app/globals.css` pre-hides
+ * `[data-reveal="pending"]` only under `html.js` and only when the visitor
+ * has not asked for reduced motion, so no-JS and reduced-motion visitors
+ * always see the content. `html.js` is set only when IntersectionObserver
+ * exists and is removed again if hydration doesn't happen within 3s (see the
+ * layout). If it is gone by the time this mounts, the content is already
+ * visible, so it is not animated. Keyframe arrays give motion explicit start
+ * values, so no inline `opacity: 0` is ever server-rendered.
+ */
+export default function Reveal({ children, delay = 0, className }: RevealProps) {
+  const reduce = useReducedMotion();
+  const [armed, setArmed] = useState(false);
+
+  useEffect(() => {
+    setArmed(document.documentElement.classList.contains("js"));
+  }, []);
+
+  const animate = armed && !reduce;
+  return (
+    <motion.div
+      data-reveal="pending"
+      className={className}
+      whileInView={animate ? { opacity: [0, 1], y: [14, 0], filter: ["blur(6px)", "blur(0px)"] } : undefined}
+      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+      transition={{ duration: 0.8, delay, ease: EASE }}
+    >
+      {children}
+    </motion.div>
+  );
+}

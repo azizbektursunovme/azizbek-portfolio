@@ -1,0 +1,52 @@
+{
+  "davr-group": [
+    {
+      "file": "work/davr-group/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/desktop-full.webp",
+      "width": 1440,
+      "height": 3284,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/logo-primary.svg",
+      "width": 555,
+      "height": 192,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/logo-symbol.svg",
+      "width": 249,
+      "height": 192,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/guide.pdf",
+      "width": 0,
+      "height": 0,
+      "kind": "pdf"
+    },
+    {
+      "file": "work/davr-group/trailer-mockup.png",
+      "width": 2172,
+      "height": 588,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/brand-preview.png",
+      "width": 1375,
+      "height": 970,
+      "kind": "image"
+    }
+  ]
+}

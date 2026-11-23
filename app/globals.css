@@ -1,39 +1,194 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&f[]=cabinet-grotesk@800,900&display=swap');
 @import "tailwindcss";
 
+/*
+ * `dark:` variant: matches when <html data-theme="dark">. Dark is the default
+ * (SSR markup), light is opt-in through the header toggle (lib/theme.ts).
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Ledger design tokens. @theme holds the light palette; html[data-theme="dark"]
+ * below overrides the same variables, and every utility reads var(--color-*).
+ * Contrast (WCAG 2.x, normal text needs 4.5:1):
+ *   Light
+ *     ink on paper 16.19 · muted on paper 5.04 · muted on paper-deep 4.57
+ *     accent-ink on paper 5.36 (accent #C8442B is 4.31, so it is for large type, rules and marks only)
+ *     paper on ink 16.19 · muted-inverse on ink 6.85 · accent-inverse on ink 5.52 · paper on green 8.50
+ *   Dark
+ *     ink on paper 15.30 · ink-soft on paper 11.44 · muted on paper 7.07 · muted on paper-deep 6.51
+ *     accent on paper 5.70 · accent-ink on paper 6.50 · accent-ink on paper-deep 5.98 · green on paper 8.54
+ *     paper on ink 15.30 · paper on accent-ink (primary button hover) 6.50 · paper on accent (::selection) 5.70
+ *     on-inverse on surface-inverse 13.79 · muted-inverse on surface-inverse 6.38
+ *     accent-inverse on surface-inverse 5.86 · green-inverse on surface-inverse 7.86
+ */
 @theme {
-  --font-sans: 'Satoshi', 'Inter', 'Arial', system-ui, sans-serif;
-  --font-display: 'Cabinet Grotesk', 'Inter', 'Arial', system-ui, sans-serif;
-}
+  --color-paper: #f4f1ea;
+  --color-paper-deep: #ebe6db;
+  --color-ink: #151515;
+  --color-ink-soft: #2b2926;
+  --color-muted: #6b6660;
+  --color-muted-inverse: #a39e94;
+  --color-rule: #dcd6c8;
+  --color-rule-inverse: #3a3733;
+  --color-accent: #c8442b;
+  --color-accent-ink: #b03a23;
+  --color-accent-inverse: #e06a50;
+  --color-green: #2d4b3f;
+  --color-green-inverse: #8db8a2;
+  /* Inverse panels (footer). Light: an ink slab. Dark: an elevated dark surface. */
+  --color-surface-inverse: #151515;
+  --color-on-inverse: #f4f1ea;
+  /* Physical device frames and the lightbox scrim: near-black in both themes. */
+  --color-device: #151515;
+  --color-on-device: #f4f1ea;
+  /* Separates a device frame from the page; only needed on the dark page. */
+  --color-device-ring: transparent;
+  /* Light stage behind full-colour logos on the dark page (brand wall hover). */
+  --color-logo-stage: #f4f1ea;
 
-html {
-  scroll-behavior: smooth;
-  background-color: #09090b; /* bg-zinc-950 */
-  color: #f4f4f5; /* text-zinc-100 */
-}
+  --shadow-device: 0 18px 40px -24px var(--device-shadow);
+  --shadow-device-lg: 0 24px 48px -24px var(--device-shadow);
 
-/* Custom premium thin scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #09090b;
-}
-::-webkit-scrollbar-thumb {
-  background: #1c1c1e;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2c2c2e;
-}
+  /* Type scale. Body runs on the Tailwind defaults (text-base 16px, text-lg 18px). */
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.1rem;
+  --text-label--letter-spacing: 0.01em;
+  --text-lead: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+  --text-display-sm: clamp(2rem, 1.55rem + 1.9vw, 3.25rem);
+  --text-display-sm--line-height: 1.04;
+  --text-display-sm--letter-spacing: -0.01em;
+  --text-display: clamp(2.6rem, 1.7rem + 3.8vw, 5.25rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.015em;
+  --text-display-xl: clamp(3.25rem, 1.6rem + 7vw, 8.5rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.02em;
 
-/* Hide default cursor on desktop device when custom cursor is active */
-@media (pointer: fine) {
-  body {
-    cursor: none;
+  --container-page: 78rem;
+  --container-prose: 40rem;
+
+  --radius-tile: 1.125rem;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*
+   * Hero load moment (components/Hero.tsx). CSS-only, so it also runs and
+   * finishes without JavaScript; used behind `motion-safe:` so reduced-motion
+   * visitors get the static page. `both` holds the start frame during the delay.
+   */
+  --animate-hero-rise: hero-rise 1s var(--ease-out-quint) both;
+  --animate-hero-rule: hero-rule 1.2s var(--ease-out-quint) both;
+  --animate-hero-fade: hero-fade 0.9s var(--ease-out-quint) both;
+
+  @keyframes hero-rise {
+    from {
+      transform: translateY(108%);
+    }
   }
-  a, button, [role="button"], [data-hover="true"] {
-    cursor: none;
+  @keyframes hero-rule {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+}
+
+/* Font families point at the next/font CSS variables set on <html>. */
+@theme inline {
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, "Segoe UI", Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+@layer base {
+  :root {
+    --device-shadow: rgb(21 21 21 / 0.55);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  /* Dark palette: same names, warm near-black paper, cream ink. */
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --color-paper: #121110;
+    --color-paper-deep: #1c1a17;
+    --color-ink: #ece7dc;
+    --color-ink-soft: #cfc9bd;
+    --color-muted: #a39e94;
+    --color-rule: #2f2c28;
+    --color-accent: #e06a50;
+    --color-accent-ink: #e8775f;
+    --color-green: #8db8a2;
+    --color-surface-inverse: #1e1c19;
+    --color-on-inverse: #ece7dc;
+    --color-muted-inverse: #a39e94;
+    --color-rule-inverse: #34312c;
+    --color-accent-inverse: #e8775f;
+    --color-green-inverse: #8db8a2;
+    --color-device-ring: rgb(255 255 255 / 0.14);
+    --device-shadow: rgb(0 0 0 / 0.85);
+  }
+
+  html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "kern";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* On inverse surfaces accent-ink only reaches 3.02:1 against ink (light); accent-inverse is 5.52:1 (light) / 5.86:1 (dark). */
+  [data-surface="ink"] :focus-visible {
+    outline-color: var(--color-accent-inverse);
+  }
+}
+
+/*
+ * Reveal: SSR markup is always visible. Content is pre-hidden only when
+ * JavaScript is running (html.js, set by an inline script in the layout)
+ * and the visitor has not asked for reduced motion. motion/react then
+ * animates it in and leaves inline styles that win over this rule.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
   }
 }

@@ -1,0 +1,462 @@
+{
+  "silk-road": [
+    {
+      "file": "work/silk-road/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/silk-road/desktop-full.webp",
+      "width": 1440,
+      "height": 5315,
+      "kind": "image"
+    },
+    {
+      "file": "work/silk-road/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    }
+  ],
+  "jjr-transportation": [
+    {
+      "file": "work/jjr-transportation/brand-preview.png",
+      "width": 1375,
+      "height": 943,
+      "kind": "image"
+    },
+    {
+      "file": "work/jjr-transportation/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/jjr-transportation/desktop-full.webp",
+      "width": 1440,
+      "height": 3830,
+      "kind": "image"
+    },
+    {
+      "file": "work/jjr-transportation/guide.pdf",
+      "width": 0,
+      "height": 0,
+      "kind": "pdf"
+    },
+    {
+      "file": "work/jjr-transportation/logo-primary.svg",
+      "width": 1843,
+      "height": 147,
+      "kind": "image"
+    },
+    {
+      "file": "work/jjr-transportation/logo-symbol.svg",
+      "width": 2120,
+      "height": 715,
+      "kind": "image"
+    },
+    {
+      "file": "work/jjr-transportation/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/jjr-transportation/trailer-mockup.png",
+      "width": 1520,
+      "height": 395,
+      "kind": "image"
+    }
+  ],
+  "convertboost-ai": [
+    {
+      "file": "work/convertboost-ai/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/convertboost-ai/desktop-full.webp",
+      "width": 1440,
+      "height": 6000,
+      "kind": "image"
+    },
+    {
+      "file": "work/convertboost-ai/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    }
+  ],
+  "workers": [
+    {
+      "file": "work/workers/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/workers/desktop-full.webp",
+      "width": 1440,
+      "height": 6000,
+      "kind": "image"
+    },
+    {
+      "file": "work/workers/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    }
+  ],
+  "motionforge": [
+    {
+      "file": "work/motionforge/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/motionforge/desktop-full.webp",
+      "width": 1440,
+      "height": 2133,
+      "kind": "image"
+    },
+    {
+      "file": "work/motionforge/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    }
+  ],
+  "fragrise": [
+    {
+      "file": "work/fragrise/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/desktop-full.webp",
+      "width": 1440,
+      "height": 6000,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/lockup-light.svg",
+      "width": 1906,
+      "height": 727,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/lockup-dark.svg",
+      "width": 1906,
+      "height": 727,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/palette.svg",
+      "width": 1600,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/mark.svg",
+      "width": 442,
+      "height": 474,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/mark-black.svg",
+      "width": 442,
+      "height": 474,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/app-social.webp",
+      "width": 1080,
+      "height": 1350,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/app-og.webp",
+      "width": 1200,
+      "height": 630,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/app-stream.webp",
+      "width": 1920,
+      "height": 1080,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/og-original.jpg",
+      "width": 1200,
+      "height": 630,
+      "kind": "image"
+    }
+  ],
+  "good-idea-cargo-ads": [
+    {
+      "file": "work/good-idea-cargo-ads/ad-a1-4x5.mp4",
+      "width": 720,
+      "height": 900,
+      "kind": "video",
+      "poster": "work/good-idea-cargo-ads/ad-a1-4x5.jpg"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/ad-a1-9x16.mp4",
+      "width": 720,
+      "height": 1280,
+      "kind": "video",
+      "poster": "work/good-idea-cargo-ads/ad-a1-9x16.jpg"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/ad-a2-9x16.mp4",
+      "width": 720,
+      "height": 1280,
+      "kind": "video",
+      "poster": "work/good-idea-cargo-ads/ad-a2-9x16.jpg"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/logo-square.png",
+      "width": 1080,
+      "height": 1080,
+      "kind": "image"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/logo.svg",
+      "width": 1067,
+      "height": 1067,
+      "kind": "image"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/o1-preview.webp",
+      "width": 1398,
+      "height": 338,
+      "kind": "image"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/o1-slide1.webp",
+      "width": 1080,
+      "height": 1350,
+      "kind": "image"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/o1-slide2.webp",
+      "width": 1080,
+      "height": 1350,
+      "kind": "image"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/o1-slide3.webp",
+      "width": 1080,
+      "height": 1350,
+      "kind": "image"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/o1-slide4.webp",
+      "width": 1080,
+      "height": 1350,
+      "kind": "image"
+    },
+    {
+      "file": "work/good-idea-cargo-ads/o1-slide5.webp",
+      "width": 1080,
+      "height": 1350,
+      "kind": "image"
+    }
+  ],
+  "gfs-ads": [
+    {
+      "file": "work/gfs-ads/ad-gfs-9x16.mp4",
+      "width": 720,
+      "height": 1280,
+      "kind": "video",
+      "poster": "work/gfs-ads/ad-gfs-9x16.jpg"
+    }
+  ],
+  "cleanpro": [
+    {
+      "file": "work/cleanpro/CleanPro-logo.svg",
+      "width": 1333,
+      "height": 1333,
+      "kind": "image"
+    },
+    {
+      "file": "work/cleanpro/business-card/back.png",
+      "width": 480,
+      "height": 280,
+      "kind": "image"
+    },
+    {
+      "file": "work/cleanpro/business-card/front.png",
+      "width": 480,
+      "height": 280,
+      "kind": "image"
+    },
+    {
+      "file": "work/cleanpro/logo-colors.svg",
+      "width": 533,
+      "height": 267,
+      "kind": "image"
+    }
+  ],
+  "davr-group": [
+    {
+      "file": "work/davr-group/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/desktop-full.webp",
+      "width": 1440,
+      "height": 3284,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/logo-primary.svg",
+      "width": 555,
+      "height": 192,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/logo-symbol.svg",
+      "width": 249,
+      "height": 192,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/guide.pdf",
+      "width": 0,
+      "height": 0,
+      "kind": "pdf"
+    },
+    {
+      "file": "work/davr-group/trailer-mockup.png",
+      "width": 2172,
+      "height": 588,
+      "kind": "image"
+    },
+    {
+      "file": "work/davr-group/brand-preview.png",
+      "width": 1375,
+      "height": 970,
+      "kind": "image"
+    }
+  ],
+  "hirara": [
+    {
+      "file": "work/hirara/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/hirara/desktop-2.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/hirara/desktop-3.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/hirara/desktop-4.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/hirara/desktop-5.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/hirara/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/hirara/mobile-2.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/hirara/mobile-3.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    }
+  ],
+  "8iz": [
+    {
+      "file": "work/8iz/desktop-1.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/8iz/desktop-2.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/8iz/desktop-3.webp",
+      "width": 1440,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/8iz/mobile-1.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/8iz/mobile-2.webp",
+      "width": 390,
+      "height": 844,
+      "kind": "image"
+    },
+    {
+      "file": "work/8iz/look-1.webp",
+      "width": 510,
+      "height": 1332,
+      "kind": "image"
+    },
+    {
+      "file": "work/8iz/look-2.webp",
+      "width": 510,
+      "height": 1332,
+      "kind": "image"
+    },
+    {
+      "file": "work/8iz/look-3.webp",
+      "width": 510,
+      "height": 1332,
+      "kind": "image"
+    }
+  ]
+}

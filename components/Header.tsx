@@ -1,215 +1,281 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { usePathname, useRouter, useParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import Magnetic from "./Magnetic";
-import { Locale } from "@/i18n/dictionaries";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowDown } from "lucide-react";
+import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
+import ThemeToggle from "@/components/ThemeToggle";
+import { navItems, shellCopy } from "@/data/nav";
+import { profile } from "@/data/profile";
+import type { Locale } from "@/data/types";
+import { tr } from "@/lib/localize";
+import { cn } from "@/lib/cn";
 
-interface HeaderProps {
-  dict: {
-    nav: {
-      about: string;
-      works: string;
-      websites: string;
-      services: string;
-      contact: string;
-    };
-  };
+const LOCALES: { code: Locale; name: string }[] = [
+  { code: "en", name: "English" },
+  { code: "ru", name: "Русский" },
+  { code: "uz", name: "Oʻzbekcha" },
+];
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Same path in another locale: /en/work/jjr → /ru/work/jjr. */
+function localizedPath(pathname: string | null, target: Locale) {
+  const segments = (pathname ?? "/").split("/");
+  if (segments.length < 2 || segments[1] === "") return `/${target}`;
+  segments[1] = target;
+  return segments.join("/");
 }
 
-export default function Header({ dict }: HeaderProps) {
+function LanguageSwitch({ lang, className }: { lang: Locale; className?: string }) {
   const pathname = usePathname();
-  const router = useRouter();
-  const params = useParams();
-  const lang = (params.lang as Locale) || "en";
+  return (
+    <nav aria-label={tr(shellCopy.languageNav, lang)} className={className}>
+      <ul className="flex items-center gap-1 font-mono text-label">
+        {LOCALES.map(({ code, name }) => {
+          const current = code === lang;
+          return (
+            <li key={code}>
+              <Link
+                href={localizedPath(pathname, code)}
+                hrefLang={code}
+                lang={code}
+                aria-label={`${name}, ${code}`}
+                aria-current={current ? "true" : undefined}
+                className={cn(
+                  "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2 uppercase transition-colors duration-200",
+                  current ? "bg-ink text-paper" : "text-muted hover:text-ink",
+                )}
+              >
+                {code}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
 
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [isHidden, setIsHidden] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const cvIcon = <ArrowDown className="h-4 w-4" strokeWidth={1.8} />;
+
+export default function Header({ lang }: { lang: Locale }) {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+
+  const isHome = pathname === `/${lang}` || pathname === `/${lang}/`;
+  const hrefFor = (hash: string) => (isHome ? hash : `/${lang}${hash}`);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsScrolled(currentScrollY > 50);
-
-      // Hide header on scroll down, show on scroll up
-      if (currentScrollY > lastScrollY && currentScrollY > 150) {
-        setIsHidden(true);
-      } else {
-        setIsHidden(false);
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
-
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const changeLanguage = (newLang: Locale) => {
-    if (newLang === lang) return;
-    const pathSegments = pathname.split("/");
-    // pathSegments[0] is empty, pathSegments[1] is current lang
-    pathSegments[1] = newLang;
-    const newPath = pathSegments.join("/");
-    router.push(newPath);
-  };
+  // Close on route change.
+  useEffect(() => setOpen(false), [pathname]);
 
-  const navItems = [
-    { label: dict.nav.about, href: `#about` },
-    { label: dict.nav.works, href: `#works` },
-    { label: dict.nav.websites, href: `#websites` },
-    { label: dict.nav.services, href: `#services` },
-    { label: dict.nav.contact, href: `#contact` },
-  ];
+  // While open: focus moves into the sheet, the page behind is inert and does
+  // not scroll, and Escape closes the sheet and returns focus to the button.
+  useEffect(() => {
+    if (!open) return;
+    const behind = [document.getElementById("main"), document.getElementById("site-footer")];
+    behind.forEach((el) => el?.setAttribute("inert", ""));
+    const frame = requestAnimationFrame(() => {
+      sheetRef.current?.querySelector<HTMLElement>("a[href]")?.focus({ preventScroll: true });
+    });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
+    };
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      cancelAnimationFrame(frame);
+      behind.forEach((el) => el?.removeAttribute("inert"));
+      root.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
-  const getHref = (href: string) => {
-    // If not on the homepage, route back to homepage first
-    const isHomepage = pathname === `/${lang}` || pathname === `/${lang}/`;
-    return isHomepage ? href : `/${lang}${href}`;
-  };
+  // Back on a wide screen the sheet is meaningless; drop it.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => mq.matches && setOpen(false);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  const menuLabel = tr(open ? shellCopy.closeMenu : shellCopy.openMenu, lang);
 
   return (
-    <motion.header
-      animate={{ y: isHidden && !isMobileMenuOpen ? -100 : 0 }}
-      transition={{ duration: 0.4, ease: [0.215, 0.61, 0.355, 1] }}
-      className={`fixed left-0 top-0 z-40 w-full transition-colors duration-300 ${
-        isScrolled || isMobileMenuOpen ? "bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900" : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
-        {/* Name Logo */}
-        <Link href={`/${lang}`} className="group relative z-50 flex flex-col items-start leading-none font-bold uppercase tracking-widest text-zinc-100">
-          <span className="text-sm">Azizbek</span>
-          <span className="text-zinc-500 transition-colors group-hover:text-zinc-300">Tursunov</span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-10">
-          <ul className="flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-zinc-400">
-            {navItems.map((item, index) => (
-              <li key={index}>
-                <Magnetic range={40} strength={0.3}>
-                  <Link
-                    href={getHref(item.href)}
-                    className="relative py-2 hover:text-zinc-100 transition-colors duration-200"
-                  >
-                    {item.label}
-                  </Link>
-                </Magnetic>
-              </li>
-            ))}
-          </ul>
-
-          {/* Lang Selector */}
-          <div className="flex items-center gap-2 border-l border-zinc-800 pl-8 font-mono text-xs font-medium">
-            {(["en", "ru", "uz"] as Locale[]).map((l, i) => (
-              <button
-                key={l}
-                onClick={() => changeLanguage(l)}
-                className={`transition-colors uppercase duration-200 ${
-                  lang === l ? "text-zinc-100 font-bold" : "text-zinc-500 hover:text-zinc-300"
-                }`}
-              >
-                {l}
-                {i < 2 && <span className="ml-2 text-zinc-800 pointer-events-none">|</span>}
-              </button>
-            ))}
-          </div>
-        </nav>
-
-        {/* Mobile Navigation Toggles */}
-        <div className="flex lg:hidden items-center gap-4">
-          {/* Lang selector for mobile */}
-          <div className="flex items-center gap-2 font-mono text-xs">
-            {(["en", "ru", "uz"] as Locale[]).map((l) => (
-              <button
-                key={l}
-                onClick={() => changeLanguage(l)}
-                className={`uppercase ${
-                  lang === l ? "text-zinc-100 font-bold" : "text-zinc-500"
-                }`}
-              >
-                {l}
-              </button>
-            ))}
+    <>
+      {/* Anchor for "Back to top"; the sticky header itself cannot be a scroll target. */}
+      <span id="top" aria-hidden="true" className="absolute left-0 top-0" />
+      <header
+        className={cn(
+          "sticky top-0 z-50 border-b transition-[background-color,border-color] duration-300",
+          scrolled || open ? "border-rule bg-paper/90 backdrop-blur-md" : "border-transparent bg-paper",
+        )}
+      >
+        {/* lg gaps run tighter so RU/UZ labels plus the theme toggle still fit at 1024px. */}
+        <Container className="flex h-16 items-center justify-between gap-6 md:h-[4.5rem] lg:gap-4 xl:gap-6">
+          <div className="flex items-center gap-4">
+            <Link
+              href={`/${lang}`}
+              className="whitespace-nowrap font-serif text-[1.625rem] leading-none tracking-[-0.01em] text-ink transition-colors hover:text-accent-ink"
+            >
+              {profile.name}
+            </Link>
+            {/* RU/UZ labels run longer: the status pill only joins the bar from 2xl there. */}
+            <span
+              className={cn(
+                "hidden items-center gap-2 whitespace-nowrap border-l border-rule pl-4 font-mono text-label text-green",
+                lang === "en" ? "xl:inline-flex" : "2xl:inline-flex",
+              )}
+            >
+              <span aria-hidden="true" className="relative flex h-2 w-2">
+                <span className="absolute inset-0 rounded-full bg-green/40 motion-safe:animate-ping" />
+                <span className="relative h-2 w-2 rounded-full bg-green" />
+              </span>
+              {tr(profile.openTo, lang)}
+            </span>
           </div>
 
-          <button
-            type="button"
-            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-navigation"
-            onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="group relative z-50 flex h-10 w-10 items-center justify-center rounded-full border border-zinc-800 bg-zinc-950/70 text-zinc-100 transition-colors duration-200 hover:border-zinc-600 hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-100/40"
-          >
-            <span className="sr-only">
-              {isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            </span>
-            <span className="relative h-4 w-5">
-              <span
-                className={`absolute left-0 top-0 h-px w-5 bg-current transition-transform duration-300 ${
-                  isMobileMenuOpen ? "translate-y-2 rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`absolute left-0 top-2 h-px w-5 origin-center bg-current transition-transform duration-200 ${
-                  isMobileMenuOpen ? "scale-x-0" : "scale-x-100"
-                }`}
-              />
-              <span
-                className={`absolute left-0 top-4 h-px w-5 bg-current transition-transform duration-300 ${
-                  isMobileMenuOpen ? "-translate-y-2 -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.nav
-            id="mobile-navigation"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25, ease: [0.215, 0.61, 0.355, 1] }}
-            className="lg:hidden border-t border-zinc-900 bg-zinc-950/95 px-6 py-6 backdrop-blur-xl"
-          >
-            <ul className="mx-auto flex max-w-7xl flex-col gap-1 font-mono text-xs uppercase tracking-widest text-zinc-400">
-              {navItems.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    href={getHref(item.href)}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block rounded-lg border border-transparent px-4 py-4 transition-colors duration-200 hover:border-zinc-800 hover:bg-zinc-900/60 hover:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-100/30"
+          <nav aria-label={tr(shellCopy.mainNav, lang)} className="hidden lg:block">
+            <ul className="flex items-center gap-1">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={hrefFor(item.href)}
+                    className="group relative inline-flex h-10 items-center whitespace-nowrap px-2.5 text-[0.9375rem] xl:px-3 text-ink/80 transition-colors hover:text-ink"
                   >
-                    {item.label}
-                  </Link>
+                    {tr(item.label, lang)}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-2.5 bottom-1.5 xl:inset-x-3 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out-quint group-hover:scale-x-100"
+                    />
+                  </a>
                 </li>
               ))}
             </ul>
-          </motion.nav>
-        )}
+          </nav>
+
+          {/* Theme toggle sits in the bar at every width: between language and CV on desktop, beside Menu on mobile. */}
+          <div className="flex items-center gap-2 lg:gap-3">
+            <LanguageSwitch lang={lang} className="hidden lg:block" />
+            <ThemeToggle lang={lang} />
+            <Button
+              href={profile.cvPath}
+              variant="primary"
+              size="sm"
+              icon={cvIcon}
+              download
+              className="hidden whitespace-nowrap lg:inline-flex"
+            >
+              {tr(shellCopy.downloadCvShort, lang)}
+            </Button>
+            <button
+              ref={buttonRef}
+              type="button"
+              aria-expanded={open}
+              aria-controls={open ? "mobile-menu" : undefined}
+              aria-label={menuLabel}
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex h-10 items-center gap-3 rounded-full border border-ink/20 pl-4 pr-3.5 text-sm font-medium text-ink transition-colors hover:border-ink lg:hidden"
+            >
+              <span aria-hidden="true">{tr(open ? shellCopy.close : shellCopy.menu, lang)}</span>
+              <span aria-hidden="true" className="relative block h-2.5 w-4">
+                <span
+                  className={cn(
+                    "absolute left-0 top-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ease-out-quint",
+                    open && "translate-y-[4.25px] rotate-45",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute bottom-0 left-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ease-out-quint",
+                    open && "-translate-y-[4.25px] -rotate-45",
+                  )}
+                />
+              </span>
+            </button>
+          </div>
+        </Container>
+      </header>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            ref={sheetRef}
+            id="mobile-menu"
+            key="mobile-menu"
+            initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.45, ease: EASE }}
+            className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-paper md:top-[4.5rem] lg:hidden"
+          >
+            <Container className="flex min-h-full flex-col pb-8 pt-2">
+              <nav aria-label={tr(shellCopy.mainNav, lang)}>
+                <ul>
+                  {navItems.map((item, i) => (
+                    <motion.li
+                      key={item.id}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.06 + i * 0.04, ease: EASE }}
+                      className="border-b border-rule"
+                    >
+                      <a
+                        href={hrefFor(item.href)}
+                        onClick={() => setOpen(false)}
+                        className="flex items-baseline justify-between py-4 font-serif text-[2.25rem] leading-none text-ink transition-colors active:text-accent-ink"
+                      >
+                        {tr(item.label, lang)}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
+
+              <div className="mt-auto flex flex-col gap-6 pt-10">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="inline-flex items-center gap-2 font-mono text-label text-green">
+                    <span aria-hidden="true" className="h-2 w-2 rounded-full bg-green" />
+                    {tr(profile.openTo, lang)}
+                  </span>
+                  <LanguageSwitch lang={lang} />
+                </div>
+                <Button
+                  href={profile.cvPath}
+                  download
+                  variant="primary"
+                  icon={cvIcon}
+                  className="w-full"
+                  onClick={() => setOpen(false)}
+                >
+                  {tr(shellCopy.downloadCv, lang)}
+                </Button>
+                <a href={`mailto:${profile.email}`} className="text-center text-sm text-muted underline-offset-4 hover:text-ink hover:underline">
+                  {profile.email}
+                </a>
+              </div>
+            </Container>
+          </motion.div>
+        ) : null}
       </AnimatePresence>
-    </motion.header>
+    </>
   );
 }
