@@ -9,6 +9,12 @@ import { profile } from "@/data/profile";
 import { shellCopy } from "@/data/nav";
 import { tr } from "@/lib/localize";
 
+/**
+ * Only en, ru and uz exist. Language-like codes (/de, /fr-CA) are sent to /en
+ * by next.config.ts; any other first segment is a 404 (app/not-found.tsx).
+ */
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "ru" }, { lang: "uz" }];
 }
