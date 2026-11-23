@@ -24,7 +24,7 @@ export default function Footer({ lang }: { lang: Locale }) {
     "inline-flex items-center gap-1.5 text-paper/90 underline-offset-4 transition-colors hover:text-paper hover:underline";
 
   return (
-    <footer className="bg-ink text-paper">
+    <footer id="site-footer" data-surface="ink" className="bg-ink text-paper">
       <Container className="pb-8 pt-20 md:pt-28">
         <Reveal>
           <p className="max-w-[44ch] text-lead text-muted-inverse">{tr(shellCopy.footerPrompt, lang)}</p>
@@ -82,6 +82,7 @@ export default function Footer({ lang }: { lang: Locale }) {
             <p className="mt-6">
               <a
                 href={profile.cvPath}
+                download
                 className="inline-flex h-11 items-center gap-2 rounded-full border border-paper/25 px-5 text-[0.9375rem] font-medium text-paper transition-colors hover:border-paper hover:bg-paper hover:text-ink"
               >
                 {tr(shellCopy.downloadCv, lang)}

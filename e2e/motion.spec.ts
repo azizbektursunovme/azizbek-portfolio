@@ -65,3 +65,57 @@ for (const mode of modes) {
     });
   });
 }
+
+test.describe("reveal failsafe", () => {
+  test("if the app never hydrates, html.js is dropped and reveals show", async ({ page }) => {
+    // The inline script still runs, but no client chunk loads, so React never hydrates.
+    await page.route("**/_next/static/chunks/**", (route) => route.abort());
+    await page.goto("/en");
+    const html = page.locator("html");
+    await expect(html).toHaveClass(/(^|\s)js(\s|$)/);
+    await expect(html).not.toHaveClass(/(^|\s)js(\s|$)/, { timeout: 6000 });
+    const reveal = page.locator("[data-reveal]").first();
+    await reveal.scrollIntoViewIfNeeded();
+    expect(await effectiveOpacity(reveal)).toBeGreaterThan(0.99);
+  });
+
+  test("without IntersectionObserver, html.js is never set", async ({ page }) => {
+    await page.addInitScript(() => {
+      // @ts-expect-error simulate an old browser
+      delete window.IntersectionObserver;
+    });
+    // Check only the inline flag script: keep the app bundle out of it.
+    await page.route("**/_next/static/chunks/**", (route) => route.abort());
+    await page.goto("/en");
+    await expect(page.locator("html")).not.toHaveClass(/(^|\s)js(\s|$)/);
+    const reveal = page.locator("[data-reveal]").first();
+    await reveal.scrollIntoViewIfNeeded();
+    expect(await effectiveOpacity(reveal)).toBeGreaterThan(0.99);
+  });
+
+  test("hydrated pages keep html.js and animate reveals in", async ({ page }) => {
+    await page.goto("/en");
+    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "");
+    await page.waitForTimeout(3500);
+    await expect(page.locator("html")).toHaveClass(/(^|\s)js(\s|$)/);
+    const reveal = page.locator("[data-reveal]").first();
+    await reveal.scrollIntoViewIfNeeded();
+    await expect.poll(() => effectiveOpacity(reveal), { timeout: 5000 }).toBeGreaterThan(0.99);
+  });
+});
+
+test.describe("no-JS legacy safety net", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("only exact inline opacity:0 is overridden, not opacity:0.16", async ({ page }) => {
+    await page.goto("/en");
+    const partial = page.locator('[style*="opacity:0.16"]').first();
+    if ((await partial.count()) > 0) {
+      expect(await partial.evaluate((el) => getComputedStyle(el).opacity)).toBe("0.16");
+    }
+    const hidden = page.locator('.bg-zinc-950 [style*="opacity:0;"]').first();
+    if ((await hidden.count()) > 0) {
+      expect(await hidden.evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+    }
+  });
+});

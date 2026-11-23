@@ -41,7 +41,8 @@ function LanguageSwitch({ lang, className }: { lang: Locale; className?: string 
               <Link
                 href={localizedPath(pathname, code)}
                 hrefLang={code}
-                title={name}
+                lang={code}
+                aria-label={`${name} (${code.toUpperCase()})`}
                 aria-current={current ? "true" : undefined}
                 className={cn(
                   "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2 uppercase transition-colors duration-200",
@@ -65,6 +66,7 @@ export default function Header({ lang }: { lang: Locale }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   const isHome = pathname === `/${lang}` || pathname === `/${lang}/`;
   const hrefFor = (hash: string) => (isHome ? hash : `/${lang}${hash}`);
@@ -79,9 +81,15 @@ export default function Header({ lang }: { lang: Locale }) {
   // Close on route change.
   useEffect(() => setOpen(false), [pathname]);
 
-  // While open: Escape closes and returns focus, page behind does not scroll.
+  // While open: focus moves into the sheet, the page behind is inert and does
+  // not scroll, and Escape closes the sheet and returns focus to the button.
   useEffect(() => {
     if (!open) return;
+    const behind = [document.getElementById("main"), document.getElementById("site-footer")];
+    behind.forEach((el) => el?.setAttribute("inert", ""));
+    const frame = requestAnimationFrame(() => {
+      sheetRef.current?.querySelector<HTMLElement>("a[href]")?.focus({ preventScroll: true });
+    });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
@@ -93,6 +101,8 @@ export default function Header({ lang }: { lang: Locale }) {
     root.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
     return () => {
+      cancelAnimationFrame(frame);
+      behind.forEach((el) => el?.removeAttribute("inert"));
       root.style.overflow = previous;
       window.removeEventListener("keydown", onKey);
     };
@@ -156,7 +166,7 @@ export default function Header({ lang }: { lang: Locale }) {
 
           <div className="hidden items-center gap-4 lg:flex">
             <LanguageSwitch lang={lang} />
-            <Button href={profile.cvPath} variant="primary" size="sm" icon={cvIcon}>
+            <Button href={profile.cvPath} variant="primary" size="sm" icon={cvIcon} download>
               {tr(shellCopy.downloadCv, lang)}
             </Button>
           </div>
@@ -165,7 +175,7 @@ export default function Header({ lang }: { lang: Locale }) {
             ref={buttonRef}
             type="button"
             aria-expanded={open}
-            aria-controls="mobile-menu"
+            aria-controls={open ? "mobile-menu" : undefined}
             aria-label={menuLabel}
             onClick={() => setOpen((v) => !v)}
             className="inline-flex h-10 items-center gap-3 rounded-full border border-ink/20 pl-4 pr-3.5 text-sm font-medium text-ink transition-colors hover:border-ink lg:hidden"
@@ -192,6 +202,7 @@ export default function Header({ lang }: { lang: Locale }) {
       <AnimatePresence>
         {open ? (
           <motion.div
+            ref={sheetRef}
             id="mobile-menu"
             key="mobile-menu"
             initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
@@ -233,6 +244,7 @@ export default function Header({ lang }: { lang: Locale }) {
                 </div>
                 <Button
                   href={profile.cvPath}
+                  download
                   variant="primary"
                   icon={cvIcon}
                   className="w-full"

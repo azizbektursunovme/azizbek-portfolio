@@ -115,6 +115,11 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
+
+  /* On ink surfaces accent-ink only reaches 3.02:1 against ink; accent-inverse is 5.52:1. */
+  [data-surface="ink"] :focus-visible {
+    outline-color: var(--color-accent-inverse);
+  }
 }
 
 /*

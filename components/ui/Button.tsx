@@ -14,6 +14,8 @@ interface ButtonProps {
   icon?: ReactNode;
   className?: string;
   onClick?: () => void;
+  /** Adds the `download` attribute (e.g. for the CV PDF). Pass a string to set the file name. */
+  download?: boolean | string;
 }
 
 const base =
@@ -39,6 +41,7 @@ export default function Button({
   icon,
   className,
   onClick,
+  download,
 }: ButtonProps) {
   const classes = cn(base, sizes[size], variants[variant], className);
   const content = (
@@ -66,7 +69,7 @@ export default function Button({
     );
   }
 
-  const isRoute = href.startsWith("/") && !/\.[a-z0-9]+$/i.test(href);
+  const isRoute = !download && href.startsWith("/") && !/\.[a-z0-9]+$/i.test(href);
   if (isRoute) {
     return (
       <Link href={href} className={classes} onClick={onClick}>
@@ -76,7 +79,7 @@ export default function Button({
   }
 
   return (
-    <a href={href} className={classes} onClick={onClick}>
+    <a href={href} className={classes} onClick={onClick} download={download === true ? "" : download || undefined}>
       {content}
     </a>
   );

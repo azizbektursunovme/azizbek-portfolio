@@ -47,13 +47,22 @@ export async function generateMetadata(props: { params: Promise<{ lang: string }
 }
 
 /*
- * `js` on <html> lets CSS pre-hide [data-reveal] only when scripts run.
- * The <noscript> rule is a safety net for any motion component that still
- * server-renders an inline `opacity:0` (legacy sections): without JS it
- * would never animate in, so show it as-is.
+ * `js` on <html> lets CSS pre-hide [data-reveal] (see Reveal). It is only set
+ * when IntersectionObserver exists (whileInView needs it), and it is taken
+ * back after 3s if the app never hydrated (MotionProvider sets
+ * data-hydrated), so pre-hidden content can never stay hidden.
  */
-const JS_FLAG = "document.documentElement.classList.add('js')";
-const NO_JS_SAFETY = '<style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style>';
+const JS_FLAG = `(function(){var d=document.documentElement;if(!("IntersectionObserver" in window))return;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-hydrated"))d.classList.remove("js")},3000)})()`;
+
+/*
+ * No-JS safety net for the legacy dark sections (all rooted in .bg-zinc-950),
+ * whose motion components server-render an inline `opacity:0` that only JS
+ * would animate away. Matches `opacity:0` exactly (followed by `;` or at the
+ * end of the attribute), never `opacity:0.16` and the like.
+ * TODO(task11): remove once legacy sections are replaced.
+ */
+const NO_JS_SAFETY =
+  '<style>.bg-zinc-950 [style*="opacity:0;"],.bg-zinc-950 [style$="opacity:0"]{opacity:1!important;transform:none!important}</style>';
 
 export default async function RootLayout(props: LayoutProps) {
   const { lang } = await props.params;
