@@ -1,6 +1,5 @@
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import Container from "@/components/ui/Container";
-import Reveal from "@/components/ui/Reveal";
 import { navItems, shellCopy } from "@/data/nav";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/data/types";
@@ -25,20 +24,8 @@ export default function Footer({ lang }: { lang: Locale }) {
 
   return (
     <footer id="site-footer" data-surface="ink" className="bg-ink text-paper">
-      <Container className="pb-8 pt-20 md:pt-28">
-        <Reveal>
-          <p className="max-w-[44ch] text-lead text-muted-inverse">{tr(shellCopy.footerPrompt, lang)}</p>
-          <a
-            href={`mailto:${profile.email}`}
-            className="group mt-4 inline-block font-serif text-[clamp(1.6rem,0.75rem+4.6vw,5.5rem)] leading-[1.05] tracking-[-0.015em] text-paper [overflow-wrap:anywhere]"
-          >
-            <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size,color] duration-500 ease-out-quint group-hover:bg-[length:100%_1px] group-hover:text-accent-inverse">
-              {profile.email}
-            </span>
-          </a>
-        </Reveal>
-
-        <div className="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-rule-inverse pt-10 md:mt-24 lg:grid-cols-12 lg:gap-x-10">
+      <Container className="pb-8 pt-14 md:pt-20">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-x-10">
           <div className="lg:col-span-3">
             <ColumnTitle>{tr(shellCopy.elsewhere, lang)}</ColumnTitle>
             <ul className="space-y-2.5">

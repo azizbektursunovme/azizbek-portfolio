@@ -1,175 +1,122 @@
-"use client";
+import Section from "@/components/ui/Section";
+import Reveal from "@/components/ui/Reveal";
+import Tag from "@/components/ui/Tag";
+import { aboutCopy as copy } from "@/data/about";
+import { experience } from "@/data/experience";
+import { profile } from "@/data/profile";
+import type { Locale } from "@/data/types";
+import { tr } from "@/lib/localize";
 
-import { motion, type Variants } from "motion/react";
+/*
+ * About at #about: bio, experience timeline (showOnSite entries only), tools
+ * grouped Dev / Design / Growth & AI, education and languages. Everything is
+ * read from profile.ts and experience.ts.
+ */
 
-interface AboutProps {
-  dict: {
-    about: {
-      title: string;
-      bio: string;
-      experience: string;
-      skills: string;
-      timeline: Array<{
-        year: string;
-        role: string;
-        company: string;
-        desc: string;
-      }>;
-      skillItems?: string[];
-    };
-  };
+function Label({ children }: { children: string }) {
+  return <h3 className="font-mono text-label text-muted">{children}</h3>;
 }
 
-export default function About({ dict }: AboutProps) {
-  const skillTitles = dict.about.skillItems ?? [
-    "Graphic Design",
-    "Product design",
-    "Branding",
-    "Social Media Design",
-    "Product Design",
-    "AI-assisted Creative Workflow",
-  ];
-  const skillsList = skillTitles.map((title, index) => ({
-    title,
-    level: String(index + 1).padStart(2, "0"),
-  }));
-
-  const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 40 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] },
-    },
-  };
+export default function About({ locale }: { locale: Locale }) {
+  const timeline = experience.filter((e) => e.showOnSite);
 
   return (
-    <section id="about" className="relative w-full bg-zinc-950 px-6 py-24 md:px-10 md:py-32 border-t border-zinc-900">
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
-          {/* Left Side: Biography */}
-          <div className="lg:col-span-5 flex flex-col gap-8">
-            <motion.h2
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeUp}
-              className="font-sans text-xs uppercase tracking-widest text-zinc-500 font-mono"
-            >
-              {dict.about.title}
-            </motion.h2>
+    <Section id="about" eyebrow={tr(copy.eyebrow, locale)} title={tr(copy.title, locale)}>
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+        <Reveal className="space-y-5 lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+          {tr(profile.bio, locale).map((p) => (
+            <p key={p} className="max-w-prose text-lead">
+              {p}
+            </p>
+          ))}
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-[0.9375rem] text-muted">
+            <span>{tr(profile.status, locale)}</span>
+            <span className="inline-flex items-center gap-2 text-ink">
+              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-green" />
+              {tr(profile.openTo, locale)}
+            </span>
+          </p>
+        </Reveal>
 
-            <motion.p
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeUp}
-              className="font-sans text-2xl md:text-3xl font-light leading-relaxed text-zinc-300"
-              style={{ fontFamily: "'Satoshi', 'Inter', 'Arial', system-ui, sans-serif" }}
-            >
-              {dict.about.bio}
-            </motion.p>
-          </div>
-
-          {/* Right Side: Timeline & Skills */}
-          <div className="lg:col-span-7 flex flex-col gap-20">
-            {/* Timeline Experience */}
-            <div className="flex flex-col gap-8">
-              <motion.h3
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={fadeUp}
-                className="font-sans text-xs uppercase tracking-widest text-zinc-500 font-mono border-b border-zinc-900 pb-4"
-              >
-                {dict.about.experience}
-              </motion.h3>
-
-              <div className="flex flex-col gap-10">
-                {dict.about.timeline.map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={{
-                      hidden: { opacity: 0, x: -20 },
-                      show: {
-                        opacity: 1,
-                        x: 0,
-                        transition: { duration: 0.6, delay: idx * 0.1, ease: [0.215, 0.61, 0.355, 1] },
-                      },
-                    }}
-                    className="relative pl-8 border-l border-zinc-800"
-                  >
-                    {/* Circle Indicator */}
-                    <div className="absolute left-[-5px] top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-700 border border-zinc-950" />
-
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
-                      <div>
-                        <h4 className="text-zinc-200 font-medium text-lg leading-snug">
-                          {item.role}
-                        </h4>
-                        <span className="text-zinc-500 text-sm font-mono uppercase">
-                          {item.company}
-                        </span>
-                      </div>
-                      <span className="font-mono text-xs text-zinc-400 bg-zinc-900 px-3 py-1 rounded border border-zinc-800 self-start md:self-auto uppercase tracking-wider">
-                        {item.year}
-                      </span>
-                    </div>
-
-                    <p className="mt-3 text-zinc-400 text-sm leading-relaxed max-w-xl">
-                      {item.desc}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Skills / Expertise */}
-            <div className="flex flex-col gap-8">
-              <motion.h3
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={fadeUp}
-                className="font-sans text-xs uppercase tracking-widest text-zinc-500 font-mono border-b border-zinc-900 pb-4"
-              >
-                {dict.about.skills}
-              </motion.h3>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {skillsList.map((skill, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={{
-                      hidden: { opacity: 0, y: 15 },
-                      show: {
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration: 0.5, delay: idx * 0.05, ease: [0.215, 0.61, 0.355, 1] },
-                      },
-                    }}
-                    className="flex justify-between items-center bg-zinc-900/30 border border-zinc-900/60 hover:border-zinc-800 hover:bg-zinc-900/50 transition-all p-5 rounded-lg group cursor-default"
-                  >
-                    <span className="text-zinc-300 font-medium group-hover:text-zinc-100 transition-colors text-sm">
-                      {skill.title}
-                    </span>
-                    <span className="font-mono text-[10px] text-zinc-600 group-hover:text-zinc-400 transition-colors">
-                      {skill.level}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <Reveal className="lg:col-span-7">
+          <Label>{tr(copy.experience, locale)}</Label>
+          <ol role="list" className="mt-4 border-t border-ink">
+            {timeline.map((e) => {
+              const points = tr(e.points, locale);
+              return (
+                <li
+                  key={`${e.company}-${e.years}`}
+                  data-testid="xp-item"
+                  className="grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[9.5rem_1fr]"
+                >
+                  <p className="font-mono text-label text-muted sm:pt-2">{e.years}</p>
+                  <div className="min-w-0">
+                    <h4 className="font-serif text-[1.625rem]/[1.15]">{e.company}</h4>
+                    <p className="mt-1 text-[0.9375rem] text-muted">{tr(e.role, locale)}</p>
+                    {points.length > 0 ? (
+                      <ul role="list" className="mt-3 space-y-1.5 text-[0.9375rem]">
+                        {points.map((pt) => (
+                          <li key={pt} className="flex gap-2.5">
+                            <span aria-hidden="true" className="mt-[0.6em] h-1 w-1 shrink-0 rounded-full bg-accent" />
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </Reveal>
       </div>
-    </section>
+
+      <Reveal className="mt-16 grid gap-12 border-t border-rule pt-12 md:mt-20 lg:grid-cols-12 lg:gap-x-10">
+        <div className="lg:col-span-5">
+          <Label>{tr(copy.tools, locale)}</Label>
+          <dl className="mt-4 space-y-5">
+            {profile.tools.map((g) => (
+              <div key={g.group}>
+                <dt className="mb-2 text-[0.9375rem] font-medium">{tr(copy.toolGroups[g.group], locale)}</dt>
+                <dd>
+                  <ul role="list" className="flex flex-wrap gap-2">
+                    {g.items.map((item) => (
+                      <li key={item}>
+                        <Tag className="text-ink">{item}</Tag>
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="lg:col-span-4">
+          <Label>{tr(copy.education, locale)}</Label>
+          <ul role="list" className="mt-4 divide-y divide-rule border-y border-rule">
+            {profile.education.map((e) => (
+              <li key={e.school} className="py-4">
+                <p className="font-medium">{e.school}</p>
+                {e.detail ? <p className="mt-0.5 text-[0.9375rem] text-muted">{e.detail}</p> : null}
+                <p className="mt-1 font-mono text-label text-muted">{e.years}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="lg:col-span-3">
+          <Label>{tr(copy.languages, locale)}</Label>
+          <ul role="list" className="mt-4 divide-y divide-rule border-y border-rule">
+            {profile.languages.map((l) => (
+              <li key={l.name} className="flex items-baseline justify-between gap-4 py-4">
+                <span className="font-medium">{l.name}</span>
+                <span className="font-mono text-label text-muted">{l.level}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Reveal>
+    </Section>
   );
 }
-

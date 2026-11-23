@@ -19,7 +19,6 @@ export const shellCopy = {
   closeMenu: { en: "Close menu" } as Localized,
   skipToContent: { en: "Skip to content" } as Localized,
   backToTop: { en: "Back to top" } as Localized,
-  footerPrompt: { en: "Have a website, a brand or a campaign in mind? Write to me." } as Localized,
   elsewhere: { en: "Elsewhere" } as Localized,
   sections: { en: "On this page" } as Localized,
 };

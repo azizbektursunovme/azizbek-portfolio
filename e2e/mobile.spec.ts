@@ -63,3 +63,23 @@ test("desktop nav lists items in order with CV and language switch", async ({ pa
   await expect(lang.getByRole("link", { name: "English (EN)" })).toHaveAttribute("aria-current", "true");
   await expect(page.getByRole("banner").getByRole("link", { name: /Download CV/ })).toHaveAttribute("download", "");
 });
+
+test("no horizontal overflow with every section present", async ({ page }) => {
+  await page.goto("/en");
+  for (const id of ["websites", "branding", "ads", "about", "contact"]) {
+    await expect(page.locator(`#${id}`)).toHaveCount(1);
+  }
+  // Scroll through so revealed content is laid out, then measure.
+  await page.evaluate(async () => {
+    for (let y = 0; y < document.body.scrollHeight; y += 700) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 30));
+    }
+  });
+  const widths = await page.evaluate(() => ({
+    doc: document.documentElement.scrollWidth,
+    body: document.body.scrollWidth,
+  }));
+  expect(widths.doc).toBeLessThanOrEqual(390);
+  expect(widths.body).toBeLessThanOrEqual(390);
+});

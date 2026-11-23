@@ -1,147 +1,80 @@
-"use client";
+import { ArrowUpRight } from "lucide-react";
+import Section from "@/components/ui/Section";
+import Reveal from "@/components/ui/Reveal";
+import Button from "@/components/ui/Button";
+import CopyEmail from "@/components/CopyEmail";
+import { contactCopy as copy } from "@/data/about";
+import { profile } from "@/data/profile";
+import type { Locale } from "@/data/types";
+import { tr } from "@/lib/localize";
 
-import { useState } from "react";
-import { motion } from "motion/react";
-import { Send, Instagram, Check, Copy } from "lucide-react";
-
-interface ContactProps {
-  dict: {
-    nav: {
-      contact: string;
-    };
-    contact: {
-      title: string;
-      email: string;
-      telegram: string;
-      instagram: string;
-      copy: string;
-    };
-  };
-}
-
-export default function Contact({ dict }: ContactProps) {
-  const emailAddress = "azizbektursunov.me@gmail.com";
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(emailAddress);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    } catch (err) {
-      console.error("Failed to copy email: ", err);
-    }
-  };
-
-  const socialLinks = [
-    {
-      name: dict.contact.telegram,
-      handle: "@azizbektursunovv",
-      href: "https://t.me/azizbektursunovv",
-      icon: Send,
-    },
-    {
-      name: dict.contact.instagram,
-      handle: "@azizbek___tursunov",
-      href: "https://instagram.com/azizbek___tursunov",
-      icon: Instagram,
-    },
-  ];
+/*
+ * Contact at #contact. This section owns the page's one big email CTA (the
+ * footer below it is slim, with no second copy). Socials with an empty URL
+ * (LinkedIn today) are not rendered.
+ */
+export default function Contact({ locale }: { locale: Locale }) {
+  const socials = [
+    { label: "Telegram", href: profile.telegram },
+    { label: "Instagram", href: profile.instagram },
+    { label: "LinkedIn", href: profile.linkedin },
+  ].filter((s) => s.href.trim() !== "");
 
   return (
-    <section id="contact" className="relative w-full bg-zinc-950 px-6 py-24 md:px-10 md:py-32 border-t border-zinc-900 overflow-hidden">
-      {/* Background Radial Light Effect */}
-      <div className="absolute bottom-0 left-1/2 h-[300px] w-[600px] -translate-x-1/2 rounded-full bg-zinc-900/10 blur-[120px] pointer-events-none" />
-
-      <div className="mx-auto w-full max-w-7xl relative z-10">
-        <div className="flex flex-col gap-16">
-          {/* Section Indicator */}
-          <span className="font-mono text-xs uppercase tracking-widest text-zinc-500 self-start">
-            {dict.nav.contact}
+    <Section id="contact" eyebrow={tr(copy.eyebrow, locale)} title={tr(copy.title, locale)} intro={<p>{tr(copy.intro, locale)}</p>}>
+      <Reveal>
+        <a
+          href={`mailto:${profile.email}`}
+          className="group inline-block font-serif text-[clamp(1.5rem,0.7rem+4.4vw,4.75rem)] leading-[1.05] tracking-[-0.015em] [overflow-wrap:anywhere]"
+        >
+          <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:100%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size,color] duration-500 ease-out-quint group-hover:bg-[length:0%_1px] group-hover:text-accent-ink">
+            {profile.email}
           </span>
+        </a>
 
-          {/* Huge Call to Action Heading */}
-          <div className="max-w-4xl">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
-              className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-zinc-100 leading-[0.95]"
-              style={{ fontFamily: "'Cabinet Grotesk', 'Inter', 'Arial', system-ui, sans-serif" }}
-            >
-              {dict.contact.title}
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-zinc-900 pt-16 mt-6">
-            {/* Left Column: Email Copy Widget */}
-            <div className="flex flex-col gap-6 justify-between">
-              <div className="flex flex-col gap-2">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500">
-                  {dict.contact.email}
-                </span>
-                <span className="text-xl md:text-2xl font-light text-zinc-300">
-                  {emailAddress}
-                </span>
-              </div>
-
-              {/* Copy Email Button */}
-              <div className="flex items-start">
-                  <button
-                    onClick={copyToClipboard}
-                    className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/80 px-6 py-4 rounded-full text-sm font-mono uppercase tracking-wider text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="h-4 w-4 text-emerald-400" />
-                        <span className="text-emerald-400">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="h-4 w-4 text-zinc-500" />
-                        <span>{dict.contact.copy}</span>
-                      </>
-                    )}
-                  </button>
-              </div>
-            </div>
-
-            {/* Right Column: Telegram & Instagram Links */}
-            <div className="flex flex-col gap-6 justify-between">
-              <div className="flex flex-col gap-8">
-                {socialLinks.map((social, idx) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={idx}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-between py-4 border-b border-zinc-900 hover:border-zinc-800 transition-colors"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center justify-center p-3 rounded-full border border-zinc-900 bg-zinc-950 text-zinc-500 group-hover:text-zinc-100 group-hover:border-zinc-800 transition-all duration-300">
-                          <Icon className="h-5 w-5" />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-mono text-[10px] uppercase text-zinc-500 tracking-wider">
-                            {social.name}
-                          </span>
-                          <span className="text-lg text-zinc-300 group-hover:text-zinc-100 transition-colors">
-                            {social.handle}
-                          </span>
-                        </div>
-                      </div>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <CopyEmail email={profile.email} label={tr(copy.copyEmail, locale)} copiedLabel={tr(copy.copied, locale)} />
+          <Button href={profile.cvPath} variant="ghost" download>
+            {tr(copy.downloadCv, locale)}
+          </Button>
         </div>
-      </div>
-    </section>
+      </Reveal>
+
+      <Reveal className="mt-16 grid gap-12 border-t border-rule pt-12 md:mt-20 lg:grid-cols-12 lg:gap-x-10">
+        <div className="lg:col-span-7">
+          <h3 className="font-mono text-label text-muted">{tr(copy.helpTitle, locale)}</h3>
+          <ul role="list" className="mt-4 divide-y divide-rule border-y border-rule">
+            {tr(copy.help, locale).map((h) => (
+              <li key={h} className="py-4 text-lead">
+                {h}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="lg:col-span-5">
+          <h3 className="font-mono text-label text-muted">{tr(copy.elsewhere, locale)}</h3>
+          <ul role="list" className="mt-4 divide-y divide-rule border-y border-rule">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/social flex items-center justify-between gap-4 py-4 text-lead transition-colors hover:text-accent-ink"
+                >
+                  {s.label}
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="h-5 w-5 transition-transform duration-200 ease-out-quint group-hover/social:-translate-y-0.5 group-hover/social:translate-x-0.5"
+                    strokeWidth={1.6}
+                  />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Reveal>
+    </Section>
   );
 }
-
