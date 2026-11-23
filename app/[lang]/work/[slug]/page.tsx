@@ -13,7 +13,7 @@ import { getProject, projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 import { caseCopy as copy } from "@/data/sections";
 import type { Discipline, Locale, Project } from "@/data/types";
-import { tr } from "@/lib/localize";
+import { projectTitle, tr } from "@/lib/localize";
 import { SITE_URL, languageAlternates, ogLocale } from "@/lib/site";
 
 /*
@@ -39,7 +39,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const locale = resolveLocale(lang);
   const project = getProject(slug);
   if (!project?.caseStudy) return {};
-  const title = `${project.title} — ${profile.name}`;
+  const title = `${projectTitle(project, locale)} — ${profile.name}`;
   const description = tr(project.summary, locale);
   const path = `/work/${project.slug}`;
   return {
@@ -70,7 +70,7 @@ function Neighbour({ project, dir, locale }: { project: Project; dir: "prev" | "
         {tr(next ? copy.next : copy.previous, locale)}
       </span>
       <span className="max-w-[18ch] text-balance font-serif text-[clamp(1.875rem,1.4rem+1.6vw,2.75rem)]/[1.04] tracking-[-0.01em] text-ink decoration-1 underline-offset-[0.12em] group-hover/nb:underline">
-        {project.title}
+        {projectTitle(project, locale)}
       </span>
     </Link>
   );

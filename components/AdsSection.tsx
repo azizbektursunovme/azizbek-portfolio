@@ -7,7 +7,7 @@ import { getProject } from "@/data/projects";
 import { profile } from "@/data/profile";
 import { adsCopy as copy } from "@/data/sections";
 import type { Locale, Media } from "@/data/types";
-import { tr } from "@/lib/localize";
+import { projectTitle, tr } from "@/lib/localize";
 
 /*
  * Ads & Content at #ads: the Good Idea Cargo recruiting campaign (three video
@@ -42,6 +42,8 @@ export default function AdsSection({ locale }: { locale: Locale }) {
     ? { src: "/work/gfs-ads/ad-gfs-9x16.mp4", poster: gfs.cover.src, width: gfs.cover.width, height: gfs.cover.height, alt: gfs.cover.alt, kind: "video" }
     : null;
 
+  const carouselLabel = `${tr(copy.carousel, locale)}, ${tr(copy.slides, locale).replace("{n}", String(slides.length))}`;
+
   return (
     <Section
       id="ads"
@@ -56,7 +58,7 @@ export default function AdsSection({ locale }: { locale: Locale }) {
               <div className="lg:col-span-4">
                 <Tag className="text-ink">{tr(copy.madeAt, locale)}</Tag>
                 <h3 id="ads-gic-title" className={`mt-4 text-balance ${h3}`}>
-                  {gic.title}
+                  {projectTitle(gic, locale)}
                 </h3>
                 <p className="mt-4 text-muted">{tr(ads.objective, locale)}</p>
                 <ul role="list" className="mt-6 divide-y divide-rule border-y border-rule">
@@ -77,11 +79,11 @@ export default function AdsSection({ locale }: { locale: Locale }) {
                 </div>
 
                 <div className="mt-10">
-                  <Label>{`${tr(copy.carousel, locale)}, ${slides.length} slides`}</Label>
+                  <Label>{carouselLabel}</Label>
                   <ul
                     role="list"
                     tabIndex={0}
-                    aria-label={`${tr(copy.carousel, locale)}, ${slides.length} slides`}
+                    aria-label={carouselLabel}
                     className="mt-4 flex snap-x gap-3 overflow-x-auto pb-3 [scrollbar-width:thin]"
                   >
                     {slides.map((s) => (

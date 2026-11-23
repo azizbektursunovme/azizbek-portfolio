@@ -34,13 +34,13 @@ export default function Footer({ lang }: { lang: Locale }) {
                   <a href={s.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
                     {s.label}
                     <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 text-muted-inverse" strokeWidth={1.8} />
-                    <span className="sr-only">(opens in a new tab)</span>
+                    <span className="sr-only">{tr(shellCopy.newTab, lang)}</span>
                   </a>
                 </li>
               ))}
               <li>
                 <a href={`mailto:${profile.email}`} className={linkClass}>
-                  Email
+                  {tr(shellCopy.email, lang)}
                 </a>
               </li>
             </ul>
@@ -60,7 +60,7 @@ export default function Footer({ lang }: { lang: Locale }) {
           </div>
 
           <div className="col-span-2 lg:col-span-6 lg:justify-self-end lg:text-right">
-            <ColumnTitle>{profile.title}</ColumnTitle>
+            <ColumnTitle>{tr(profile.jobTitle, lang)}</ColumnTitle>
             <p className="text-paper/90">{tr(profile.status, lang)}</p>
             <p className="mt-2.5 inline-flex items-center gap-2 text-paper/90 lg:justify-end">
               <span aria-hidden="true" className="h-2 w-2 rounded-full bg-green-inverse" />

@@ -8,6 +8,7 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import { profile } from "@/data/profile";
 import { SITE_URL } from "@/lib/site";
+import { tr } from "@/lib/localize";
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -21,7 +22,7 @@ export default async function HomePage(props: PageProps) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: profile.name,
-    jobTitle: profile.title,
+    jobTitle: tr(profile.jobTitle, locale),
     worksFor: { "@type": "Organization", name: "GFS Group LLC" },
     url: `${SITE_URL}/${locale}`,
     sameAs: [profile.instagram, profile.telegram, profile.linkedin].filter(Boolean),

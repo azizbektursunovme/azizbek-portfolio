@@ -4,10 +4,10 @@ import type { CSSProperties, ReactNode } from "react";
 import { ArrowDown, ArrowLeft, ArrowUpRight } from "lucide-react";
 import Tag from "@/components/ui/Tag";
 import DevicePair from "@/components/case/DevicePair";
-import { disciplineLabel } from "@/components/WorkBento";
-import { caseCopy as copy } from "@/data/sections";
+import { caseCopy as copy, disciplineLabel } from "@/data/sections";
+import { shellCopy } from "@/data/nav";
 import type { Locale, Media, Project } from "@/data/types";
-import { tr } from "@/lib/localize";
+import { projectTitle, tr } from "@/lib/localize";
 import { cn } from "@/lib/cn";
 
 /*
@@ -64,14 +64,15 @@ export default function CaseHeader({ project, locale }: { project: Project; loca
   const { liveStatus, live, github } = project.links;
   const guide = project.caseStudy?.brand?.guidePdf;
   const hero = heroFor(project);
-  const long = project.title.length > 22;
+  const title = projectTitle(project, locale);
+  const long = title.length > 22;
 
   const links: ReactNode[] = [];
   if (liveStatus === "live" && live) {
     links.push(
       <a key="live" href={live} target="_blank" rel="noopener noreferrer" className={textLink}>
         {tr(copy.visitSite, locale)}
-        <span className="sr-only"> {project.title} (opens in a new tab)</span>
+        <span className="sr-only"> {title} {tr(shellCopy.newTab, locale)}</span>
         <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
       </a>,
     );
@@ -87,7 +88,7 @@ export default function CaseHeader({ project, locale }: { project: Project; loca
     links.push(
       <a key="gh" href={github} target="_blank" rel="noopener noreferrer" className={textLink}>
         {tr(copy.github, locale)}
-        <span className="sr-only"> (opens in a new tab)</span>
+        <span className="sr-only"> {tr(shellCopy.newTab, locale)}</span>
         <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
       </a>,
     );
@@ -131,7 +132,7 @@ export default function CaseHeader({ project, locale }: { project: Project; loca
           )}
           style={delay(60)}
         >
-          {project.title}
+          {title}
         </span>
       </h1>
 

@@ -8,6 +8,7 @@ import { byDiscipline, redesignLinks } from "@/data/projects";
 import { websitesCopy as copy } from "@/data/sections";
 import type { Locale, Project } from "@/data/types";
 import { tr } from "@/lib/localize";
+import { shellCopy } from "@/data/nav";
 
 /*
  * Every web project, as a grid of site cards at #websites, plus the
@@ -66,7 +67,7 @@ function SiteCard({ project, locale, index }: { project: Project; locale: Locale
               {liveStatus === "live" && live ? (
                 <a href={live} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {tr(copy.visitSite, locale)}
-                  <span className="sr-only"> {project.title} (opens in a new tab)</span>
+                  <span className="sr-only"> {project.title} {tr(shellCopy.newTab, locale)}</span>
                   <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
                 </a>
               ) : null}
@@ -78,7 +79,7 @@ function SiteCard({ project, locale, index }: { project: Project; locale: Locale
               {github ? (
                 <a href={github} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {tr(copy.github, locale)}
-                  <span className="sr-only"> {project.title} (opens in a new tab)</span>
+                  <span className="sr-only"> {project.title} {tr(shellCopy.newTab, locale)}</span>
                   <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
                 </a>
               ) : null}
@@ -132,7 +133,7 @@ export default function WebsitesSection({ locale }: { locale: Locale }) {
               >
                 {r.name}
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
-                <span className="sr-only">(opens in a new tab)</span>
+                <span className="sr-only">{tr(shellCopy.newTab, locale)}</span>
               </a>
             </li>
           ))}

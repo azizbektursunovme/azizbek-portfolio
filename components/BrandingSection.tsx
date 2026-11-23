@@ -5,7 +5,7 @@ import Reveal from "@/components/ui/Reveal";
 import { byDiscipline } from "@/data/projects";
 import { brandingCopy as copy } from "@/data/sections";
 import type { Locale, Media, Project } from "@/data/types";
-import { tr } from "@/lib/localize";
+import { projectTitle, tr } from "@/lib/localize";
 import { cn } from "@/lib/cn";
 
 /*
@@ -106,7 +106,7 @@ function BrandTile({ project, locale, index }: { project: Project; locale: Local
                 id={titleId}
                 className="text-balance font-serif text-[1.5rem]/[1.1] tracking-[-0.01em] text-ink decoration-1 underline-offset-[0.14em] group-hover/tile:underline"
               >
-                {project.title}
+                {projectTitle(project, locale)}
               </h3>
               <p id={metaId} className="mt-1 text-[0.9375rem] leading-snug text-muted">
                 {meta}

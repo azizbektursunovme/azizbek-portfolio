@@ -4,6 +4,7 @@ import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
 import CopyEmail from "@/components/CopyEmail";
 import { contactCopy as copy } from "@/data/about";
+import { shellCopy } from "@/data/nav";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/data/types";
 import { tr } from "@/lib/localize";
@@ -68,7 +69,7 @@ export default function Contact({ locale }: { locale: Locale }) {
                     className="h-5 w-5 transition-transform duration-200 ease-out-quint group-hover/social:-translate-y-0.5 group-hover/social:translate-x-0.5"
                     strokeWidth={1.6}
                   />
-                  <span className="sr-only">(opens in a new tab)</span>
+                  <span className="sr-only">{tr(shellCopy.newTab, locale)}</span>
                 </a>
               </li>
             ))}

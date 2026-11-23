@@ -1,24 +1,34 @@
 import { renderOg, ogSize, ogContentType } from "@/lib/og";
-import { locales, resolveLocale } from "@/i18n/dictionaries";
+import { resolveLocale } from "@/i18n/dictionaries";
 import { profile } from "@/data/profile";
+import { seo } from "@/data/seo";
 import { tr } from "@/lib/localize";
 
-export const size = ogSize;
-export const contentType = ogContentType;
-export const alt = `${profile.name} — ${profile.title}`;
-
-export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
+/*
+ * One card per locale. generateImageMetadata (rather than a static `alt`
+ * export) so the og:image:alt text is in the page's language; it serves the
+ * card at /{lang}/opengraph-image/card.
+ */
+export function generateImageMetadata({ params }: { params: { lang: string } }) {
+  const locale = resolveLocale(params.lang);
+  return [
+    {
+      id: "card",
+      alt: `${profile.name} — ${tr(profile.jobTitle, locale)}`,
+      size: ogSize,
+      contentType: ogContentType,
+    },
+  ];
 }
 
-export default async function Image(props: { params: Promise<{ lang: string }> }) {
+export default async function Image(props: { params: { lang: string } | Promise<{ lang: string }> }) {
   const { lang } = await props.params;
   const locale = resolveLocale(lang);
   return renderOg({
-    eyebrow: profile.title,
+    eyebrow: tr(profile.jobTitle, locale),
     title: profile.name,
     titleSize: 132,
     body: tr(profile.tagline, locale),
-    footer: "Tashkent, Uzbekistan",
+    footer: tr(seo.location, locale),
   });
 }

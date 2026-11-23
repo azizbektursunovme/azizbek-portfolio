@@ -19,6 +19,9 @@ function Label({ children }: { children: string }) {
 
 export default function About({ locale }: { locale: Locale }) {
   const timeline = experience.filter((e) => e.showOnSite);
+  /** Plain data strings (company labels, languages) shown per locale; names pass through. */
+  const term = (s: string) => (copy.terms[s] ? tr(copy.terms[s], locale) : s);
+  const years = (s: string) => (locale === "en" ? s : s.replace(/present/i, tr(copy.present, locale)));
 
   return (
     <Section id="about" eyebrow={tr(copy.eyebrow, locale)} title={tr(copy.title, locale)}>
@@ -49,9 +52,9 @@ export default function About({ locale }: { locale: Locale }) {
                   data-testid="xp-item"
                   className="grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[9.5rem_1fr]"
                 >
-                  <p className="font-mono text-label text-muted sm:pt-2">{e.years}</p>
+                  <p className="font-mono text-label text-muted sm:pt-2">{years(e.years)}</p>
                   <div className="min-w-0">
-                    <h4 className="font-serif text-[1.625rem]/[1.15]">{e.company}</h4>
+                    <h4 className="font-serif text-[1.625rem]/[1.15]">{term(e.company)}</h4>
                     <p className="mt-1 text-[0.9375rem] text-muted">{tr(e.role, locale)}</p>
                     {points.length > 0 ? (
                       <ul role="list" className="mt-3 space-y-1.5 text-[0.9375rem]">
@@ -99,10 +102,10 @@ export default function About({ locale }: { locale: Locale }) {
               <li key={e.school} className="py-4">
                 <p className="font-medium">{e.school}</p>
                 {e.detail ? <p className="mt-0.5 text-[0.9375rem] text-muted">{e.detail}</p> : null}
-                <p className="mt-1 font-mono text-label text-muted">{e.years}</p>
+                <p className="mt-1 font-mono text-label text-muted">{years(e.years)}</p>
                 {e.roles?.map((r) => (
                   <p key={r.title} className="mt-3 text-[0.9375rem] text-muted">
-                    {r.title} <span className="font-mono text-label">· {r.years}</span>
+                    {term(r.title)} <span className="font-mono text-label">· {years(r.years)}</span>
                   </p>
                 ))}
               </li>
@@ -115,8 +118,8 @@ export default function About({ locale }: { locale: Locale }) {
           <ul role="list" className="mt-4 divide-y divide-rule border-y border-rule">
             {profile.languages.map((l) => (
               <li key={l.name} className="flex items-baseline justify-between gap-4 py-4">
-                <span className="font-medium">{l.name}</span>
-                <span className="font-mono text-label text-muted">{l.level}</span>
+                <span className="font-medium">{term(l.name)}</span>
+                <span className="font-mono text-label text-muted">{term(l.level)}</span>
               </li>
             ))}
           </ul>

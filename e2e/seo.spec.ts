@@ -38,12 +38,31 @@ test.describe("metadata", () => {
   });
 
   test("og image routes return png", async ({ request }) => {
-    for (const p of ["/en/opengraph-image", "/en/work/hirara/opengraph-image"]) {
+    // One card per locale (generateImageMetadata id "card"), so og:image:alt can be localized.
+    for (const p of ["/en/opengraph-image/card", "/ru/opengraph-image/card", "/en/work/hirara/opengraph-image/card", "/uz/work/hirara/opengraph-image/card"]) {
       const res = await request.get(p);
       expect(res.status(), p).toBe(200);
       expect(res.headers()["content-type"]).toContain("image/png");
     }
   });
+});
+
+test.describe("translations", () => {
+  const cases = [
+    { lang: "ru", title: "Frontend-разработчик и бренд-дизайнер", nav: "Обо мне", alt: "Azizbek Tursunov — Frontend-разработчик и бренд-дизайнер" },
+    { lang: "uz", title: "Frontend dasturchi va brend dizayner", nav: "Men haqimda", alt: "Azizbek Tursunov — Frontend dasturchi va brend dizayner" },
+  ];
+  for (const c of cases) {
+    test(`/${c.lang} sets html lang and renders translated copy`, async ({ page }) => {
+      await page.goto(`/${c.lang}`);
+      await expect(page.locator("html")).toHaveAttribute("lang", c.lang);
+      await expect(page.locator("[data-testid=hero]")).toContainText(c.title);
+      await expect(page.getByRole("banner").getByRole("link", { name: c.nav })).toBeVisible();
+      await expect(page).toHaveTitle(`Azizbek Tursunov — ${c.title}`);
+      await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", c.alt);
+      await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", c.lang === "ru" ? "ru_RU" : "uz_UZ");
+    });
+  }
 });
 
 test("sitemap lists every locale x (home + case pages)", async ({ request }) => {

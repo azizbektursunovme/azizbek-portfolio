@@ -15,7 +15,7 @@ export interface Media {
 export interface BrandBlock {
   logos: Media[];
   palette: { name: string; hex: string }[];
-  type: { name: string; role: string }[];
+  type: { name: string; role: Localized }[];
   applications: Media[];
   guidePdf?: string;
   /** Single-ink version of the logo for monochrome displays. Omit to fall back to a CSS grayscale of logos[0]. */
@@ -47,7 +47,10 @@ export interface CaseStudy {
 
 export interface Project {
   slug: string;
+  /** English title: URLs, OG cards and the CV. */
   title: string;
+  /** Per-locale title, only where the title is a description rather than a name. Read with `projectTitle()`. */
+  localTitle?: Localized;
   client: string;
   context?: Localized;
   year: string;
@@ -68,6 +71,6 @@ export interface ArchiveItem {
   alt: Localized;
   /** Larger version shown in the lightbox; `src` is the grid thumbnail. */
   full?: { src: string; width: number; height: number };
-  label: string;
+  label: Localized;
   year: string;
 }

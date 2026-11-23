@@ -65,7 +65,7 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
                 />
               </span>
               <span className="mt-2 flex items-baseline justify-between gap-2 font-mono text-label text-muted">
-                <span className="truncate">{a.label}</span>
+                <span className="truncate">{tr(a.label, locale)}</span>
                 <span>{a.year}</span>
               </span>
               <span className="sr-only">{tr(copy.openImage, locale)}</span>
@@ -94,7 +94,7 @@ export default function ArchiveGrid({ locale }: { locale: Locale }) {
               className="max-h-[80vh] w-auto max-w-full rounded-tile bg-paper object-contain"
             />
             <p className="font-mono text-label text-paper">
-              {item.label} · {item.year}
+              {tr(item.label, locale)} · {item.year}
             </p>
             <button
               type="button"

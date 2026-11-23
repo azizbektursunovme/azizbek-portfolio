@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "@/app/globals.css";
-import { fontVariables } from "@/app/fonts";
+import { fontVariables, cyrillicFontVars } from "@/app/fonts";
 import { resolveLocale } from "@/i18n/dictionaries";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -26,7 +26,6 @@ interface LayoutProps {
   params: Promise<{ lang: string }>;
 }
 
-const TITLE = `${profile.name} — ${profile.title}`;
 
 export const viewport: Viewport = {
   themeColor: "#f4f1ea",
@@ -35,7 +34,7 @@ export const viewport: Viewport = {
 export async function generateMetadata(props: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await props.params;
   const locale = resolveLocale(lang);
-  // RU/UZ fall back to English until the translation task.
+  const TITLE = `${profile.name} — ${tr(profile.jobTitle, locale)}`;
   const description = tr(seo.description, locale);
 
   return {
@@ -71,7 +70,13 @@ export default async function RootLayout(props: LayoutProps) {
   const locale = resolveLocale(lang);
 
   return (
-    <html lang={locale} className={fontVariables} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={fontVariables}
+      // Satoshi and Instrument Serif have no Cyrillic: on /ru, Cyrillic falls through to Manrope / Oranienbaum.
+      style={locale === "ru" ? cyrillicFontVars : undefined}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />
       </head>

@@ -5,8 +5,9 @@ import Section from "@/components/ui/Section";
 import Tag from "@/components/ui/Tag";
 import Reveal from "@/components/ui/Reveal";
 import { featuredProjects } from "@/data/projects";
-import type { Discipline, Locale, Localized, Project } from "@/data/types";
-import { tr } from "@/lib/localize";
+import { disciplineLabel, workCopy } from "@/data/sections";
+import type { Locale, Project } from "@/data/types";
+import { projectTitle, tr } from "@/lib/localize";
 import { cn } from "@/lib/cn";
 
 /*
@@ -25,17 +26,8 @@ import { cn } from "@/lib/cn";
  * a video cover shows its poster, never autoplays here.
  */
 
-export const workCopy = {
-  eyebrow: { en: "Selected work" } as Localized,
-  title: { en: "Six projects across websites, brands and ads." } as Localized,
-  intro: { en: "Open any project for the brief, what I did and the result." } as Localized,
-};
-
-export const disciplineLabel: Record<Discipline, Localized> = {
-  web: { en: "Websites" },
-  brand: { en: "Branding" },
-  ads: { en: "Ads" },
-};
+/* Copy lives in data/sections.ts (workCopy, disciplineLabel); re-exported for older imports. */
+export { workCopy, disciplineLabel };
 
 interface Slot {
   /** Grid placement per breakpoint. */
@@ -157,7 +149,7 @@ function Tile({ project, slot, locale, index }: { project: Project; slot: Slot; 
                     slot.size === "lg" ? "text-[clamp(1.875rem,1.5rem+1.2vw,2.5rem)]/[1.02]" : "text-[1.75rem]/[1.04]",
                   )}
                 >
-                  {project.title}
+                  {projectTitle(project, locale)}
                 </h3>
                 <p id={metaId} className="mt-1.5 text-[0.9375rem] leading-snug text-muted">
                   {meta}

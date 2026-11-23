@@ -16,7 +16,7 @@ import { cn } from "@/lib/cn";
 const LOCALES: { code: Locale; name: string }[] = [
   { code: "en", name: "English" },
   { code: "ru", name: "Русский" },
-  { code: "uz", name: "O‘zbekcha" },
+  { code: "uz", name: "Oʻzbekcha" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -32,7 +32,7 @@ function localizedPath(pathname: string | null, target: Locale) {
 function LanguageSwitch({ lang, className }: { lang: Locale; className?: string }) {
   const pathname = usePathname();
   return (
-    <nav aria-label="Language" className={className}>
+    <nav aria-label={tr(shellCopy.languageNav, lang)} className={className}>
       <ul className="flex items-center gap-1 font-mono text-label">
         {LOCALES.map(({ code, name }) => {
           const current = code === lang;
@@ -132,11 +132,17 @@ export default function Header({ lang }: { lang: Locale }) {
           <div className="flex items-center gap-4">
             <Link
               href={`/${lang}`}
-              className="font-serif text-[1.625rem] leading-none tracking-[-0.01em] text-ink transition-colors hover:text-accent-ink"
+              className="whitespace-nowrap font-serif text-[1.625rem] leading-none tracking-[-0.01em] text-ink transition-colors hover:text-accent-ink"
             >
               {profile.name}
             </Link>
-            <span className="hidden items-center gap-2 border-l border-rule pl-4 font-mono text-label text-green xl:inline-flex">
+            {/* RU/UZ labels run longer: the status pill only joins the bar from 2xl there. */}
+            <span
+              className={cn(
+                "hidden items-center gap-2 whitespace-nowrap border-l border-rule pl-4 font-mono text-label text-green",
+                lang === "en" ? "xl:inline-flex" : "2xl:inline-flex",
+              )}
+            >
               <span aria-hidden="true" className="relative flex h-2 w-2">
                 <span className="absolute inset-0 rounded-full bg-green/40 motion-safe:animate-ping" />
                 <span className="relative h-2 w-2 rounded-full bg-green" />
@@ -145,13 +151,13 @@ export default function Header({ lang }: { lang: Locale }) {
             </span>
           </div>
 
-          <nav aria-label="Main" className="hidden lg:block">
+          <nav aria-label={tr(shellCopy.mainNav, lang)} className="hidden lg:block">
             <ul className="flex items-center gap-1">
               {navItems.map((item) => (
                 <li key={item.id}>
                   <a
                     href={hrefFor(item.href)}
-                    className="group relative inline-flex h-10 items-center px-3 text-[0.9375rem] text-ink/80 transition-colors hover:text-ink"
+                    className="group relative inline-flex h-10 items-center whitespace-nowrap px-3 text-[0.9375rem] text-ink/80 transition-colors hover:text-ink"
                   >
                     {tr(item.label, lang)}
                     <span
@@ -166,8 +172,8 @@ export default function Header({ lang }: { lang: Locale }) {
 
           <div className="hidden items-center gap-4 lg:flex">
             <LanguageSwitch lang={lang} />
-            <Button href={profile.cvPath} variant="primary" size="sm" icon={cvIcon} download>
-              {tr(shellCopy.downloadCv, lang)}
+            <Button href={profile.cvPath} variant="primary" size="sm" icon={cvIcon} download className="whitespace-nowrap">
+              {tr(shellCopy.downloadCvShort, lang)}
             </Button>
           </div>
 
@@ -180,7 +186,7 @@ export default function Header({ lang }: { lang: Locale }) {
             onClick={() => setOpen((v) => !v)}
             className="inline-flex h-10 items-center gap-3 rounded-full border border-ink/20 pl-4 pr-3.5 text-sm font-medium text-ink transition-colors hover:border-ink lg:hidden"
           >
-            <span aria-hidden="true">{open ? "Close" : "Menu"}</span>
+            <span aria-hidden="true">{tr(open ? shellCopy.close : shellCopy.menu, lang)}</span>
             <span aria-hidden="true" className="relative block h-2.5 w-4">
               <span
                 className={cn(
@@ -212,7 +218,7 @@ export default function Header({ lang }: { lang: Locale }) {
             className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-paper md:top-[4.5rem] lg:hidden"
           >
             <Container className="flex min-h-full flex-col pb-8 pt-2">
-              <nav aria-label="Main">
+              <nav aria-label={tr(shellCopy.mainNav, lang)}>
                 <ul>
                   {navItems.map((item, i) => (
                     <motion.li

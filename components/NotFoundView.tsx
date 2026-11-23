@@ -5,7 +5,7 @@ import { MarginLabel } from "@/components/case/CaseBlock";
 import { projects } from "@/data/projects";
 import { caseCopy as copy } from "@/data/sections";
 import type { Locale } from "@/data/types";
-import { tr } from "@/lib/localize";
+import { projectTitle, tr } from "@/lib/localize";
 
 /**
  * The 404 body: what happened, the way home, and the case studies (most
@@ -38,7 +38,7 @@ export default function NotFoundView({ locale }: { locale: Locale }) {
                   href={`/${locale}/work/${p.slug}`}
                   className="flex min-h-14 items-baseline justify-between gap-6 py-3 font-serif text-[1.5rem]/[1.15] text-ink decoration-1 underline-offset-[0.14em] hover:underline"
                 >
-                  {p.title}
+                  {projectTitle(p, locale)}
                   <span className="shrink-0 font-sans text-[0.9375rem] text-muted">{p.year}</span>
                 </Link>
               </li>

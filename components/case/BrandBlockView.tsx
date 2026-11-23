@@ -149,7 +149,7 @@ export default function BrandBlockView({ brand, locale, skip }: { brand: BrandBl
                   <dt className="text-[clamp(1.375rem,1.2rem+0.8vw,1.875rem)] font-medium leading-tight tracking-[-0.01em] text-ink">
                     {t.name}
                   </dt>
-                  <dd className="text-[0.9375rem] text-muted sm:text-right">{t.role}</dd>
+                  <dd className="text-[0.9375rem] text-muted sm:text-right">{tr(t.role, locale)}</dd>
                 </div>
               ))}
             </dl>

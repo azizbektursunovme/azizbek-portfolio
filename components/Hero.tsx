@@ -32,7 +32,9 @@ const delay = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
 export default function Hero({ locale }: { locale: Locale }) {
   const nameWords = profile.name.split(" ");
-  const [role, craft] = profile.title.split(" & ");
+  const title = tr(profile.jobTitle, locale);
+  // "Role & Craft" / "Роль и ремесло" / "Rol va hunar": the conjunction is set in accent italic.
+  const [role, conj, craft] = title.split(/ (&|и|va) /);
   const labelId = "hero-marks-label";
 
   return (
@@ -74,11 +76,11 @@ export default function Hero({ locale }: { locale: Locale }) {
                   <>
                     <span className="block">{role}</span>{" "}
                     <span className="block">
-                      <span className="italic text-accent">&amp;</span> {craft}
+                      <span className={cn("italic text-accent", conj !== "&" && "mr-[0.08em]")}>{conj}</span> {craft}
                     </span>
                   </>
                 ) : (
-                  profile.title
+                  title
                 )}
               </p>
               <p className="mt-4 max-w-[40ch] text-pretty text-lead text-muted md:mt-5">{tr(profile.tagline, locale)}</p>
