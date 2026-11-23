@@ -3,7 +3,8 @@ import Hero from "@/components/Hero";
 import WorkBento from "@/components/WorkBento";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
-import SelectedWebsites from "@/components/SelectedWebsites";
+import WebsitesSection from "@/components/WebsitesSection";
+import BrandingSection from "@/components/BrandingSection";
 import Services from "@/components/Services";
 import Contact from "@/components/Contact";
 
@@ -20,9 +21,10 @@ export default async function HomePage(props: PageProps) {
     <>
       <Hero locale={locale} />
       <WorkBento locale={locale} />
+      <WebsitesSection locale={locale} />
+      <BrandingSection locale={locale} />
       <About dict={dict} />
       <Skills dict={dict} />
-      <SelectedWebsites dict={dict} />
       <Services dict={dict} />
       <Contact dict={dict} />
     </>

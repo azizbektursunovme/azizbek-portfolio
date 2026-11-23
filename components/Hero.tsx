@@ -103,6 +103,7 @@ export default function Hero({ locale }: { locale: Locale }) {
                 <Button
                   href={profile.cvPath}
                   variant="ghost"
+                  download
                   icon={<ArrowDown className="h-4 w-4" strokeWidth={1.8} />}
                 >
                   {tr(shellCopy.downloadCv, locale)}

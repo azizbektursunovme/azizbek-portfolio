@@ -17,10 +17,6 @@ const video = (src: string, poster: string, width: number, height: number, alt: 
   kind: "video",
 });
 
-// Stand-in for assets that other tasks have not produced yet. A 1080x1350 PNG that exists today.
-const PLACEHOLDER = "/images-portfolio/creative-post.png";
-const placeholder = (alt: string): Media => img(PLACEHOLDER, 1080, 1350, alt);
-
 const GFS_CONTEXT = { en: "Delivered at GFS Group" };
 const STARTUP_CONTEXT = { en: "Two-person startup, built in collaboration" };
 
@@ -36,7 +32,7 @@ export const projects: Project[] = [
     role: { en: "Website + brand identity" },
     stack: ["Next.js 16", "Tailwind CSS 4", "Web3Forms"],
     links: { live: "https://jjr-transportation-website.vercel.app", liveStatus: "live" },
-    cover: img("/work/jjr-transportation/desktop-1.webp", 1440, 900, "JJR Transportation website, desktop"),
+    cover: img("/work/jjr-transportation/brand-preview.png", 1375, 943, "JJR Transportation brand kit preview"),
     featured: 1,
     caseStudy: {
       brief: {
@@ -372,11 +368,10 @@ export const projects: Project[] = [
     disciplines: ["web"],
     summary: { en: "Travel guide to Uzbekistan's Silk Road cities, in English, Russian and Uzbek." },
     role: { en: "Own project: design and development" },
-    stack: ["React", "Vite", "Tailwind CSS"], // per repo description
+    stack: ["React 18", "Vite", "Tailwind CSS", "Framer Motion", "React Router"],
     // Not deployed (scope decision); the user can deploy it later.
     links: { liveStatus: "none", github: "https://github.com/azizbektursunovme/silk-road-uzbekistan" },
-    // TODO(asset): no screenshot exists; the site is not deployed. Capture it locally or deploy, then use public/work/silk-road/.
-    cover: placeholder("Silk Road Uzbekistan website"),
+    cover: img("/work/silk-road/desktop-1.webp", 1440, 900, "Silk Road Uzbekistan website, desktop"),
   },
   {
     slug: "cleanpro",
