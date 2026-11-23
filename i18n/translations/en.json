@@ -7,7 +7,7 @@
     "contact": "Contact"
   },
   "hero": {
-    "subtitle": "Graphic & UI/UX Designer · Creative Developer",
+    "subtitle": "Frontend Developer & Brand Designer",
     "statement": "I design clear visual systems and turn digital ideas into polished, responsive websites.",
     "scroll": "Scroll to explore"
   },
@@ -18,22 +18,22 @@
     "skills": "Expertise",
     "timeline": [
       {
-        "year": "2023 - 2024",
-        "role": "Lead Brand & Product Designer",
-        "company": "Nuqta",
-        "desc": "Directing visual strategies, mobile product interfaces, and interactive experiences for high-end clients."
+        "year": "2024",
+        "role": "Visual Designer, Videographer & SMM",
+        "company": "Nuqta & XM Pro",
+        "desc": "Visual design, video and social media content."
       },
       {
-        "year": "2024 - 2026",
-        "role": "Graphic Designer",
+        "year": "2024 - 2025",
+        "role": "Visual Designer & Videographer",
         "company": "UIC Games",
-        "desc": "Designed premium brand guidelines, packaging systems, and social media campaigns."
+        "desc": "Visual design and video content."
       },
       {
-        "year": "2021 - 2023",
-        "role": "Junior UI Designer",
-        "company": "Grant Invest",
-        "desc": "Built wireframes, UI layouts, and asset designs for web applications."
+        "year": "2024",
+        "role": "Graphic Designer",
+        "company": "Grand Invest",
+        "desc": "YouTube thumbnails."
       }
     ],
     "skillItems": [

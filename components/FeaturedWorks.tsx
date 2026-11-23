@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { portfolioProjects, ProjectCategoryKey } from "@/data/projects";
+import { portfolioProjects, ProjectCategoryKey } from "@/data/legacy-projects";
 import { Locale } from "@/i18n/dictionaries";
 
 interface FeaturedWorksProps {

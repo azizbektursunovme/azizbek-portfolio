@@ -1,327 +1,491 @@
-export type ProjectCategoryKey =
-  | "branding"
-  | "product-design"
-  | "social-media"
-  | "advertising"
-  | "personal";
+import type { ArchiveItem, Discipline, Media, Project } from "./types";
 
-export interface ProjectAsset {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-}
+const img = (src: string, width: number, height: number, alt: string): Media => ({
+  src,
+  width,
+  height,
+  alt: { en: alt },
+  kind: "image",
+});
 
-export interface ProjectPalette {
-  background: string;
-  accent: string;
-  muted: string;
-}
+const video = (src: string, poster: string, width: number, height: number, alt: string): Media => ({
+  src,
+  poster,
+  width,
+  height,
+  alt: { en: alt },
+  kind: "video",
+});
 
-export interface ProjectMetadata {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  overview: string;
-  problem: string;
-  solution: string;
-  process: string;
-  result: string;
-  year: string;
-  categoryKey: ProjectCategoryKey;
-  cardLabel: string;
-  palette: ProjectPalette;
-  gallery: ProjectAsset[];
-}
+// Stand-in for assets that other tasks have not produced yet. A 1080x1350 PNG that exists today.
+const PLACEHOLDER = "/images-portfolio/creative-post.png";
+const placeholder = (alt: string): Media => img(PLACEHOLDER, 1080, 1350, alt);
 
-export const portfolioProjects: ProjectMetadata[] = [
+const GFS_CONTEXT = { en: "Delivered at GFS Group" };
+const STARTUP_CONTEXT = { en: "Two-person startup, built in collaboration" };
+
+export const projects: Project[] = [
   {
-    id: "cleanpro-branding",
+    slug: "jjr-transportation",
+    title: "JJR Transportation",
+    client: "JJR Transportation",
+    context: GFS_CONTEXT,
+    year: "2026",
+    disciplines: ["web", "brand"],
+    summary: { en: "Website and brand kit for a US dry-van carrier, built from zero." },
+    role: { en: "Website + brand identity" },
+    stack: ["Next.js 16", "Tailwind CSS 4", "Web3Forms"],
+    links: { live: "https://jjr-transportation-website.vercel.app", liveStatus: "live" },
+    cover: img("/work/jjr-transportation/desktop-1.webp", 1440, 900, "JJR Transportation website, desktop"),
+    featured: 1,
+    caseStudy: {
+      brief: {
+        en: "JJR Transportation is a US dry-van carrier. The work was done through GFS Group and started from nothing: no site and no brand kit.",
+      },
+      whatIDid: {
+        en: [
+          "Designed and built the website in Next.js 16 with Tailwind CSS 4.",
+          "Built three forms, sent through Web3Forms.",
+          "Created the brand kit: logo variants, palette, typography, brand guide and fleet mockups.",
+        ],
+      },
+      result: { en: "A live website and a complete brand kit delivered to the company." },
+      web: {
+        desktop: [img("/work/jjr-transportation/desktop-1.webp", 1440, 900, "JJR Transportation website, desktop")],
+        mobile: [img("/work/jjr-transportation/mobile-1.webp", 390, 844, "JJR Transportation website, mobile")],
+      },
+      brand: {
+        logos: [
+          img("/work/jjr-transportation/logo-primary.svg", 1382, 110, "JJR Transportation primary logo"),
+          img("/work/jjr-transportation/logo-symbol.svg", 1590, 536, "JJR Transportation symbol"),
+        ],
+        palette: [
+          { name: "Graphite", hex: "#25282c" },
+          { name: "Orange", hex: "#f46328" },
+          { name: "Warm white", hex: "#faf9f5" },
+          { name: "Steel", hex: "#a7aaad" },
+          { name: "Muted", hex: "#5e636a" },
+        ],
+        type: [
+          { name: "Barlow Condensed", role: "Display" },
+          { name: "Barlow", role: "Body" },
+        ],
+        applications: [
+          img("/work/jjr-transportation/trailer-mockup.png", 1520, 395, "JJR Transportation trailer livery mockup"),
+          img("/work/jjr-transportation/brand-preview.png", 1375, 943, "JJR Transportation brand kit preview"),
+        ],
+        guidePdf: "/work/jjr-transportation/guide.pdf",
+      },
+    },
+  },
+  {
+    slug: "davr-group",
+    title: "DAVR GROUP",
+    client: "DAVR GROUP LLC",
+    context: GFS_CONTEXT,
+    year: "2026",
+    disciplines: ["web", "brand"],
+    summary: { en: "Website and brand kit for a US trucking company, built from zero." },
+    role: { en: "Website + brand identity" },
+    stack: ["Next.js", "three.js"],
+    // TODO(davr-url): orchestrator sets the Vercel URL and liveStatus "live" after deploy.
+    links: { liveStatus: "soon" },
+    cover: img("/work/davr-group/brand-preview.png", 1375, 970, "DAVR GROUP brand kit preview"),
+    featured: 2,
+    caseStudy: {
+      brief: {
+        en: "DAVR GROUP LLC is a US trucking company. The work was done through GFS Group: a website and a brand kit, both from zero.",
+      },
+      whatIDid: {
+        en: [
+          "Built the website as a static Next.js site with a three.js scene and tests.",
+          "Created the brand kit: logo variants, palette, typography, brand guide PDF and a trailer mockup.",
+        ],
+      },
+      result: { en: "A website and a complete brand kit delivered to the company." },
+      web: {
+        // TODO(asset): desktop (1440) + mobile (390) screenshots of the DAVR site, public/work/davr-group/
+        desktop: [],
+        mobile: [],
+      },
+      brand: {
+        logos: [
+          img("/work/davr-group/logo-primary.svg", 555, 192, "DAVR GROUP primary logo"),
+          img("/work/davr-group/logo-symbol.svg", 249, 192, "DAVR GROUP symbol"),
+        ],
+        palette: [
+          { name: "Plum", hex: "#54287c" },
+          { name: "Deep plum", hex: "#2f1548" },
+          { name: "Coral", hex: "#f36b46" },
+          { name: "Ink", hex: "#20192d" },
+          { name: "Lavender", hex: "#f4eff9" },
+        ],
+        type: [
+          { name: "Red Hat Display", role: "Display" },
+          { name: "Red Hat Text", role: "Body" },
+          { name: "Red Hat Mono", role: "Labels" },
+        ],
+        applications: [
+          img("/work/davr-group/trailer-mockup.png", 2172, 588, "DAVR GROUP trailer livery mockup"),
+          img("/work/davr-group/brand-preview.png", 1375, 970, "DAVR GROUP brand kit preview"),
+        ],
+        guidePdf: "/work/davr-group/guide.pdf",
+      },
+    },
+  },
+  {
+    slug: "hirara",
+    title: "Hirara",
+    client: "Hirara",
+    context: STARTUP_CONTEXT,
+    year: "2026",
+    disciplines: ["web"],
+    summary: { en: "Uzbek SaaS for Telegram shops, bio pages and landing pages." },
+    role: { en: "Co-developer" },
+    stack: [],
+    links: { live: "https://hirara.uz", liveStatus: "live" },
+    // TODO(asset): replace with a Hirara screenshot, public/work/hirara/ (Task 5, local run)
+    cover: placeholder("Hirara product screenshot"),
+    featured: 3,
+    caseStudy: {
+      brief: {
+        en: "Hirara is an Uzbek SaaS for building a Telegram shop, a bio page and landing pages. It is a two-person startup, built in collaboration.",
+      },
+      whatIDid: {
+        en: [
+          "Built the Ilgich store template.",
+          "Added order notifications and plan limits.",
+          "Fixed bugs across the product.",
+          "Authored 9 of the repository's 26 commits.",
+        ],
+      },
+      result: { en: "In progress. The product is being connected to hirara.uz." },
+      web: {
+        // TODO(asset): landing, dashboard, storefront, bio page and Ilgich template screenshots
+        desktop: [],
+        mobile: [],
+      },
+    },
+  },
+  {
+    slug: "fragrise",
+    title: "FRAGRISE",
+    client: "Fragrise",
+    year: "2026",
+    disciplines: ["web", "brand"],
+    summary: { en: "Brand identity and website design for a CS2 tournament platform in Uzbekistan." },
+    role: { en: "Brand identity + website design" },
+    stack: [],
+    links: { live: "https://fragrise.uz", liveStatus: "live" },
+    cover: img("/work/fragrise/desktop-1.webp", 1440, 900, "FRAGRISE website, desktop"),
+    featured: 4,
+    caseStudy: {
+      brief: {
+        en: "FRAGRISE is a CS2 tournament platform in Uzbekistan. My part was the brand identity and the website design, not the development.",
+      },
+      whatIDid: {
+        en: [
+          "Designed the brand identity: mark, wordmark lockup, palette and type pairing.",
+          "Designed the website.",
+          "Applied the brand to social, share-image and stream overlay formats.",
+        ],
+      },
+      result: { en: "A complete brand kit and a live website at fragrise.uz." },
+      web: {
+        desktop: [img("/work/fragrise/desktop-1.webp", 1440, 900, "FRAGRISE website, desktop")],
+        mobile: [img("/work/fragrise/mobile-1.webp", 390, 844, "FRAGRISE website, mobile")],
+      },
+      brand: {
+        logos: [
+          img("/work/fragrise/lockup-light.svg", 1906, 727, "FRAGRISE lockup, light version"),
+          img("/work/fragrise/lockup-dark.svg", 1906, 727, "FRAGRISE lockup, dark version"),
+          img("/work/fragrise/mark.svg", 442, 474, "FRAGRISE mark, cream"),
+          img("/work/fragrise/mark-black.svg", 442, 474, "FRAGRISE mark, black"),
+        ],
+        palette: [
+          { name: "Black", hex: "#080808" },
+          { name: "Cream", hex: "#F5F4F0" },
+          { name: "Signal Red", hex: "#EE343E" },
+          { name: "Surface", hex: "#151517" },
+          { name: "Muted", hex: "#A4A4AB" },
+        ],
+        type: [
+          { name: "Chakra Petch", role: "Display" },
+          { name: "Barlow", role: "Body" },
+        ],
+        applications: [
+          img("/work/fragrise/app-social.webp", 1080, 1350, "FRAGRISE social post mockup"),
+          img("/work/fragrise/app-og.webp", 1200, 630, "FRAGRISE share image"),
+          img("/work/fragrise/app-stream.webp", 1920, 1080, "FRAGRISE stream overlay mockup"),
+        ],
+      },
+    },
+  },
+  {
+    slug: "8iz",
+    title: "8iz",
+    client: "8iz",
+    context: STARTUP_CONTEXT,
+    year: "2026",
+    disciplines: ["web"],
+    summary: { en: "Redesign of an Uzbek apparel brand's store." },
+    role: { en: "Co-developer, redesign" },
+    stack: [],
+    // No link to 8iz.uz until the redesign is confirmed as deployed.
+    links: { liveStatus: "soon" },
+    cover: img("/work/8iz/desktop-1.webp", 1440, 900, "8iz redesign, desktop"),
+    featured: 5,
+    caseStudy: {
+      brief: {
+        en: "8iz is an Uzbek apparel brand and store. The redesign is a two-person startup effort, built in collaboration.",
+      },
+      whatIDid: {
+        en: [
+          "Designed the store around a \"steel gear-unit\" look.",
+          "Built an outfit builder and a print studio.",
+          "Set up a 15-model catalog.",
+        ],
+      },
+      result: { en: "Launching soon." },
+      web: {
+        desktop: [
+          img("/work/8iz/desktop-1.webp", 1440, 900, "8iz redesign, home"),
+          img("/work/8iz/desktop-2.webp", 1440, 900, "8iz redesign, desktop view 2"),
+          img("/work/8iz/desktop-3.webp", 1440, 900, "8iz redesign, desktop view 3"),
+        ],
+        mobile: [
+          img("/work/8iz/mobile-1.webp", 390, 844, "8iz redesign, mobile"),
+          img("/work/8iz/mobile-2.webp", 390, 844, "8iz redesign, mobile view 2"),
+        ],
+      },
+    },
+  },
+  {
+    slug: "good-idea-cargo-ads",
+    title: "Good Idea Cargo: Owner-Operator Recruiting",
+    client: "Good Idea Cargo",
+    context: { en: "Made at GFS Group" },
+    year: "2026",
+    disciplines: ["ads"],
+    summary: { en: "Facebook and Instagram lead-form campaign recruiting owner-operators in the US." },
+    role: { en: "Ad creatives + campaign setup" },
+    stack: ["Meta Ads Manager", "Higgsfield", "Seedance"],
+    links: { liveStatus: "none" },
+    cover: img("/work/good-idea-cargo-ads/ad-a1-9x16.jpg", 720, 1280, "Good Idea Cargo ad A1, 9:16"),
+    featured: 6,
+    caseStudy: {
+      brief: {
+        en: "Recruit owner-operator drivers for Good Idea Cargo with a Facebook and Instagram lead-form campaign in the US, run in the Employment ad category (November 2026).",
+      },
+      whatIDid: {
+        en: [
+          "Set up the lead-form campaign in Meta Ads Manager.",
+          "Designed creative A1, \"Keep up to 88% of your gross\", in 9:16 and 4:5.",
+          "Made creative A2: a Seedance clip with an end card.",
+          "Made creative O1: a carousel.",
+          "Set up a call-log pipeline for the leads.",
+        ],
+      },
+      result: { en: "Campaign set up and creatives delivered. The campaign is still learning." },
+      ads: {
+        objective: { en: "Owner-operator recruiting through Facebook and Instagram lead forms, US." },
+        // TODO(asset): O1 carousel frames (no file exported yet)
+        creatives: [
+          video(
+            "/work/good-idea-cargo-ads/ad-a1-9x16.mp4",
+            "/work/good-idea-cargo-ads/ad-a1-9x16.jpg",
+            720,
+            1280,
+            "Creative A1, 9:16: Keep up to 88% of your gross",
+          ),
+          video(
+            "/work/good-idea-cargo-ads/ad-a1-4x5.mp4",
+            "/work/good-idea-cargo-ads/ad-a1-4x5.jpg",
+            720,
+            900,
+            "Creative A1, 4:5: Keep up to 88% of your gross",
+          ),
+          video(
+            "/work/good-idea-cargo-ads/ad-a2-9x16.mp4",
+            "/work/good-idea-cargo-ads/ad-a2-9x16.jpg",
+            720,
+            1280,
+            "Creative A2, 9:16: Seedance clip with end card",
+          ),
+        ],
+        tools: ["Meta Ads Manager", "Higgsfield", "Seedance"],
+        facts: {
+          en: [
+            "Facebook and Instagram lead-form campaign",
+            "Audience: US, Employment ad category",
+            "Hook rate: 39.9%",
+          ],
+        },
+      },
+    },
+  },
+  {
+    slug: "convertboost-ai",
+    title: "ConvertBoost AI",
+    client: "Own product",
+    year: "2026",
+    disciplines: ["web"],
+    summary: { en: "AI landing-page audit SaaS." },
+    role: { en: "Own product: design and development" },
+    stack: [],
+    links: { live: "https://convertboost-ai.vercel.app", liveStatus: "live" },
+    cover: img("/work/convertboost-ai/desktop-1.webp", 1440, 900, "ConvertBoost AI website, desktop"),
+  },
+  {
+    slug: "workers",
+    title: "Workers",
+    client: "Workers",
+    year: "2026",
+    disciplines: ["web"],
+    summary: { en: "Website for wrkrs.uz, a rap collective from Tashkent." },
+    role: { en: "Website" },
+    stack: ["Next.js"],
+    links: { live: "https://wrkrs.uz", liveStatus: "live" },
+    cover: img("/work/workers/desktop-1.webp", 1440, 900, "Workers website, desktop"),
+  },
+  {
+    slug: "motionforge",
+    title: "MotionForge",
+    client: "Own experiment",
+    year: "2026",
+    disciplines: ["web"],
+    summary: { en: "Animated creative-studio website concept." },
+    role: { en: "Own experiment: design and development" },
+    stack: ["React", "TypeScript", "Vite"],
+    links: {
+      live: "https://motionforge-dun.vercel.app",
+      liveStatus: "live",
+      github: "https://github.com/azizbektursunovme/MotionForge",
+    },
+    cover: img("/work/motionforge/desktop-1.webp", 1440, 900, "MotionForge website, desktop"),
+  },
+  {
+    slug: "silk-road",
+    title: "Silk Road Uzbekistan",
+    client: "Own project",
+    year: "2026",
+    disciplines: ["web"],
+    summary: { en: "Travel guide to six ancient cities, in English, Russian and Uzbek." },
+    role: { en: "Own project: design and development" },
+    stack: ["React", "Vite", "Tailwind CSS"],
+    // Not deployed (scope decision); the user can deploy it later.
+    links: { liveStatus: "none", github: "https://github.com/azizbektursunovme/silk-road-uzbekistan" },
+    // TODO(asset): replace with a Silk Road screenshot, public/work/silk-road/ (not captured; site is not deployed)
+    cover: placeholder("Silk Road Uzbekistan website"),
+  },
+  {
+    slug: "cleanpro",
     title: "CleanPro",
-    category: "Branding",
-    description: "Logo, color system, and business card design for a cleaning service brand.",
-    overview: "CleanPro is presented through a simple logo system, clear color applications, and business card layouts.",
-    problem: "The identity needed to feel clean and professional while staying easy to apply across small print and digital formats.",
-    solution: "A compact wordmark, fresh accent color, neutral backgrounds, and simple business card layouts create a practical brand base.",
-    process: "Logo refinement -> color testing -> business card layout -> final export preparation.",
-    result: "A concise identity package that gives CleanPro a polished and consistent visual presence.",
+    client: "CleanPro",
     year: "2026",
-    categoryKey: "branding",
-    cardLabel: "Logo Branding",
-    palette: {
-      background: "linear-gradient(135deg, #09090b 0%, #111827 52%, #13201d 100%)",
-      accent: "#2dd4bf",
-      muted: "#64748b",
+    disciplines: ["brand"],
+    summary: { en: "Logo, color system and business cards for a cleaning service." },
+    role: { en: "Brand identity" },
+    stack: [],
+    links: { liveStatus: "none" },
+    cover: img("/work/cleanpro/business-card/front.png", 480, 280, "CleanPro business card, front"),
+    caseStudy: {
+      brief: {
+        en: "A brand identity for a cleaning service: a logo that stays clear in small print and on screen.",
+      },
+      whatIDid: {
+        en: [
+          "Designed the logo: a compact wordmark.",
+          "Defined the color system.",
+          "Designed two-sided business cards.",
+        ],
+      },
+      result: { en: "A concise identity package: logo, colors and business cards." },
+      brand: {
+        logos: [
+          img("/work/cleanpro/CleanPro-logo.svg", 1000, 1000, "CleanPro logo"),
+          img("/work/cleanpro/logo-colors.svg", 400, 200, "CleanPro logo colors"),
+        ],
+        palette: [
+          { name: "Teal", hex: "#1DC9A5" },
+          { name: "Graphite", hex: "#313131" },
+          { name: "Grey", hex: "#828282" },
+          { name: "White", hex: "#FFFFFF" },
+        ],
+        type: [],
+        applications: [
+          img("/work/cleanpro/business-card/front.png", 480, 280, "CleanPro business card, front"),
+          img("/work/cleanpro/business-card/back.png", 480, 280, "CleanPro business card, back"),
+        ],
+      },
     },
-    gallery: [
-      {
-        src: "/cleanpro-logobranding/CleanPro-logo.svg",
-        width: 1000,
-        height: 1000,
-        alt: "CleanPro logo mark and wordmark",
-      },
-      {
-        src: "/cleanpro-logobranding/logo-colors.svg",
-        width: 400,
-        height: 200,
-        alt: "CleanPro logo color palette",
-      },
-      {
-        src: "/cleanpro-logobranding/business-card/front.png",
-        width: 480,
-        height: 280,
-        alt: "CleanPro business card front design",
-      },
-      {
-        src: "/cleanpro-logobranding/business-card/back.png",
-        width: 480,
-        height: 280,
-        alt: "CleanPro business card back design",
-      },
-    ],
   },
   {
-    id: "kofemator-post",
-    title: "Kofemator",
-    category: "Product design",
-    description: "Warm product ad layout for a Russell Hobbs espresso machine.",
-    overview: "The Kofemator piece presents a coffee machine with pricing, rating, product details, and purchase actions in one focused layout.",
-    problem: "The design needed to show product information clearly while still feeling premium and appetizing.",
-    solution: "Warm coffee tones, a centered product render, structured information blocks, and high-contrast buttons make the ad easy to scan.",
-    process: "Product hierarchy -> color direction -> layout composition -> detail styling -> final export.",
-    result: "A polished product ad that balances e-commerce clarity with a rich coffee-inspired visual mood.",
+    slug: "gfs-ads",
+    title: "GFS Group: ad video and motion",
+    client: "GFS Group LLC",
+    context: { en: "Made at GFS Group" },
     year: "2026",
-    categoryKey: "product-design",
-    cardLabel: "Coffee Ad Design",
-    palette: {
-      background: "linear-gradient(135deg, #100b08 0%, #21140d 54%, #3a1f12 100%)",
-      accent: "#b86b2d",
-      muted: "#8a6a4f",
+    disciplines: ["ads"],
+    summary: {
+      en: "An owner-operator ad video and a \"Future of Electric Freight\" motion deck made with Higgsfield.",
     },
-    gallery: [
-      {
-        src: "/images-portfolio/product-design.png",
-        width: 600,
-        height: 780,
-        alt: "Kofemator Russell Hobbs coffee machine product ad",
-      },
-    ],
-  },
-  {
-    id: "organic-product-flyer",
-    title: "Organic Product Flyer",
-    category: "Product design",
-    description: "Tall product flyer layout for an organic personal care product line.",
-    overview: "The organic flyer presents lavender-themed product items in a vertical layout with clear product names and volume labels.",
-    problem: "The layout needed to show multiple products while keeping the poster calm, readable, and premium.",
-    solution: "Soft sky imagery, product staging, lavender accents, and spaced labels create a clean product-focused composition.",
-    process: "Product grouping -> vertical composition -> label hierarchy -> background treatment -> final poster export.",
-    result: "A full-height product flyer concept with a clear catalog feel and gentle organic mood.",
-    year: "2025",
-    categoryKey: "product-design",
-    cardLabel: "Product Design",
-    palette: {
-      background: "linear-gradient(135deg, #090b14 0%, #15162b 52%, #25204a 100%)",
-      accent: "#8b5cf6",
-      muted: "#64748b",
-    },
-    gallery: [
-      {
-        src: "/images-portfolio/flyer.png",
-        width: 1573,
-        height: 3477,
-        alt: "Organic product tall poster layout",
-      },
-    ],
-  },
-  {
-    id: "iqtidor-academy",
-    title: "Iqtidor Academy",
-    category: "Social Media Design",
-    description: "Education-focused social posts for grant and consulting messages.",
-    overview: "The Iqtidor Academy visuals use bold type, academic cues, and bright brand colors for educational announcements.",
-    problem: "The posts needed to communicate dense education-related information without becoming visually heavy.",
-    solution: "Large headline typography, clear supporting blocks, and simple icon/visual hierarchy keep the messages readable.",
-    process: "Message structure -> visual hierarchy -> brand color use -> asset composition -> social export.",
-    result: "A set of direct, readable education posts with a consistent promotional style.",
-    year: "2025",
-    categoryKey: "social-media",
-    cardLabel: "Education Social",
-    palette: {
-      background: "linear-gradient(135deg, #07111f 0%, #10233d 54%, #2a2b1a 100%)",
-      accent: "#3b82f6",
-      muted: "#a78b25",
-    },
-    gallery: [
-      {
-        src: "/images-portfolio/academy.png",
-        width: 1080,
-        height: 1080,
-        alt: "Iqtidor Academy grant announcement social post",
-      },
-      {
-        src: "/images-portfolio/consulting-post.png",
-        width: 1083,
-        height: 1350,
-        alt: "Education consulting social media post",
-      },
-    ],
-  },
-  {
-    id: "school-banner",
-    title: "Iqtidor School Banner",
-    category: "Advertising Creatives",
-    description: "Green admission banners for Russian language course promotion.",
-    overview: "The school banners promote Russian language classes with student imagery, contact information, and a clear academic tone.",
-    problem: "The banner had to fit course details, contact numbers, and branding into a compact promotional format.",
-    solution: "A green education palette, strong headline type, and separated contact pills keep the offer clear at a glance.",
-    process: "Brief review -> layout grid -> image placement -> contact hierarchy -> final banner export.",
-    result: "A practical admission banner set that keeps the school message clear and parent-friendly.",
-    year: "2025",
-    categoryKey: "advertising",
-    cardLabel: "Education Banner",
-    palette: {
-      background: "linear-gradient(135deg, #06150f 0%, #0d281d 54%, #173d2c 100%)",
-      accent: "#22c55e",
-      muted: "#647b68",
-    },
-    gallery: [
-      {
-        src: "/images-portfolio/banner-school.png",
-        width: 550,
-        height: 500,
-        alt: "Iqtidor School Russian course admission banner",
-      },
-      {
-        src: "/images-portfolio/banner-school2.png",
-        width: 600,
-        height: 300,
-        alt: "Iqtidor School green advertising banner variation",
-      },
-    ],
-  },
-  {
-    id: "social-media-design",
-    title: "Social Media Design",
-    category: "Social Media Design",
-    description: "A collection of vertical posts for services, personalities, events, and food brands.",
-    overview: "This set explores different social formats, from bold service promotion to personal branding, masterclass, and food content.",
-    problem: "Each post needed a distinct mood while keeping the message immediately readable in a vertical feed.",
-    solution: "Strong typography, clear focal imagery, and controlled accent colors help each design stand on its own.",
-    process: "Content review -> style direction -> composition -> typography pass -> export for social use.",
-    result: "A varied social media set showing flexible layout, typography, and promotional design direction.",
-    year: "2025",
-    categoryKey: "social-media",
-    cardLabel: "Social Media Design",
-    palette: {
-      background: "linear-gradient(135deg, #140e12 0%, #251719 54%, #3d2118 100%)",
-      accent: "#e8794a",
-      muted: "#8b6b72",
-    },
-    gallery: [
-      {
-        src: "/images-portfolio/creative-post.png",
-        width: 1080,
-        height: 1350,
-        alt: "Creative design service social post",
-      },
-      {
-        src: "/images-portfolio/dr-azamat-post.png",
-        width: 1080,
-        height: 1350,
-        alt: "Dr Azamat social media post",
-      },
-      {
-        src: "/images-portfolio/insta-post.png",
-        width: 680,
-        height: 960,
-        alt: "Vertical Instagram post design",
-      },
-      {
-        src: "/images-portfolio/masterclass-post.png",
-        width: 1080,
-        height: 1350,
-        alt: "Masterclass announcement social media post",
-      },
-      {
-        src: "/images-portfolio/sushi-post.png",
-        width: 864,
-        height: 1080,
-        alt: "Sushi social media post design",
-      },
-    ],
-  },
-  {
-    id: "advertising-banners",
-    title: "Ijarachi Banners",
-    category: "Advertising Creatives",
-    description: "Wide advertising banners for a real estate and rental service concept.",
-    overview: "The Ijarachi banners use architectural imagery, large Uzbek headlines, and service contact details in a wide format.",
-    problem: "The format needed to stay readable across a very wide canvas while still feeling atmospheric.",
-    solution: "Oversized headline blocks, a focused house visual, and grounded contact information create a clear promotional layout.",
-    process: "Canvas planning -> headline hierarchy -> image composition -> contact layout -> final banner export.",
-    result: "A pair of wide ad creatives with clear messaging and a premium real estate mood.",
-    year: "2025",
-    categoryKey: "advertising",
-    cardLabel: "Ad Creative",
-    palette: {
-      background: "linear-gradient(135deg, #061611 0%, #10271f 54%, #2d261b 100%)",
-      accent: "#34d399",
-      muted: "#9a6b45",
-    },
-    gallery: [
-      {
-        src: "/images-portfolio/ijarachi-banner1.png",
-        width: 3240,
-        height: 1080,
-        alt: "Ijarachi real estate service horizontal banner",
-      },
-      {
-        src: "/images-portfolio/ijarachi-banner2.png",
-        width: 3240,
-        height: 1080,
-        alt: "Ijarachi horizontal advertising banner variation",
-      },
-    ],
-  },
-  {
-    id: "personal-projects",
-    title: "Personal Projects",
-    category: "Personal Projects",
-    description: "Experimental vertical layouts for personal content and product flyer concepts.",
-    overview: "This project groups personal visual experiments, including a Spotify-themed vertical post and organic product flyer layouts.",
-    problem: "The pieces needed room for expressive styling while still preserving readable text and product information.",
-    solution: "Tall compositions, bold contrast, and controlled image placement create clear but more experimental visuals.",
-    process: "Concept sketch -> vertical layout -> typography exploration -> image treatment -> final export.",
-    result: "A focused set of personal design studies showing layout range across social and print-style formats.",
-    year: "2024",
-    categoryKey: "personal",
-    cardLabel: "Creative Project",
-    palette: {
-      background: "linear-gradient(135deg, #10100a 0%, #13251b 54%, #1b3142 100%)",
-      accent: "#22c55e",
-      muted: "#7dd3fc",
-    },
-    gallery: [
-      {
-        src: "/images-portfolio/personal-blog.png",
-        width: 1080,
-        height: 1920,
-        alt: "Vertical personal blog creative post",
-      },
-      {
-        src: "/images-portfolio/flyer-front.png",
-        width: 1573,
-        height: 3477,
-        alt: "Organic product flyer front",
-      },
-      {
-        src: "/images-portfolio/flyer-back.png",
-        width: 1573,
-        height: 3477,
-        alt: "Organic product flyer back",
-      },
-    ],
+    role: { en: "Video and motion content" },
+    stack: ["Higgsfield"],
+    links: { liveStatus: "none" },
+    cover: img("/work/gfs-ads/ad-gfs-9x16.jpg", 720, 1280, "GFS owner-operator ad video, poster frame"),
   },
 ];
+
+/** GFS Group redesign concepts. Not deployed on real domains: links only, no case page, no tile. */
+export const redesignLinks: { name: string; url: string }[] = [
+  { name: "GFS Group v1", url: "https://azizbektursunovme.github.io/gfs-group-redesign/" },
+  { name: "GFS Group v2", url: "https://azizbektursunovme.github.io/gfs-group-redesign-v2/" },
+  { name: "GFS Express", url: "https://azizbektursunovme.github.io/gfs-xpress-redesign/" },
+  { name: "Good Idea Cargo", url: "https://azizbektursunovme.github.io/goodideacargo-redesign/" },
+  { name: "Lion King", url: "https://azizbektursunovme.github.io/lionking-redesign/" },
+  { name: "T-Logistics", url: "https://azizbektursunovme.github.io/t-logistics-redesign/" },
+];
+
+const a = (
+  file: string,
+  width: number,
+  height: number,
+  alt: string,
+  label: string,
+  year: string,
+): ArchiveItem => ({ src: `/images-portfolio/${file}`, width, height, alt: { en: alt }, label, year });
+
+/** Earlier work: images only, labelled with the old project titles. */
+export const archive: ArchiveItem[] = [
+  a("academy.png", 1080, 1080, "Iqtidor Academy grant announcement social post", "Iqtidor Academy", "2025"),
+  a("consulting-post.png", 1083, 1350, "Education consulting social media post", "Iqtidor Academy", "2025"),
+  a("banner-school.png", 550, 500, "Iqtidor School Russian course admission banner", "Iqtidor School Banner", "2025"),
+  a("banner-school2.png", 600, 300, "Iqtidor School green advertising banner variation", "Iqtidor School Banner", "2025"),
+  a("ijarachi-banner1.png", 3240, 1080, "Ijarachi real estate service horizontal banner", "Ijarachi Banners", "2025"),
+  a("ijarachi-banner2.png", 3240, 1080, "Ijarachi horizontal advertising banner variation", "Ijarachi Banners", "2025"),
+  a("creative-post.png", 1080, 1350, "Creative design service social post", "Social Media Design", "2025"),
+  a("dr-azamat-post.png", 1080, 1350, "Dr Azamat social media post", "Social Media Design", "2025"),
+  a("insta-post.png", 680, 960, "Vertical Instagram post design", "Social Media Design", "2025"),
+  a("masterclass-post.png", 1080, 1350, "Masterclass announcement social media post", "Social Media Design", "2025"),
+  a("sushi-post.png", 864, 1080, "Sushi social media post design", "Social Media Design", "2025"),
+  a("product-design.png", 600, 780, "Kofemator Russell Hobbs coffee machine product ad", "Kofemator", "2026"),
+  a("flyer.png", 1573, 3477, "Organic product tall poster layout", "Organic Product Flyer", "2025"),
+  a("personal-blog.png", 1080, 1920, "Vertical personal blog creative post", "Personal Projects", "2024"),
+  a("flyer-front.png", 1573, 3477, "Organic product flyer front", "Personal Projects", "2024"),
+  a("flyer-back.png", 1573, 3477, "Organic product flyer back", "Personal Projects", "2024"),
+];
+
+export function getProject(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug);
+}
+
+export function byDiscipline(d: Discipline): Project[] {
+  return projects.filter((p) => p.disciplines.includes(d));
+}
+
+export function featuredProjects(): Project[] {
+  return projects
+    .filter((p) => p.featured !== undefined)
+    .sort((x, y) => (x.featured as number) - (y.featured as number));
+}

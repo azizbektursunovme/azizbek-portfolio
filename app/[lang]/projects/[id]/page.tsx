@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
-import { portfolioProjects } from "@/data/projects";
+import { portfolioProjects } from "@/data/legacy-projects";
 import Magnetic from "@/components/Magnetic";
 
 export async function generateStaticParams() {
