@@ -137,7 +137,7 @@ export const projects: Project[] = [
     ),
     role: L("Website + brand identity", "Сайт + фирменный стиль", "Sayt + brend uslubi"),
     stack: ["Next.js", "three.js"],
-    links: { live: "https://web-mu-nine-85.vercel.app", liveStatus: "live" },
+    links: { live: "https://davr-group-llc.vercel.app", liveStatus: "live" },
     cover: img("/work/davr-group/brand-preview.png", 1375, 970, kitPreview("DAVR GROUP")),
     featured: 2,
     caseStudy: {
