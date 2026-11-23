@@ -38,22 +38,23 @@ export default function CopyEmail({ email, label, copiedLabel }: CopyEmailProps)
   }
 
   return (
-    <span className="relative inline-flex items-center">
+    <>
       <button
         type="button"
+        data-testid="copy-email"
         onClick={copy}
-        className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[0.9375rem] font-medium whitespace-nowrap text-paper transition-colors duration-200 ease-out-quint hover:bg-accent-ink"
+        className="inline-flex h-12 min-w-[10.5rem] shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[0.9375rem] font-medium whitespace-nowrap text-paper transition-colors duration-200 ease-out-quint hover:bg-accent-ink"
       >
         {copied ? (
           <Check aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
         ) : (
           <Copy aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
         )}
-        <span>{label}</span>
+        <span>{copied ? copiedLabel : label}</span>
       </button>
-      <span aria-live="polite" role="status" className="absolute left-full top-1/2 ml-3 -translate-y-1/2 font-mono text-label whitespace-nowrap text-green">
+      <span aria-live="polite" role="status" className="sr-only">
         {copied ? copiedLabel : ""}
       </span>
-    </span>
+    </>
   );
 }

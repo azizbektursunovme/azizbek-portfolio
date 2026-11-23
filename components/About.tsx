@@ -100,6 +100,11 @@ export default function About({ locale }: { locale: Locale }) {
                 <p className="font-medium">{e.school}</p>
                 {e.detail ? <p className="mt-0.5 text-[0.9375rem] text-muted">{e.detail}</p> : null}
                 <p className="mt-1 font-mono text-label text-muted">{e.years}</p>
+                {e.roles?.map((r) => (
+                  <p key={r.title} className="mt-3 text-[0.9375rem] text-muted">
+                    {r.title} <span className="font-mono text-label">· {r.years}</span>
+                  </p>
+                ))}
               </li>
             ))}
           </ul>

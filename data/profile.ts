@@ -13,7 +13,7 @@ export const profile: {
   linkedin: string;
   cvPath: "/Azizbek_Tursunov_CV.pdf";
   languages: { name: string; level: string }[];
-  education: { school: string; detail: string; years: string }[];
+  education: { school: string; detail: string; years: string; roles?: { title: string; years: string }[] }[];
   tools: { group: "Dev" | "Design" | "Growth & AI"; items: string[] }[];
   /** Monochrome marks for the hero strip. `width`/`height` are the file's intrinsic size; no `src` renders a text wordmark. */
   clientMarks: { name: string; src?: string; width?: number; height?: number }[];
@@ -44,8 +44,9 @@ export const profile: {
     { school: "Renessans Ta'lim Universiteti", detail: "", years: "2024 – present" },
     {
       school: "PDP University Foundation",
-      detail: "Pearson BTEC L3–4 · PDPU Proctor & Volunteer 2023–2025",
+      detail: "Pearson BTEC L3–4",
       years: "2022 – 2024",
+      roles: [{ title: "PDPU Proctor & Volunteer", years: "2023 – 2025" }],
     },
   ],
   tools: [
