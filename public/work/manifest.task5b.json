@@ -1,0 +1,58 @@
+{
+  "fragrise": [
+    {
+      "file": "work/fragrise/lockup-light.svg",
+      "width": 1906,
+      "height": 727,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/lockup-dark.svg",
+      "width": 1906,
+      "height": 727,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/palette.svg",
+      "width": 1600,
+      "height": 900,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/mark.svg",
+      "width": 442,
+      "height": 474,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/mark-black.svg",
+      "width": 442,
+      "height": 474,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/app-social.webp",
+      "width": 1080,
+      "height": 1350,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/app-og.webp",
+      "width": 1200,
+      "height": 630,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/app-stream.webp",
+      "width": 1920,
+      "height": 1080,
+      "kind": "image"
+    },
+    {
+      "file": "work/fragrise/og-original.jpg",
+      "width": 1200,
+      "height": 630,
+      "kind": "image"
+    }
+  ]
+}
