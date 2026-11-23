@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Send, Instagram, Check, Copy } from "lucide-react";
-import Magnetic from "./Magnetic";
 
 interface ContactProps {
   dict: {
@@ -89,7 +88,6 @@ export default function Contact({ dict }: ContactProps) {
 
               {/* Copy Email Button */}
               <div className="flex items-start">
-                <Magnetic range={40} strength={0.25}>
                   <button
                     onClick={copyToClipboard}
                     className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/80 px-6 py-4 rounded-full text-sm font-mono uppercase tracking-wider text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer"
@@ -106,7 +104,6 @@ export default function Contact({ dict }: ContactProps) {
                       </>
                     )}
                   </button>
-                </Magnetic>
               </div>
             </div>
 

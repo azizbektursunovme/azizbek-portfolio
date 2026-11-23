@@ -1,39 +1,106 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&f[]=cabinet-grotesk@800,900&display=swap');
 @import "tailwindcss";
 
+/*
+ * Ledger design tokens.
+ * Contrast (WCAG 2.x, normal text needs 4.5:1):
+ *   ink on paper 16.19 · muted on paper 5.04 · muted on paper-deep 4.57
+ *   accent-ink on paper 5.36 (accent #C8442B is 4.31, so it is for large type, rules and marks only)
+ *   paper on ink 16.19 · muted-inverse on ink 6.85 · accent-inverse on ink 5.52 · paper on green 8.50
+ */
 @theme {
-  --font-sans: 'Satoshi', 'Inter', 'Arial', system-ui, sans-serif;
-  --font-display: 'Cabinet Grotesk', 'Inter', 'Arial', system-ui, sans-serif;
+  --color-paper: #f4f1ea;
+  --color-paper-deep: #ebe6db;
+  --color-ink: #151515;
+  --color-ink-soft: #2b2926;
+  --color-muted: #6b6660;
+  --color-muted-inverse: #a39e94;
+  --color-rule: #dcd6c8;
+  --color-rule-inverse: #3a3733;
+  --color-accent: #c8442b;
+  --color-accent-ink: #b03a23;
+  --color-accent-inverse: #e06a50;
+  --color-green: #2d4b3f;
+  --color-green-inverse: #8db8a2;
+
+  /* Type scale. Body runs on the Tailwind defaults (text-base 16px, text-lg 18px). */
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.1rem;
+  --text-label--letter-spacing: 0.01em;
+  --text-lead: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+  --text-display-sm: clamp(2rem, 1.55rem + 1.9vw, 3.25rem);
+  --text-display-sm--line-height: 1.04;
+  --text-display-sm--letter-spacing: -0.01em;
+  --text-display: clamp(2.6rem, 1.7rem + 3.8vw, 5.25rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.015em;
+  --text-display-xl: clamp(3.25rem, 1.6rem + 7vw, 8.5rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.02em;
+
+  --container-page: 78rem;
+  --container-prose: 40rem;
+
+  --radius-tile: 1.125rem;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html {
-  scroll-behavior: smooth;
-  background-color: #09090b; /* bg-zinc-950 */
-  color: #f4f4f5; /* text-zinc-100 */
+/* Font families point at the next/font CSS variables set on <html>. */
+@theme inline {
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, "Segoe UI", Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", Consolas, monospace;
 }
 
-/* Custom premium thin scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #09090b;
-}
-::-webkit-scrollbar-thumb {
-  background: #1c1c1e;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2c2c2e;
-}
-
-/* Hide default cursor on desktop device when custom cursor is active */
-@media (pointer: fine) {
-  body {
-    cursor: none;
+@layer base {
+  html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
-  a, button, [role="button"], [data-hover="true"] {
-    cursor: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "kern";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/*
+ * Reveal: SSR markup is always visible. Content is pre-hidden only when
+ * JavaScript is running (html.js, set by an inline script in the layout)
+ * and the visitor has not asked for reduced motion. motion/react then
+ * animates it in and leaves inline styles that win over this rule.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
   }
 }

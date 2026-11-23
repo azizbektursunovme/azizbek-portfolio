@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
 import { portfolioProjects } from "@/data/legacy-projects";
-import Magnetic from "@/components/Magnetic";
 
 export async function generateStaticParams() {
   const paths: Array<{ lang: string; id: string }> = [];
@@ -52,7 +51,6 @@ export default async function ProjectPage(props: ProjectPageProps) {
       <div className="mx-auto w-full max-w-5xl relative z-10">
         {/* Back navigation button */}
         <div className="mb-12">
-          <Magnetic range={30} strength={0.3}>
             <Link
               href={`/${locale}#works`}
               className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-zinc-500 hover:text-zinc-100 transition-colors"
@@ -60,7 +58,6 @@ export default async function ProjectPage(props: ProjectPageProps) {
               <ArrowLeft className="h-4 w-4" />
               <span>{t.back}</span>
             </Link>
-          </Magnetic>
         </div>
 
         {/* Project Header */}

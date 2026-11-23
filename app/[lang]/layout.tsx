@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "@/app/globals.css";
-import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
+import { fontVariables } from "@/app/fonts";
+import { resolveLocale } from "@/i18n/dictionaries";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-import Preloader from "@/components/Preloader";
-import BackToTop from "@/components/BackToTop";
+import MotionProvider from "@/components/ui/MotionProvider";
+import { profile } from "@/data/profile";
+import { shellCopy } from "@/data/nav";
+import { tr } from "@/lib/localize";
 
 export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "ru" }, { lang: "uz" }];
@@ -16,69 +18,67 @@ interface LayoutProps {
   params: Promise<{ lang: string }>;
 }
 
-export async function generateMetadata(
-  props: { params: Promise<{ lang: string }> }
-): Promise<Metadata> {
+const TITLE = `${profile.name} — ${profile.title}`;
+
+export const viewport: Viewport = {
+  themeColor: "#f4f1ea",
+};
+
+export async function generateMetadata(props: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await props.params;
   const locale = resolveLocale(lang);
-
-  const titles = {
-    en: "Azizbek Tursunov | Designer & Creative Developer",
-    ru: "\u0410\u0437\u0438\u0437\u0431\u0435\u043a \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432 | \u0414\u0438\u0437\u0430\u0439\u043d\u0435\u0440 \u0438 Creative Developer",
-    uz: "Azizbek Tursunov | Dizayner va Creative Developer",
-  };
-
-  const descriptions = {
-    en: "Portfolio of Azizbek Tursunov, a graphic and UI/UX designer who designs and builds polished, responsive digital experiences.",
-    ru: "\u041f\u043e\u0440\u0442\u0444\u043e\u043b\u0438\u043e \u0410\u0437\u0438\u0437\u0431\u0435\u043a\u0430 \u0422\u0443\u0440\u0441\u0443\u043d\u043e\u0432\u0430: \u0433\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0438 UI/UX-\u0434\u0438\u0437\u0430\u0439\u043d, \u0430 \u0442\u0430\u043a\u0436\u0435 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0430\u0434\u0430\u043f\u0442\u0438\u0432\u043d\u044b\u0445 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432.",
-    uz: "Azizbek Tursunov portfoliosi: grafik va UI/UX dizayn hamda sifatli, responsive raqamli mahsulotlarni loyihalash va yaratish.",
-  };
+  // RU/UZ fall back to English until the translation task.
+  const description = `${profile.title} in Tashkent. ${tr(profile.tagline, locale)}`;
 
   return {
-    title: titles[locale],
-    description: descriptions[locale],
-    keywords: [
-      "Graphic Design",
-      "Product Design",
-      "Creative Development",
-      "Website Design",
-      "Branding",
-      "Portfolio",
-      "Frontend Developer",
-      "Brand Designer",
-      "Next.js portfolio",
-      "Azizbek Tursunov",
-    ],
-    authors: [{ name: "Azizbek Tursunov" }],
-    creator: "Azizbek Tursunov",
+    title: TITLE,
+    description,
+    authors: [{ name: profile.name }],
+    creator: profile.name,
     openGraph: {
       type: "website",
       locale: locale === "uz" ? "uz_UZ" : locale === "ru" ? "ru_RU" : "en_US",
       url: `https://azizbektursunov.uz/${locale}`,
-      title: titles[locale],
-      description: descriptions[locale],
-      siteName: "Azizbek Tursunov Portfolio",
+      title: TITLE,
+      description,
+      siteName: profile.name,
     },
   };
 }
 
+/*
+ * `js` on <html> lets CSS pre-hide [data-reveal] only when scripts run.
+ * The <noscript> rule is a safety net for any motion component that still
+ * server-renders an inline `opacity:0` (legacy sections): without JS it
+ * would never animate in, so show it as-is.
+ */
+const JS_FLAG = "document.documentElement.classList.add('js')";
+const NO_JS_SAFETY = '<style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style>';
+
 export default async function RootLayout(props: LayoutProps) {
   const { lang } = await props.params;
   const locale = resolveLocale(lang);
-  const children = props.children;
-  const dict = await getDictionary(locale);
 
   return (
-    <html lang={locale}>
-      <body className="bg-zinc-950 text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-zinc-100 selection:text-zinc-950">
-        <Preloader />
-        <CustomCursor />
-        <BackToTop />
-        <Header dict={dict} />
-        <main className="min-h-screen w-full relative z-10">
-          {children}
-        </main>
-        <Footer dict={dict} />
+    <html lang={locale} className={fontVariables} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />
+        <noscript dangerouslySetInnerHTML={{ __html: NO_JS_SAFETY }} />
+      </head>
+      <body className="bg-paper font-sans text-ink">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-paper"
+        >
+          {tr(shellCopy.skipToContent, locale)}
+        </a>
+        <MotionProvider>
+          <Header lang={locale} />
+          <main id="main" className="relative w-full">
+            {props.children}
+          </main>
+          <Footer lang={locale} />
+        </MotionProvider>
       </body>
     </html>
   );
