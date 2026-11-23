@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "motion/react";
 
 interface ServicesProps {
   dict: {
@@ -27,7 +27,7 @@ export default function Services({ dict }: ServicesProps) {
     },
   };
 
-  const item = {
+  const item: Variants = {
     hidden: { y: 30, opacity: 0 },
     show: {
       y: 0,

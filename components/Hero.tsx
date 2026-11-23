@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "motion/react";
 import { ArrowDown } from "lucide-react";
 
 interface HeroProps {
@@ -26,7 +26,7 @@ export default function Hero({ dict }: HeroProps) {
     },
   };
 
-  const item = {
+  const item: Variants = {
     hidden: { y: 60, opacity: 0 },
     show: {
       y: 0,

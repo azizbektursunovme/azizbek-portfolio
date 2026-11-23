@@ -1,4 +1,8 @@
 node_modules/
 .next/
-.env
 .pnpm-store/
+.vercel
+playwright-report/
+test-results/
+.env*
+.superpowers/

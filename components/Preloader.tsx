@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 
 export default function Preloader() {
   const [count, setCount] = useState(0);
@@ -29,7 +29,7 @@ export default function Preloader() {
     return () => clearInterval(timer);
   }, []);
 
-  const slideUp = {
+  const slideUp: Variants = {
     initial: {
       top: 0,
     },
@@ -39,7 +39,7 @@ export default function Preloader() {
     },
   };
 
-  const textAnim = {
+  const textAnim: Variants = {
     initial: {
       opacity: 0,
       y: 20,
@@ -67,7 +67,7 @@ export default function Preloader() {
         >
           <div className="flex justify-between items-start font-mono text-xs tracking-widest uppercase text-zinc-500">
             <span>AZIZBEK TURSUNOV</span>
-            <span>PORTFOLIO Â© 2026</span>
+            <span>PORTFOLIO © 2026</span>
           </div>
 
           <div className="flex flex-col justify-center items-start">

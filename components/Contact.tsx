@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Send, Instagram, Check, Copy } from "lucide-react";
 import Magnetic from "./Magnetic";
 

@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "motion/react";
 
 interface AboutProps {
   dict: {
@@ -34,7 +34,7 @@ export default function About({ dict }: AboutProps) {
     level: String(index + 1).padStart(2, "0"),
   }));
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 40 },
     show: {
       opacity: 1,
