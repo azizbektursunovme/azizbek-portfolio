@@ -97,7 +97,8 @@ describe("translations complete", () => {
   test("Uzbek uses one apostrophe convention: ʻ (U+02BB) for oʻ/gʻ, ’ (U+2019) for the tutuq belgisi", () => {
     const bad = found
       .map(({ path, value }) => ({ path, uz: [value.uz].flat().join(" ") }))
-      .filter(({ uz }) => /[oOgG]['‘’`]/.test(uz) || /ʻ(?![a-zA-Z])/.test(uz) || /(^|[^oOgG])ʻ/.test(uz))
+      // gʻ may end a word (yorugʻ, togʻ, bogʻ); any other ʻ must be followed by a letter.
+      .filter(({ uz }) => /[oOgG]['‘’`]/.test(uz) || /(?<![gG])ʻ(?![a-zA-Z])/.test(uz) || /(^|[^oOgG])ʻ/.test(uz))
       .map(({ path, uz }) => `${path}: ${uz}`);
     expect(bad).toEqual([]);
   });
